@@ -2,16 +2,15 @@
 
 {% block body %}
 
-    <h1> Detail d'une sortie </h1>
 
-    <h2> Titre de la sortie {{ detail_id.nom }}</h2>
+    <h1> Detail de la sortie {{ detail_id.nom }}</h1>
 
-    <p> Description </p>
+
 
     <ul>
         <li> Date de début : {{ detail_id.dateHeureDebut | date('d/m/y H:i')}} </li>
         <li> Durée de la sortie {{ detail_id.duree }} minutes </li>
-        <li> Date limite d'inscription {{ detail_id.datelimiteInscription | date('d/m/y H:i')}} </li>
+        <li> Date limite <strong>d'inscription</strong> {{ detail_id.datelimiteInscription | date('d/m/y H:i')}} </li>
         <li> Nombre max de participant {{ detail_id.nbInscriptionsMax }} </li>
         <li> Description de la sortie {{ detail_id.infosSortie }} </li>
         <li> Etat: {{ detail_id.etat }} </li>
