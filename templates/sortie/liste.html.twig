@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1> Liste des sorties </h1>
+
+
+    <ol>
+        {% for sortie in sorties %}
+            <li>
+                <a href="{{ path('sortie_detail',{'detail_id':sortie.id}) }}"> {{ sortie.nom }}</a>
+            </li>
+            <br>
+        {% endfor %}
+    </ol>
+    <hr>
+    <a href="{{ path('sortie_creation') }}">ajouter une sortie</a>
+    <hr>
+
+
+{% endblock %}
+
+
+

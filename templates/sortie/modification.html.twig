@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1> Modification des sorties</h1>
+
+    <div>
+        {{ form_start(sortieForm) }}
+        {{ form_widget(sortieForm) }}
+        <button>modifier</button>
+        {{ form_end(sortieForm) }}
+    </div>
+
+{% endblock %}
+
+
+
