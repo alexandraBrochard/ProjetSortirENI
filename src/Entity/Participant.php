@@ -42,7 +42,7 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $pseudo = null;
 
     #[ORM\Column]
-    private ?bool $actif = null;
+    private ?bool $actif = false;
 
     public function getId(): ?int
     {
