@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+    <br>
+    <hr>
+    <h1>Coucou </h1>
+    <nav>
+        <a href="{{ path('sortie_creation') }}">Creation</a>
+        <a href="{{ path('sortie_publication') }}">Publication</a>
+        <a href="{{ path('sortie_liste') }}">List</a>
+
+    </nav>
+    <hr>
+    <br>
+    {% block body %}
+
+    {% endblock %}
+
+    </body>
+</html>
