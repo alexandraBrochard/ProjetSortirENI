@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ParticipantController!{% endblock %}
+
+{% block body %}
+
+<div>
+
+    <p>Pseudo :{{participant.pseudo }}</p>
+    <p>Nom : {{participant.nom }}</p>
+    <p>Prenom : {{participant.prenom }}</p>
+    <p>Telephone :{{participant.telephone }}</p>
+
+
+
+
+    {% if participant.actif %}
+        <p>Connecté</p>
+    {% else%}
+        <p>Deconnecté</p>
+    {% endif %}
+
+
+</div>
+
+{% endblock %}
