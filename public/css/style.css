@@ -88,12 +88,13 @@ body {
 
 /* ---------------------------------- INDEX.HTML -------------------------------------*/
 
+/* --photo
+--*/
 .container-presentation {
     display:flex;
     justify-content: center;
     margin-top: 3%;
     width: auto;
-
 }
 
 /* ---------------------------------- FORMULAIRE -LOGIN -------------------------------------*/
