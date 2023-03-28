@@ -10,7 +10,7 @@
     <ol>
         {% for sortie in sorties %}
             <li>
-                <a href="{{ path('sortie_detail',{'detail_id':sortie.id}) }}"> {{ sortie.nom }}</a>
+
                 <ul>
                     <li>
                         <p>Debut de la sortie  :  {{ sortie.dateHeureDebut | date('d/m/y H:i')}}</p>
@@ -27,8 +27,5 @@
     <a href="{{ path('sortie_creation') }}">ajouter une sortie</a>
     <hr>
 
-
 {% endblock %}
-
-
 

@@ -13,10 +13,13 @@
         <li> Date limite <strong>d'inscription</strong> {{ detail_id.datelimiteInscription | date('d/m/y H:i')}} </li>
         <li> Nombre max de participant {{ detail_id.nbInscriptionsMax }} </li>
         <li> Description de la sortie {{ detail_id.infosSortie }} </li>
-        <li> Etat: {{ detail_id.etat }} </li>
+        <li> Etat de la sortie {{ detail_id.etat.libelle }}</li>
+
+
     </ul>
 
     <nav>
+        <a href="{{ path('sortie_liste') }}">Retour à la liste</a>
         <a href="{{ path('sortie_suppression',{'suppression_id':detail_id.id}) }}">supprimer</a>
         <a href="{{ path('sortie_modification',{'sortie':detail_id.id}) }}">modifier</a>
 

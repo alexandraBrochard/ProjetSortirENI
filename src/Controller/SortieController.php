@@ -2,10 +2,14 @@
 
 namespace App\Controller;
 
-use App\Entity\Idee;
+
+use App\Entity\Etat;
 use App\Entity\Sortie;
 use App\Form\SortieType;
+use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
+use DateInterval;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,6 +26,7 @@ class SortieController extends AbstractController
     {
 
         $sortie = new Sortie();
+
 
         $sortieForm = $this->createForm(SortieType::class, $sortie);
 
@@ -76,10 +81,6 @@ class SortieController extends AbstractController
         return $this->render('sortie/modification.html.twig', compact('sortieForm'));
     }
 
-
-
-
-
     #[Route('/publication', name: 'sortie_publication')]
     public function publication(): Response
     {
@@ -91,9 +92,8 @@ class SortieController extends AbstractController
     #[Route('/liste', name: 'sortie_liste')]
     public function liste(SortieRepository $sortieRepository): Response
     {
-        $sorties=$sortieRepository->findAll();
+        $sorties = $sortieRepository->findAll();
         return $this->render('sortie/liste.html.twig', compact('sorties')
-
 
         );
     }
@@ -104,5 +104,54 @@ class SortieController extends AbstractController
 
         return $this->render('sortie/detail.html.twig', compact('detail_id'));
     }
+
+    /*    #[Route('/etat', name: 'sortie_etat')]
+        public function etat(
+            SortieRepository       $sortieRepository,
+            EtatRepository         $etatRepository,
+            EntityManagerInterface $entityManager,
+            request                $request
+        ): Response
+        {
+            $maintenant = new DateTime();
+
+            $sorties = $sortieRepository->findAll();
+
+            foreach ($sorties as $element) {
+                // Modification de la valeur de l'attribut "etat"
+                $debut = $element->getDateHeureDebut();
+                $dureeEnMinutes = $element->getDuree(); // Récupérer la valeur de la durée depuis l'objet $sortie
+                $fin=$debut->add(new DateInterval('PT' . $dureeEnMinutes . 'M'));
+                $archive=$fin->add(new DateInterval('P1M'));
+
+
+                if ($maintenant > $debut && $maintenant <$fin) {
+                    $etat = $etatRepository->find(1);
+                    $element->setEtat($etat);
+                    $entityManager->persist($element);
+                    $entityManager->flush();
+                }
+
+                if ($maintenant > $fin && $maintenant <$archive) {
+                    $etat = $etatRepository->find(2);
+                    $element->setEtat($etat);
+                    $entityManager->persist($element);
+                    $entityManager->flush();
+                }
+
+                if ($maintenant > $archive ) {
+                    $etat = $etatRepository->find(3);
+                    $element->setEtat($etat);
+                    $entityManager->persist($element);
+                    $entityManager->flush();
+                }
+            }
+            return $this->render('sortie/etat.html.twig', compact('sorties')
+
+            );
+
+        }
+    */
+
 }
 
