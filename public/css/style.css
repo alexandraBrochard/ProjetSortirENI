@@ -96,6 +96,21 @@ body {
 
 }
 
+/* ---------------------------------- FORMULAIRE -LOGIN -------------------------------------*/
+
+.container-login{
+    display:flex;
+    justify-content: center;
+}
+
+/* ---------------------------------- FORMULAIRE -INSCRIPTION  -------------------------------------*/
+
+.container-register{
+    display:flex;
+    justify-content: center;
+}
+
+
 /* ---------------------------------- FOOTER -------------------------------------*/
 
 /* STYLES SPECIFIC TO FOOTER  */
@@ -113,7 +128,7 @@ body {
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
-    padding: 0px 20px 20px 20px;
+    padding: 0 20px 20px 20px;
 }
 .footer .col h1 {
     margin: 0;
@@ -168,7 +183,7 @@ body {
         display: block;
     }
     .social h1 {
-        margin: 0px;
+        margin: 0;
     }
 }
 @media only screen and (max-width: 950px) {
