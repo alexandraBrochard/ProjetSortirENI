@@ -1,10 +1,10 @@
 body {
     width: 100%;
-    margin: 20px 0px 20px 0px;
+    margin: 20px 0 20px 0;
     font-family: Arial, Helvetica, sans-serif;
     background-color: rgb(255, 255, 255);
 }
-
+/* ---------------------------------- NAVBAR -------------------------------------*/
 /* Navbar container */
 .navbar {
     display:flex;
@@ -57,7 +57,7 @@ body {
     position: absolute;
     background-color: rgb(164, 151, 151);
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(209, 200, 200, 0.2);
+    box-shadow: 0 8px 16px 0 rgba(209, 200, 200, 0.2);
     z-index: 1;
 }
 
@@ -86,7 +86,17 @@ body {
     width: 80%;
 }
 
-/* ---------------------------------- footer -------------------------------------*/
+/* ---------------------------------- INDEX.HTML -------------------------------------*/
+
+.container-presentation {
+    display:flex;
+    justify-content: center;
+    margin-top: 3%;
+    width: auto;
+
+}
+
+/* ---------------------------------- FOOTER -------------------------------------*/
 
 /* STYLES SPECIFIC TO FOOTER  */
 .footer {
