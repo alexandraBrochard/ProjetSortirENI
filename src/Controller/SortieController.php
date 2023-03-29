@@ -183,6 +183,24 @@ class SortieController extends AbstractController
 
     }
 
+    #[Route('/organisateur', name: 'sortie_organisateur')]
+    public function organisateur(
+        SortieRepository       $sortieRepository,
+        EtatRepository         $etatRepository,
+        EntityManagerInterface $entityManager,
+        request                $request
+    ): Response
+    {
+
+
+        $sorties = $sortieRepository->findBy(["organisateur"=>$this->getUser()]);
+
+          return $this->render('sortie/organisateur.html.twig', compact('sorties')
+
+        );
+
+    }
+
 
 }
 
