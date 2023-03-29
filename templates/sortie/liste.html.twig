@@ -13,8 +13,9 @@
             {%  set inscrit = false %}
             <li>
                 <hr>
-                <a href="{{ path('sortie_detail',{'detail_id':sortie.id}) }}"> {{ sortie.nom }} organisée
-                    par {{ sortie.organisateur.pseudo }}</a>
+                <a href="{{ path('sortie_detail',{'detail_id':sortie.id}) }}"> {{ sortie.nom }}</a>
+                organisée par
+                    <a href="{{ path('participant_profil',{'pseudo':sortie.organisateur.pseudo}) }}">{{ sortie.organisateur.pseudo }}</a>
                 <hr>
                 <ul>
                     <li>
