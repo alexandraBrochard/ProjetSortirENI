@@ -1,7 +1,9 @@
 
 <div class="navbar">
-        <a href="#news">Accueil</a>
-        <a href="#home">A propos</a>
+        <a href="{{ path('app_main') }}">Villes</a>
+        <a href="{{ path('app_main') }}">Campus</a>
+        <a href="{{ path('app_main') }}">Accueil</a>
+        <a href="#">A propos</a>
             <div class="dropdown">
                 <button class="dropbtn">Information
                     <i class="fa fa-caret-down"></i>
@@ -11,7 +13,14 @@
                     <a href="#">A propos</a>
                 </div>
             </div>
-        <a href="#news">Se connecter</a>
-        <a href="#news">Se déconnecter</a>
+    {%  if app.user %}
+        <a href="{{ path('app_main') }}">Mon profil</a>
+        <a href="{{ path('app_logout') }}">Se déconnecter</a>
+    {% else %}
+        <a href="{{ path('app_register') }}">M'inscrire</a>
+        <a href="{{ path('app_login') }}">Se connecter</a>
+    {% endif %}
+
 </div>
 
+{# TODO: changer la route de mon profil + ville + Campus + Accueil + logo sortir #}
