@@ -14,11 +14,11 @@
         </div>
     {% endif %}
 
-                <h1 class="h3 mb-3 font-weight-normal">Veuillez vous connecter</h1>
-                <label for="inputidentifiant">Email</label>
-                <input type="text" value="{{ last_username }}" name="identifiant" id="inputIdentifiant" class="form-control"  required autofocus>
-                <label for="inputPassword">Mot de passe</label>
-                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <label for="inputIdentifiant">Identifiant</label>
+    <input type="text" value="{{ last_username }}" name="identifiant" id="inputIdentifiant" class="form-control" autocomplete="email" required autofocus>
+    <label for="inputPassword">Password</label>
+    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
     <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
