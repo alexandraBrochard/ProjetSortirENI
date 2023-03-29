@@ -6,11 +6,11 @@
 
 <div>
 
+
     <p>Pseudo :{{participant.pseudo }}</p>
     <p>Nom : {{participant.nom }}</p>
     <p>Prenom : {{participant.prenom }}</p>
     <p>Telephone :{{participant.telephone }}</p>
-
 
 
 
@@ -19,8 +19,12 @@
     {% else%}
         <p>Deconnecté</p>
     {% endif %}
-
+    <a href="{{ path('participant_modifier') }}" class="btn-modifier">Modifier mon profil</a>
+    <a href="{{ asset('uploads/brochures/' ~ participant.brochureFilename) }}">View brochure (PDF)</a>
+    <img src="{{ asset('uploads/brochures/' ~ participant.brochureFilename) }}" alt="Brochure">
 
 </div>
 
 {% endblock %}
+
+{# TODO En fonction du nombre de sorties publié, mettre soit un logo begginer, soit intermediaire, soit expert #}
