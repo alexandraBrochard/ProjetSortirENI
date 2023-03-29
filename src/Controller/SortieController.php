@@ -121,6 +121,7 @@ class SortieController extends AbstractController
         foreach ($sorties as $element) {
 
             $debut = $element->getDateHeureDebut();
+            $limite = $element->getDateLimiteInscription();
 
             $dureeEnMinutes = $element->getDuree(); // Récupérer la valeur de la durée depuis l'objet $sortie
 
@@ -130,27 +131,51 @@ class SortieController extends AbstractController
             $interval2 = new DateInterval('P1M');
             $archive = $debut->add($interval2);
 
-               if ($maintenant < $debut ) {
+            if ($maintenant < $debut) {
 
-                   $etat = $etatRepository->find(1);
-                   $element->setEtat($etat);
-                   $entityManager->persist($element);
-                   $entityManager->flush();
-               }
+                $etat = $etatRepository->find(1);
+                $element->setEtat($etat);
+                $entityManager->persist($element);
+                $entityManager->flush();
+            }
 
-               if ($maintenant > $fin ) {
-                   $etat = $etatRepository->find(2);
-                   $element->setEtat($etat);
-                   $entityManager->persist($element);
-                   $entityManager->flush();
-               }
+            if ($maintenant < $limite) {
 
-               if ($maintenant > $archive ) {
-                   $etat = $etatRepository->find(3);
-                   $element->setEtat($etat);
-                   $entityManager->persist($element);
-                   $entityManager->flush();
-               }
+                $etat = $etatRepository->find(2);
+                $element->setEtat($etat);
+                $entityManager->persist($element);
+                $entityManager->flush();
+            }
+
+            if ($maintenant > $debut && $maintenant < $fin) {
+
+                $etat = $etatRepository->find(3);
+                $element->setEtat($etat);
+                $entityManager->persist($element);
+                $entityManager->flush();
+            }
+
+            if ($maintenant > $limite) {
+
+                $etat = $etatRepository->find(4);
+                $element->setEtat($etat);
+                $entityManager->persist($element);
+                $entityManager->flush();
+            }
+
+            if ($maintenant > $fin) {
+                $etat = $etatRepository->find(5);
+                $element->setEtat($etat);
+                $entityManager->persist($element);
+                $entityManager->flush();
+            }
+
+            if ($maintenant > $archive) {
+                $etat = $etatRepository->find(6);
+                $element->setEtat($etat);
+                $entityManager->persist($element);
+                $entityManager->flush();
+            }
         }
         return $this->render('sortie/etat.html.twig', compact('sorties')
 
