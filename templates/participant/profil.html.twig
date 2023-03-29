@@ -25,6 +25,10 @@
     <a href="{{ path('sortie_liste') }}">Retour à la liste des sorties </a>
     <a href="{{ asset('uploads/brochures/' ~ participant.brochureFilename) }}">View brochure (PDF)</a>
     <img src="{{ asset('uploads/brochures/' ~ participant.brochureFilename) }}" alt="Brochure">
+  {#  <a href="{{ asset('uploads/brochures/' ~ participant.brochureFilename) }}">View brochure (PDF)</a>#}
+    <div class="photo-modifier">
+        <img src="{{ asset('uploads/brochures/' ~ participant.brochureFilename) }}" alt="{{ participant.brochureFilename }}">
+    </div>
 
 </div>
 

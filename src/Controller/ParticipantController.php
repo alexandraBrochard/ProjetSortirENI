@@ -66,7 +66,6 @@ class ParticipantController extends AbstractController
 
             $entityManager->persist($participant);
             $entityManager->flush();
-            return $this->redirectToRoute('participant_modifier');
             $route = new Route('/profil/'.$participant->getPseudo());
             //$routeCollection->add('routeProfil', $route);
             return $this->redirectToRoute('participant_profil', ['pseudo'=>$participant->getPseudo()]);
