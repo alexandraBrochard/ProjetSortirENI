@@ -8,6 +8,8 @@ security:
         app_user_provider:
             entity:
                 class: App\Entity\Participant
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
 
     firewalls:
         dev:
