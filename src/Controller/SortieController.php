@@ -90,14 +90,14 @@ class SortieController extends AbstractController
         ]);
     }
 
-/*    #[Route('/liste', name: 'sortie_liste')]
-    public function liste(SortieRepository $sortieRepository): Response
-    {
-        $sorties = $sortieRepository->findAll();
-        return $this->render('sortie/liste.html.twig', compact('sorties')
+    /*    #[Route('/liste', name: 'sortie_liste')]
+        public function liste(SortieRepository $sortieRepository): Response
+        {
+            $sorties = $sortieRepository->findAll();
+            return $this->render('sortie/liste.html.twig', compact('sorties')
 
-        );
-    }*/
+            );
+        }*/
 
     #[Route('/detail/{detail_id}', name: 'sortie_detail', requirements: ['detail_id' => '\d+'])]
     public function detail(Sortie $detail_id): Response
@@ -139,13 +139,13 @@ class SortieController extends AbstractController
                 $entityManager->flush();
             }
 
-     /*       if ($maintenant < $limite) {
+            if ($maintenant < $limite) {
 
                 $etat = $etatRepository->find(2);
                 $element->setEtat($etat);
                 $entityManager->persist($element);
                 $entityManager->flush();
-            }*/
+            }
 
             if ($maintenant > $debut && $maintenant < $fin) {
 
@@ -155,7 +155,7 @@ class SortieController extends AbstractController
                 $entityManager->flush();
             }
 
-             if ($maintenant > $limite) {
+            if ($maintenant > $limite) {
 
                 $etat = $etatRepository->find(4);
                 $element->setEtat($etat);
@@ -163,7 +163,7 @@ class SortieController extends AbstractController
                 $entityManager->flush();
             }
 
-            if ($maintenant > $fin && $maintenant<$archive) {
+            if ($maintenant > $fin && $maintenant < $archive) {
                 $etat = $etatRepository->find(5);
                 $element->setEtat($etat);
                 $entityManager->persist($element);

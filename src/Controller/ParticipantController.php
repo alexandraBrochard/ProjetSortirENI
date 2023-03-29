@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Participant;
+use App\Entity\Sortie;
 use App\Form\ParticipantType;
+use App\Repository\ParticipantRepository;
+use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,5 +45,27 @@ class ParticipantController extends AbstractController
         return $this->render('participant/modifier.html.twig', compact(
             'participantform'
         ));
+    }
+
+    #[Route("/sortie/ajouter/{sortie_id}", name: "ajouter_sortie")]
+    public function ajouterSortie(
+        int $sortie_id,
+        EntityManagerInterface $manager,
+        participantRepository $participantRepository,
+        SortieRepository $sortieRepository
+    ): Response
+    {
+
+        $sortie=$sortieRepository->find($sortie_id);
+
+        $participant=$this->getUser();
+
+        //$participant = $participantRepository->findOneBy(["email" => $this->getUser()->getUserIdentifier()]);
+
+        $participant->addSorty($sortie);
+        $manager->persist($participant);
+        $manager->flush();
+        $this->addFlash("succes", $sortie->getNom() . " a été ajouté en ami par " . $participant->getPseudo());
+        return $this->redirectToRoute("sortie_liste");
     }
 }
