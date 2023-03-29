@@ -4,14 +4,16 @@
 
 
 
-    <h1> Voici le liste des sorties </h1>
+    <h1> Voici le liste des sorties {{ app.user.prenom }} </h1>
 
 
     <ol>
         {% for sortie in sorties %}
+            {%  set inscrit = false %}
             <li>
                 <hr>
-                <a href="{{ path('sortie_detail',{'detail_id':sortie.id}) }}"> {{ sortie.nom }}</a>
+                <a href="{{ path('sortie_detail',{'detail_id':sortie.id}) }}"> {{ sortie.nom }} organisée
+                    par {{ sortie.organisateur.pseudo }}</a>
                 <hr>
                 <ul>
                     <li>
@@ -26,17 +28,29 @@
                                 <p>Pas de participants pour le moment</p>
                             {% endfor %}
                         </ul>
-                        <hr>
+                        <br>
                         <nav>
-                        {% if sortie.etat.id == 1 %}
-                            <a href="{{ path('sortie_liste') }}">publier</a>
+                            {% if sortie.etat.id == 1 %}
+                                <a href="{{ path('sortie_liste') }}">publier</a>
+                            {% endif %}
 
-                        {% endif %}
-                        {% if (sortie.etat.id != 4) or (sortie.etat.id != 5) or (sortie.etat.id != 6) %}
-                            <a href="{{ path('ajouter_sortie',{'sortie_id':sortie.id}) }}">s'inscrire</a>
-                        {% endif %}
+                            {% for perso in sortie.participants %}
+
+                                {% if app.user.pseudo==perso.pseudo %}
+                                    <a href="{{ path('desinscrire_sortie',{'sortie_id':sortie.id}) }}">se
+                                        desinscrire</a>
+                                    {% set inscrit=true %}
+
+                                {% endif %}
+
+
+                            {% endfor %}
+
+                            {% if ((inscrit == false) and((sortie.etat.id == 2) or (sortie.etat.id == 3))) %}
+                                <a href="{{ path('inscrire_sortie',{'sortie_id':sortie.id}) }}">s'inscrire</a>
+                            {% endif %}
+
                         </nav>
-                        <hr>
 
                     </li>
                 </ul>
