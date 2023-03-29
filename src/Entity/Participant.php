@@ -43,8 +43,6 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, unique: true)]
     private ?string $pseudo = null;
 
-    #[ORM\Column]
-    private ?bool $actif = false;
 
     #[ORM\ManyToMany(targetEntity: Sortie::class, mappedBy: 'participants')]
     private Collection $sorties;
@@ -52,10 +50,17 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'organisateur', targetEntity: Sortie::class)]
     private Collection $sortiesOrganisees;
 
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $last_activity_at = null;
+
+
+
     public function __construct()
     {
         $this->sorties = new ArrayCollection();
         $this->sortiesOrganisees = new ArrayCollection();
+
+
     }
 
     public function getId(): ?int
@@ -178,15 +183,11 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function isActif(): ?bool
     {
-        return $this->actif;
+        $delay = new \DateTime('2 minutes ago');
+
+        return ( $this->getLastActivityAt() > $delay );
     }
 
-    public function setActif(bool $actif): self
-    {
-        $this->actif = $actif;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Sortie>
@@ -244,4 +245,21 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getLastActivityAt(): ?\DateTimeImmutable
+    {
+        return $this->last_activity_at;
+    }
+
+    public function setLastActivityAt(?\DateTimeImmutable $last_activity_at): self
+    {
+        $this->last_activity_at = $last_activity_at;
+
+        return $this;
+    }
+
+
+
+
+
 }

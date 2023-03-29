@@ -1,0 +1,3 @@
+services:
+  App\EventListener\ActivityListener:
+    tags: [kernel.event_listener]
