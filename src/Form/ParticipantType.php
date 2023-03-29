@@ -20,7 +20,7 @@ class ParticipantType extends AbstractType
             ->add('telephone')
             ->add('pseudo')
             ->add('brochure',FileType::class, [
-                'label'=>'Brochure (PDF file)',
+                'label'=>'Brochure (png file)',
                 // unmapped means that this field is not associated to any entity property
                 'mapped' => false,
 
@@ -34,10 +34,9 @@ class ParticipantType extends AbstractType
                     new File([
                         'maxSize' => '1024k',
                         'mimeTypes' => [
-                            'application/pdf',
-                            'application/x-pdf',
+                            'image/png',
                         ],
-                        'mimeTypesMessage' => 'Please upload a valid PDF document',
+                        'mimeTypesMessage' => 'Please upload a valid Png document',
                     ])
                 ],
             ])

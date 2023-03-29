@@ -260,8 +260,8 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 
     /* nouvelle propriété upload */
 
-    #[ORM\Column(type: 'string')]
-    private string $brochureFilename;
+    #[ORM\Column(type: 'string',nullable: true)]
+    private string $brochureFilename ='';
 
     public function getBrochureFilename(): string
     {

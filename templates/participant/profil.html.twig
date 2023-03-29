@@ -20,8 +20,10 @@
         <p>Deconnecté</p>
     {% endif %}
     <a href="{{ path('participant_modifier') }}" class="btn-modifier">Modifier mon profil</a>
-    <a href="{{ asset('uploads/brochures/' ~ participant.brochureFilename) }}">View brochure (PDF)</a>
-    <img src="{{ asset('uploads/brochures/' ~ participant.brochureFilename) }}" alt="Brochure">
+  {#  <a href="{{ asset('uploads/brochures/' ~ participant.brochureFilename) }}">View brochure (PDF)</a>#}
+    <div class="photo-modifier">
+        <img src="{{ asset('uploads/brochures/' ~ participant.brochureFilename) }}" alt="{{ participant.brochureFilename }}">
+    </div>
 
 </div>
 
