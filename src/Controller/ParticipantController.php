@@ -36,7 +36,9 @@ class ParticipantController extends AbstractController
         if($participantform->isSubmitted()&&$participantform->isValid()){
             $entityManager->persist($participant);
             $entityManager->flush();
-            return $this->redirectToRoute('/profil/'.$participant->getPseudo());
+            $route = new Route('/profil/'.$participant->getPseudo());
+            //$routeCollection->add('routeProfil', $route);
+            return $this->redirectToRoute();
         }
 
         return $this->render('participant/modifier.html.twig', compact(

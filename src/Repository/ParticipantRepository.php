@@ -85,7 +85,7 @@ class ParticipantRepository extends ServiceEntityRepository implements PasswordU
     public function loadUserByIdentifier(string $usernameOrEmail): ?UserInterface
     {
         $entityManager = $this->getEntityManager();
-        dump($usernameOrEmail);
+
         return $entityManager->createQuery(
             'SELECT u
                 FROM App\Entity\Participant u

@@ -1,15 +1,22 @@
 {% extends 'base.html.twig' %}
 {% block title %}
-
+{% endblock %}
 
 {% block body %}
-    {{ form_start(participantform) }}
-    {{ form_widget(participantform) }}
-    <button>Modifier</button>
-    {{ form_end(participantform) }}
+    <div>
+        {{ form_start(participantform) }}
+        {{ form_row(participantform.nom,{label: 'Nom : '}) }}
+        {{ form_row(participantform.prenom,{label: 'Prenom : '}) }}
+        {{ form_row(participantform.pseudo,{label: 'Pseudo : '}) }}
+        {{ form_row(participantform.email,{label: 'Email : '}) }}
+        {{ form_row(participantform.telephone,{label: 'Telephone : '}) }}
+        <button>Modifier</button>
+        {{ form_end(participantform) }}
+    </div>
+
 {% endblock %}
 
 
 
-{% endblock %}
+
 
