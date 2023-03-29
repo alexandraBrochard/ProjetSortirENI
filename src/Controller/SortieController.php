@@ -90,14 +90,14 @@ class SortieController extends AbstractController
         ]);
     }
 
-    #[Route('/liste', name: 'sortie_liste')]
+/*    #[Route('/liste', name: 'sortie_liste')]
     public function liste(SortieRepository $sortieRepository): Response
     {
         $sorties = $sortieRepository->findAll();
         return $this->render('sortie/liste.html.twig', compact('sorties')
 
         );
-    }
+    }*/
 
     #[Route('/detail/{detail_id}', name: 'sortie_detail', requirements: ['detail_id' => '\d+'])]
     public function detail(Sortie $detail_id): Response
@@ -106,8 +106,8 @@ class SortieController extends AbstractController
         return $this->render('sortie/detail.html.twig', compact('detail_id'));
     }
 
-    #[Route('/etat', name: 'sortie_etat')]
-    public function etat(
+    #[Route('/liste', name: 'sortie_liste')]
+    public function liste(
         SortieRepository       $sortieRepository,
         EtatRepository         $etatRepository,
         EntityManagerInterface $entityManager,
@@ -139,13 +139,13 @@ class SortieController extends AbstractController
                 $entityManager->flush();
             }
 
-            if ($maintenant < $limite) {
+     /*       if ($maintenant < $limite) {
 
                 $etat = $etatRepository->find(2);
                 $element->setEtat($etat);
                 $entityManager->persist($element);
                 $entityManager->flush();
-            }
+            }*/
 
             if ($maintenant > $debut && $maintenant < $fin) {
 
@@ -155,7 +155,7 @@ class SortieController extends AbstractController
                 $entityManager->flush();
             }
 
-            if ($maintenant > $limite) {
+             if ($maintenant > $limite) {
 
                 $etat = $etatRepository->find(4);
                 $element->setEtat($etat);
@@ -163,7 +163,7 @@ class SortieController extends AbstractController
                 $entityManager->flush();
             }
 
-            if ($maintenant > $fin) {
+            if ($maintenant > $fin && $maintenant<$archive) {
                 $etat = $etatRepository->find(5);
                 $element->setEtat($etat);
                 $entityManager->persist($element);
@@ -177,7 +177,7 @@ class SortieController extends AbstractController
                 $entityManager->flush();
             }
         }
-        return $this->render('sortie/etat.html.twig', compact('sorties')
+        return $this->render('sortie/liste.html.twig', compact('sorties')
 
         );
 

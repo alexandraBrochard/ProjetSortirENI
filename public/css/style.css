@@ -117,7 +117,7 @@ body {
 /* STYLES SPECIFIC TO FOOTER  */
 .footer {
     width: 100%;
-    position: fixed;
+    position:static;
     bottom: 0;
     height: auto;
     background-color: #f4f4f4;
