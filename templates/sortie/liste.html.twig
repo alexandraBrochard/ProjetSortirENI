@@ -16,6 +16,9 @@
                         <p>Debut de la sortie  :  {{ sortie.dateHeureDebut | date('d/m/y H:i')}}</p>
                         <p>Fin des inscription  :  {{ sortie.dateLimiteInscription | date('d/m/y H:i')}}</p>
                         <p> Etat de l'activité   : {{ sortie.etat.libelle }}</p>
+                        {% if sortie.etat.id == 1 %}
+                        <a href="{{ path('sortie_liste') }}">publier</a>
+                        {% endif %}
 
                     </li>
                 </ul>
