@@ -8,6 +8,8 @@ use App\Entity\Sortie;
 use App\Form\SortieType;
 use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
+
+
 use DateInterval;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -20,9 +22,8 @@ class SortieController extends AbstractController
 {
     #[Route('/creation', name: 'sortie_creation')]
     public function cree(
-        request $request,
-        EntityManagerInterface $entityManager)
-    :Response
+        request                $request,
+        EntityManagerInterface $entityManager): Response
     {
 
         $sortie = new Sortie();
@@ -60,8 +61,8 @@ class SortieController extends AbstractController
 
     #[Route('/modification/{sortie}', name: 'sortie_modification', requirements: ['sortie' => '\d+'])]
     public function modification(
-        Sortie $sortie,
-        request $request,
+        Sortie                 $sortie,
+        request                $request,
         EntityManagerInterface $entityManager
     ): Response
     {
@@ -98,60 +99,65 @@ class SortieController extends AbstractController
         );
     }
 
-    #[Route('/detail/{detail_id}', name: 'sortie_detail',requirements: ['detail_id' => '\d+'])]
+    #[Route('/detail/{detail_id}', name: 'sortie_detail', requirements: ['detail_id' => '\d+'])]
     public function detail(Sortie $detail_id): Response
     {
 
         return $this->render('sortie/detail.html.twig', compact('detail_id'));
     }
 
-    /*    #[Route('/etat', name: 'sortie_etat')]
-        public function etat(
-            SortieRepository       $sortieRepository,
-            EtatRepository         $etatRepository,
-            EntityManagerInterface $entityManager,
-            request                $request
-        ): Response
-        {
-            $maintenant = new DateTime();
+    #[Route('/etat', name: 'sortie_etat')]
+    public function etat(
+        SortieRepository       $sortieRepository,
+        EtatRepository         $etatRepository,
+        EntityManagerInterface $entityManager,
+        request                $request
+    ): Response
+    {
+        $maintenant = new DateTime();
 
-            $sorties = $sortieRepository->findAll();
+        $sorties = $sortieRepository->findAll();
 
-            foreach ($sorties as $element) {
-                // Modification de la valeur de l'attribut "etat"
-                $debut = $element->getDateHeureDebut();
-                $dureeEnMinutes = $element->getDuree(); // Récupérer la valeur de la durée depuis l'objet $sortie
-                $fin=$debut->add(new DateInterval('PT' . $dureeEnMinutes . 'M'));
-                $archive=$fin->add(new DateInterval('P1M'));
+        foreach ($sorties as $element) {
 
+            $debut = $element->getDateHeureDebut();
 
-                if ($maintenant > $debut && $maintenant <$fin) {
-                    $etat = $etatRepository->find(1);
-                    $element->setEtat($etat);
-                    $entityManager->persist($element);
-                    $entityManager->flush();
-                }
+            $dureeEnMinutes = $element->getDuree(); // Récupérer la valeur de la durée depuis l'objet $sortie
 
-                if ($maintenant > $fin && $maintenant <$archive) {
-                    $etat = $etatRepository->find(2);
-                    $element->setEtat($etat);
-                    $entityManager->persist($element);
-                    $entityManager->flush();
-                }
+            $interval1 = new DateInterval('PT' . $dureeEnMinutes . 'M');
+            $fin = $debut->add($interval1);
 
-                if ($maintenant > $archive ) {
-                    $etat = $etatRepository->find(3);
-                    $element->setEtat($etat);
-                    $entityManager->persist($element);
-                    $entityManager->flush();
-                }
-            }
-            return $this->render('sortie/etat.html.twig', compact('sorties')
+            $interval2 = new DateInterval('P1M');
+            $archive = $debut->add($interval2);
 
-            );
+               if ($maintenant < $debut ) {
 
+                   $etat = $etatRepository->find(1);
+                   $element->setEtat($etat);
+                   $entityManager->persist($element);
+                   $entityManager->flush();
+               }
+
+               if ($maintenant > $fin ) {
+                   $etat = $etatRepository->find(2);
+                   $element->setEtat($etat);
+                   $entityManager->persist($element);
+                   $entityManager->flush();
+               }
+
+               if ($maintenant > $archive ) {
+                   $etat = $etatRepository->find(3);
+                   $element->setEtat($etat);
+                   $entityManager->persist($element);
+                   $entityManager->flush();
+               }
         }
-    */
+        return $this->render('sortie/etat.html.twig', compact('sorties')
+
+        );
+
+    }
+
 
 }
 
