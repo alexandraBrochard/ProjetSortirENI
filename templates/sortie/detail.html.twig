@@ -8,6 +8,7 @@
 
 
     <ul>
+        <li>Organisateur de la sortie : {{ detail_id.organisateur.pseudo }}</li>
         <li> Date de début : {{ detail_id.dateHeureDebut | date('d/m/y H:i')}} </li>
         <li> Durée de la sortie {{ detail_id.duree }} minutes </li>
         <li> Date limite <strong>d'inscription</strong> {{ detail_id.datelimiteInscription | date('d/m/y H:i')}} </li>
@@ -20,8 +21,11 @@
 
     <nav>
         <a href="{{ path('sortie_liste') }}">Retour à la liste</a>
+        {% if (app.user.pseudo == detail_id.organisateur.pseudo) %}
         <a href="{{ path('sortie_suppression',{'suppression_id':detail_id.id}) }}">supprimer</a>
+
         <a href="{{ path('sortie_modification',{'sortie':detail_id.id}) }}">modifier</a>
+        {%  endif %}
 
     </nav>
 
