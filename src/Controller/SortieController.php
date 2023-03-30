@@ -25,7 +25,7 @@ class SortieController extends AbstractController
         request                $request,
         EntityManagerInterface $entityManager): Response
     {
-
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $sortie = new Sortie();
 
 
@@ -53,6 +53,7 @@ class SortieController extends AbstractController
     #[Route('/supprimer/{suppression_id}', name: 'sortie_suppression', requirements: ['suppression_id' => '\d+'])]
     public function supprimer(Sortie $suppression_id, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $entityManager->remove($suppression_id);
         $entityManager->flush();
 
@@ -66,7 +67,7 @@ class SortieController extends AbstractController
         EntityManagerInterface $entityManager
     ): Response
     {
-
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $sortieForm = $this->createForm(SortieType::class, $sortie);
 
         $sortieForm->handleRequest($request);
@@ -85,6 +86,7 @@ class SortieController extends AbstractController
     #[Route('/publication', name: 'sortie_publication')]
     public function publication(): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         return $this->render('sortie/publication.html.twig', [
             'publication' => 'publication',
         ]);
@@ -102,7 +104,7 @@ class SortieController extends AbstractController
     #[Route('/detail/{detail_id}', name: 'sortie_detail', requirements: ['detail_id' => '\d+'])]
     public function detail(Sortie $detail_id): Response
     {
-
+        $this->denyAccessUnlessGranted('ROLE_USER');
         return $this->render('sortie/detail.html.twig', compact('detail_id'));
     }
 
@@ -114,6 +116,7 @@ class SortieController extends AbstractController
         request                $request
     ): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $maintenant = new DateTime();
 
         $sorties = $sortieRepository->findAll();
