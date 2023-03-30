@@ -35,7 +35,7 @@ class ParticipantController extends AbstractController
 
     ):Response{
 
-
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $participant = $this->getUser();
         $participantform = $this->createForm(ParticipantType::class, $participant);
         $participantform->handleRequest($request);
