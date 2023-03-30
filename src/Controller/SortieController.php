@@ -113,7 +113,6 @@ class SortieController extends AbstractController
             $debut = $element->getDateHeureDebut();
             $limite = $element->getDateLimiteInscription();
 
-
             $dureeEnMinutes = $element->getDuree(); // Récupérer la valeur de la durée depuis l'objet $sortie
 
             $interval1 = new DateInterval('PT' . $dureeEnMinutes . 'M');
