@@ -4,8 +4,9 @@
 
 
 
-    <h1> Voici la liste des sorties ouvertes pour {{ app.user.prenom }} </h1>
+    <h1> Voici la liste des sorties ouvertes pour {{ app.user.prenom }}</h1>
 
+       <p>Nombre totale de sortie cree sur ce site {{ nbreSortie }}</p>
 
     <ol>
         {% for sortie in sorties %}
@@ -23,6 +24,7 @@
                         <p>Fin des inscription : {{ sortie.dateLimiteInscription | date('d/m/y H:i') }}</p>
                       {#  <p> Etat de l'activité : {{ sortie.etat.libelle }}   </p>#}
                         <p> Liste des participants inscrits à cette sortie</p>
+
                         <ul> {% for perso in sortie.participants %}
 
                                 <li>{{ perso.prenom }}</li>

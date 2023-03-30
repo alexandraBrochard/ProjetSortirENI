@@ -23,10 +23,13 @@ class SortieController extends AbstractController
     #[Route('/creation', name: 'sortie_creation')]
     public function cree(
         request                $request,
-        EntityManagerInterface $entityManager): Response
+        EntityManagerInterface $entityManager,
+        EtatRepository         $etatRepository): Response
     {
-
+        $etat = $etatRepository->findOneBy(['id' => 1]);
         $sortie = new Sortie();
+        $sortie->setEtat($etat);
+
 
         $sortie->setOrganisateur($this->getUser());
         $sortieForm = $this->createForm(SortieType::class, $sortie);
@@ -82,22 +85,6 @@ class SortieController extends AbstractController
         return $this->render('sortie/modification.html.twig', compact('sortieForm'));
     }
 
-    #[Route('/publication', name: 'sortie_publication')]
-    public function publication(): Response
-    {
-        return $this->render('sortie/publication.html.twig', [
-            'publication' => 'publication',
-        ]);
-    }
-
-    /*    #[Route('/liste', name: 'sortie_liste')]
-        public function liste(SortieRepository $sortieRepository): Response
-        {
-            $sorties = $sortieRepository->findAll();
-            return $this->render('sortie/liste.html.twig', compact('sorties')
-
-            );
-        }*/
 
     #[Route('/detail/{detail_id}', name: 'sortie_detail', requirements: ['detail_id' => '\d+'])]
     public function detail(Sortie $detail_id): Response
@@ -118,10 +105,14 @@ class SortieController extends AbstractController
 
         $sorties = $sortieRepository->findAll();
 
+        $nbreSortie = count($sorties);
+
+
         foreach ($sorties as $element) {
 
             $debut = $element->getDateHeureDebut();
             $limite = $element->getDateLimiteInscription();
+
 
             $dureeEnMinutes = $element->getDuree(); // Récupérer la valeur de la durée depuis l'objet $sortie
 
@@ -177,7 +168,7 @@ class SortieController extends AbstractController
                 $entityManager->flush();
             }
         }
-        return $this->render('sortie/liste.html.twig', compact('sorties')
+        return $this->render('sortie/liste.html.twig', compact('sorties','nbreSortie')
 
         );
 
@@ -193,9 +184,9 @@ class SortieController extends AbstractController
     {
 
 
-        $sorties = $sortieRepository->findBy(["organisateur"=>$this->getUser()]);
+        $sorties = $sortieRepository->findBy(["organisateur" => $this->getUser()]);
 
-          return $this->render('sortie/organisateur.html.twig', compact('sorties')
+        return $this->render('sortie/organisateur.html.twig', compact('sorties')
 
         );
 
