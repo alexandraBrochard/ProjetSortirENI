@@ -20,6 +20,7 @@
                 <hr>
                 <ul>
                     <li>
+                       <p>Lieu de la sortie : {{ sortie.lieu.nom }} : {{ sortie.lieu.rue }}</p>
                         <p>Debut de la sortie : {{ sortie.dateHeureDebut | date('d/m/y H:i') }}</p>
                         <p>Fin des inscription : {{ sortie.dateLimiteInscription | date('d/m/y H:i') }}</p>
                       {#  <p> Etat de l'activité : {{ sortie.etat.libelle }}   </p>#}

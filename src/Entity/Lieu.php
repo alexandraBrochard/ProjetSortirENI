@@ -3,7 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\LieuRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Nullable;
 
 #[ORM\Entity(repositoryClass: LieuRepository::class)]
 class Lieu
@@ -19,14 +22,19 @@ class Lieu
     #[ORM\Column(length: 100)]
     private ?string $rue = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable:true)]
     private ?float $latitude = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable:true)]
     private ?float $longitude = null;
 
-    #[ORM\ManyToOne(inversedBy: 'ville')]
-    private ?Ville $ville = null;
+    #[ORM\OneToMany(mappedBy: 'lieu', targetEntity: Sortie::class)]
+    private Collection $sorties;
+
+    public function __construct()
+    {
+        $this->sorties = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -81,15 +89,35 @@ class Lieu
         return $this;
     }
 
-    public function getVille(): ?Ville
+
+    /**
+     * @return Collection<int, Sortie>
+     */
+    public function getSorties(): Collection
     {
-        return $this->ville;
+        return $this->sorties;
     }
 
-    public function setVille(?Ville $ville): self
+    public function addSorty(Sortie $sorty): self
     {
-        $this->ville = $ville;
+        if (!$this->sorties->contains($sorty)) {
+            $this->sorties->add($sorty);
+            $sorty->setLieu($this);
+        }
 
         return $this;
     }
+
+    public function removeSorty(Sortie $sorty): self
+    {
+        if ($this->sorties->removeElement($sorty)) {
+            // set the owning side to null (unless already changed)
+            if ($sorty->getLieu() === $this) {
+                $sorty->setLieu(null);
+            }
+        }
+
+        return $this;
+    }
+
 }
