@@ -4,13 +4,14 @@
 
 {% block body %}
 
-<div>
-
-
-    <p>Pseudo :{{participant.pseudo }}</p>
-    <p>Nom : {{participant.nom }}</p>
-    <p>Prenom : {{participant.prenom }}</p>
-    <p>Telephone :{{participant.telephone }}</p>
+    <div class="photo-modifier">
+        <img src="{{ asset('uploads/brochures/' ~ participant.brochureFilename) }}" alt="{{ participant.brochureFilename }}">
+    </div>
+    <div>
+        <p>Pseudo :{{participant.pseudo }}</p>
+        <p>Nom : {{participant.nom }}</p>
+        <p>Prenom : {{participant.prenom }}</p>
+        <p>Telephone :{{participant.telephone }}</p>
 
 
 
@@ -23,8 +24,6 @@
     <a href="{{ path('participant_modifier') }}" class="btn-modifier">Modifier mon profil</a>
     {%  endif %}
     <a href="{{ path('sortie_liste') }}">Retour à la liste des sorties </a>
-    <a href="{{ asset('uploads/brochures/' ~ participant.brochureFilename) }}">View brochure (PDF)</a>
-    <img src="{{ asset('uploads/brochures/' ~ participant.brochureFilename) }}" alt="Brochure">
 
 </div>
 
