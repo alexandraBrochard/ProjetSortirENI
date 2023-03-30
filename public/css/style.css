@@ -111,6 +111,12 @@ body {
     justify-content: center;
 }
 
+/* --------- PHOTO DE PROFIL -----------*/
+
+.photo-modifier {
+    width: 150px;
+    height: auto;
+}
 
 /* ---------------------------------- FOOTER -------------------------------------*/
 

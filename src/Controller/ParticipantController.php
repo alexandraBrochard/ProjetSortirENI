@@ -35,7 +35,7 @@ class ParticipantController extends AbstractController
 
     ):Response{
 
-
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $participant = $this->getUser();
         $participantform = $this->createForm(ParticipantType::class, $participant);
         $participantform->handleRequest($request);
@@ -66,7 +66,6 @@ class ParticipantController extends AbstractController
 
             $entityManager->persist($participant);
             $entityManager->flush();
-            return $this->redirectToRoute('participant_modifier');
             $route = new Route('/profil/'.$participant->getPseudo());
             //$routeCollection->add('routeProfil', $route);
             return $this->redirectToRoute('participant_profil', ['pseudo'=>$participant->getPseudo()]);
