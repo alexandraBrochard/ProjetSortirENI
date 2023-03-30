@@ -19,7 +19,10 @@
     {% else%}
         <p>Deconnecté</p>
     {% endif %}
+    {% if app.user.pseudo==participant.pseudo %}
     <a href="{{ path('participant_modifier') }}" class="btn-modifier">Modifier mon profil</a>
+    {%  endif %}
+    <a href="{{ path('sortie_liste') }}">Retour à la liste des sorties </a>
     <a href="{{ asset('uploads/brochures/' ~ participant.brochureFilename) }}">View brochure (PDF)</a>
     <img src="{{ asset('uploads/brochures/' ~ participant.brochureFilename) }}" alt="Brochure">
 

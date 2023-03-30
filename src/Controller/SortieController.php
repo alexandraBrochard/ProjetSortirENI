@@ -23,12 +23,16 @@ class SortieController extends AbstractController
     #[Route('/creation', name: 'sortie_creation')]
     public function cree(
         request                $request,
-        EntityManagerInterface $entityManager): Response
+        EntityManagerInterface $entityManager,
+        EtatRepository         $etatRepository): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
+        $etat = $etatRepository->findOneBy(['id' => 1]);
         $sortie = new Sortie();
+        $sortie->setEtat($etat);
 
 
+        $sortie->setOrganisateur($this->getUser());
         $sortieForm = $this->createForm(SortieType::class, $sortie);
 
         $sortieForm->handleRequest($request);
@@ -121,10 +125,14 @@ class SortieController extends AbstractController
 
         $sorties = $sortieRepository->findAll();
 
+        $nbreSortie = count($sorties);
+
+
         foreach ($sorties as $element) {
 
             $debut = $element->getDateHeureDebut();
             $limite = $element->getDateLimiteInscription();
+
 
             $dureeEnMinutes = $element->getDuree(); // Récupérer la valeur de la durée depuis l'objet $sortie
 
@@ -180,7 +188,25 @@ class SortieController extends AbstractController
                 $entityManager->flush();
             }
         }
-        return $this->render('sortie/liste.html.twig', compact('sorties')
+        return $this->render('sortie/liste.html.twig', compact('sorties','nbreSortie')
+
+        );
+
+    }
+
+    #[Route('/organisateur', name: 'sortie_organisateur')]
+    public function organisateur(
+        SortieRepository       $sortieRepository,
+        EtatRepository         $etatRepository,
+        EntityManagerInterface $entityManager,
+        request                $request
+    ): Response
+    {
+
+
+        $sorties = $sortieRepository->findBy(["organisateur" => $this->getUser()]);
+
+        return $this->render('sortie/organisateur.html.twig', compact('sorties')
 
         );
 

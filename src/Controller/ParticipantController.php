@@ -77,8 +77,8 @@ class ParticipantController extends AbstractController
 
     }
 
-    #[Route("/sortie/ajouter/{sortie_id}", name: "ajouter_sortie")]
-    public function ajouterSortie(
+    #[Route("/sortie/inscrire/{sortie_id}", name: "inscrire_sortie")]
+    public function inscrireSortie(
         int $sortie_id,
         EntityManagerInterface $manager,
         participantRepository $participantRepository,
@@ -96,6 +96,28 @@ class ParticipantController extends AbstractController
         $manager->persist($participant);
         $manager->flush();
         $this->addFlash("succes", $sortie->getNom() . " a été ajouté en ami par " . $participant->getPseudo());
+        return $this->redirectToRoute("sortie_liste");
+    }
+
+    #[Route("/sortie/desinscrire/{sortie_id}", name: "desinscrire_sortie")]
+    public function desinscrireSortie(
+        int $sortie_id,
+        EntityManagerInterface $manager,
+        participantRepository $participantRepository,
+        SortieRepository $sortieRepository
+    ): Response
+    {
+
+        $sortie=$sortieRepository->find($sortie_id);
+
+        $participant=$this->getUser();
+
+        //$participant = $participantRepository->findOneBy(["email" => $this->getUser()->getUserIdentifier()]);
+
+        $participant->removeSorty($sortie);
+        $manager->persist($participant);
+        $manager->flush();
+
         return $this->redirectToRoute("sortie_liste");
     }
 

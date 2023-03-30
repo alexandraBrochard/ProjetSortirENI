@@ -21,11 +21,11 @@ class SortieType extends AbstractType
             ->add('dateLimiteInscription', null, ['html5' => true, 'widget' => 'single_text'])
             ->add('nbInscriptionsMax')
             ->add('infosSortie')
-            ->add('etat', EntityType::class,
+/*            ->add('etat', EntityType::class,
                 [
                     'class' => Etat::class,
                     'choice_label' => 'libelle',
-                ])
+                ])*/
 
               ;
     }

@@ -16,6 +16,8 @@
     {%  if app.user %}
         <a href="{{ path('participant_profil', {'pseudo': app.user.pseudo}) }}">Mon profil</a>
         <a href="{{ path('app_logout') }}">Se déconnecter</a>
+        <a href="{{ path('sortie_liste') }}">Liste des sorties ouvertes </a>
+        <a href="{{ path('sortie_organisateur') }}">Tes sorties organisées</a>
     {% else %}
         <a href="{{ path('app_register') }}">M'inscrire</a>
         <a href="{{ path('app_login') }}">Se connecter</a>
