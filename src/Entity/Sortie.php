@@ -194,6 +194,27 @@ class Sortie
     }
 
 
+    public static function comparaison(Sortie $sortieA, Sortie $sortieB): int
+    {
+
+        if ($sortieA->getid() !== $sortieB->getId()) {
+            return -1;
+
+        }
+
+        if ($sortieA->getid() === $sortieB->getId()) {
+            return 0;
+
+        }
+
+        else{
+            return 1;
+        }
+    }
+
+
+
+
 
 
 

@@ -2,27 +2,121 @@
 
 {% block body %}
 
+    <h1>Résultats de la recherche pour {{ app.user.pseudo }}</h1>
+
+    {% if sorties is empty %}
+        <p>Aucun résultat trouvé pour votre recherche .</p>
+    {% else %}
+        <p>Vos sorties selectionnees</p>
+
+        <ul>
+            {% for sortie in sorties %}
+
+                <li>
+                    <a href="{{ path('sortie_detail',{'detail_id':sortie.id}) }}"> {{ sortie.nom }} </a>
+                    {{ sortie.id }}
+
+                </li>
+
+            {% endfor %}
+        </ul>
+    {% endif %}
 
 
-        {% block content %}
-            <h1>Résultats de la recherche pour {{ app.user.pseudo }}</h1>
 
-            {% if sorties is empty %}
-                <p>Aucun résultat trouvé pour votre recherche.</p>
-            {% else %}
-                <ul>
-                    {% for sortie in sorties %}
+ {#       #}{# --------------------------------------------------------------------------------------------------- #}{#
+        <ul>
+            {% for sortie in sorties1 %}
 
-                        <li>
-                            <a href="{{ path('sortie_detail',{'detail_id':sortie.id}) }}"> {{ sortie.nom }}</a>
-                        </li>
+                <li>
+                    <a href="{{ path('sortie_detail',{'detail_id':sortie.id}) }}"> {{ sortie.nom }} </a>
+                    {{ sortie.id }}
 
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        {% endblock %}
+                </li>
 
-    <a href="{{ path('recherche_search') }}">Retour à la recherche</a>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    #}{# --------------------------------------------------------------------------------------------------- #}{#
+
+    <ul>
+        {% for sortie in sorties2 %}
+
+            <li>
+                <a href="{{ path('sortie_detail',{'detail_id':sortie.id}) }}"> {{ sortie.nom }}</a>
+                {{ sortie.id }}
+
+            </li>
+
+        {% endfor %}
+    </ul>
+
+
+    #}{# --------------------------------------------------------------------------------------------------- #}{#
+
+    <ul>
+        {% for sortie in sorties3 %}
+
+            <li>
+                <a href="{{ path('sortie_detail',{'detail_id':sortie.id}) }}"> {{ sortie.nom }}</a>
+                {{ sortie.id }}
+
+            </li>
+
+        {% endfor %}
+    </ul>
+
+
+    #}{# --------------------------------------------------------------------------------------------------- #}{#
+
+    <ul>
+        {% for sortie in sorties4 %}
+
+            <li>
+                <a href="{{ path('sortie_detail',{'detail_id':sortie.id}) }}"> {{ sortie.nom }}</a>
+                {{ sortie.id }}
+
+            </li>
+
+        {% endfor %}
+    </ul>
+
+
+    #}{# --------------------------------------------------------------------------------------------------- #}{#
+
+
+    <ul>
+        {% for sortie in sorties5 %}
+
+            <li>
+                <a href="{{ path('sortie_detail',{'detail_id':sortie.id}) }}"> {{ sortie.nom }}</a>
+                {{ sortie.id }}
+
+            </li>
+
+        {% endfor %}
+    </ul>
+
+
+    #}{# --------------------------------------------------------------------------------------------------- #}{#
+
+
+    <ul>
+        {% for sortie in sorties6 %}
+
+            <li>
+                <a href="{{ path('sortie_detail',{'detail_id':sortie.id}) }}"> {{ sortie.nom }}</a>
+                {{ sortie.id }}
+
+            </li>
+
+        {% endfor %}
+    </ul>
+
+
+    #}{# --------------------------------------------------------------------------------------------------- #}
+
 
 
 {% endblock %}
