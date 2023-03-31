@@ -3,11 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Campus;
+use App\Entity\Participant;
 use App\Entity\Ville;
 use App\Form\CampusType;
+use App\Form\ParticipantType;
 use App\Form\VillesCollectionType;
 use App\Form\VilleType;
 use App\Repository\CampusRepository;
+use App\Repository\ParticipantRepository;
 use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -99,11 +102,29 @@ class AdminController extends AbstractController
     }
 
     #[Route('/admin/utilisateurs', name: 'admin_utilisateurs')]
-    public function utilisateurs(): Response
+    public function utilisateurs(EntityManagerInterface $entityManager,
+                                 Request $request, ParticipantRepository $participantRepository): Response
     {
+        $participant = $participantRepository->findAll();
 
         return $this->render('admin/utilisateurs.html.twig', [
+            'participants'=>$participant,
+        ]);
+    }
 
+    #[Route('/admin/utilisateurs/detail/{id}', name: 'admin_utilisateurs_detail')]
+    public function utilisateursModifier(EntityManagerInterface $entityManager, Participant $id,
+                                         Request $request, ParticipantRepository $participantRepository): Response
+    {
+        $participant = new Participant();
+        $participant = $participantRepository->findBy(['id'=>$id]);
+
+        $form = $this->createForm(ParticipantType::class, $participant);
+        $form->handleRequest($request);
+
+
+        return $this->render('admin/detail.html.twig', [
+        'form'=>$form,
         ]);
     }
 }
