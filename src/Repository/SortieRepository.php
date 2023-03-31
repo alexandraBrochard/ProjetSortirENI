@@ -3,8 +3,12 @@
 namespace App\Repository;
 
 use App\Entity\Sortie;
+
+use DateInterval;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @extends ServiceEntityRepository<Sortie>
@@ -40,6 +44,7 @@ class SortieRepository extends ServiceEntityRepository
     }
 
 
+
     /**
      * @return Sortie[] Returns an array of Sortie objects
      */
@@ -65,29 +70,51 @@ class SortieRepository extends ServiceEntityRepository
             ->setParameter('participantId', $participantId);
 
         $qb = $this->createQueryBuilder('s2');
-        $libre=$qb->leftjoin('s2.participants', 'p2')
+        $libre = $qb->leftjoin('s2.participants', 'p2')
             ->where('p2.id IS NULL')
             ->orWhere('s2.id NOT IN (' . $nots . ')')
-        ->setParameter('participantId', $participantId);
-
-
-
-
+            ->setParameter('participantId', $participantId);
 
         return $libre->getQuery()->getResult();
+
+    }
+
+    public function findbySortiestext(string $text)
+    {
+        $qb = $this->createQueryBuilder('s');
+        $qb
+            ->where('s.nom LIKE :nom')
+            ->setParameter('nom', '%' . $text . '%')
+            ->getQuery()
+            ->getResult();
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findbySortiesdate(DateTime $debut1,DateTime $debut2)
+    {
+
+        $qb = $this->createQueryBuilder('s');
+        $qb
+            ->where('s.dateHeureDebut > :debut1')
+            ->andWhere('s.dateHeureDebut < :debut2')
+            ->setParameter('debut1', $debut1)
+            ->setParameter('debut2',  $debut2);
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findSortiespasses()
+    {
+        $qb = $this->createQueryBuilder('s');
+        $qb
+            ->where('s.etat > :idetat')
+            ->setParameter('idetat',  4);
+             return $qb->getQuery()->getResult();
 
     }
 
 
 
 
-//    public function findOneBySomeField($value): ?Sortie
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }

@@ -198,6 +198,7 @@ class SortieController extends AbstractController
                 $entityManager->flush();
             }
         }
+
         return $this->render('sortie/liste.html.twig', compact('sorties','nbreSortie')
 
         );
