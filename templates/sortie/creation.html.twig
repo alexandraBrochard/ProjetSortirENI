@@ -2,16 +2,21 @@
 
 {% block body %}
 
-    <h1> Creation des sorties </h1>
+    <h1>Création des sorties</h1>
 
     <div>
         {{ form_start(sortieForm) }}
         {{ form_widget(sortieForm) }}
         <button>ajouter</button>
         {{ form_end(sortieForm) }}
+
     </div>
 
-{% endblock %}
+{#    {% block javascripts %}
+        {{ parent() }}
+        <script src="{{ asset('js/script.js') }}"></script>
+    {% endblock %}#}
 
+{% endblock %}
 
 

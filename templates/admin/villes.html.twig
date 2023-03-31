@@ -8,12 +8,21 @@
 <h1>Gérer les villes</h1>
     <div>
         <ul class="villes">
-            {{ form_start(form) }}
-            {% for ville in form.villes %}
-                <li>{{ form_row(ville.nom) }}</li>
+            {% for ville in villes %}
+                <li>{{ ville.nom }}   {{ ville.codePostal }}  <a href="{{ path('admin_villes_suppr', {'id': ville.id}) }}">Supprimer</a></li>
             {% endfor %}
-            {{ form_end(form) }}
+
         </ul>
+    </div>
+
+    <div>
+        <h3>Nouvelle ville</h3>
+        {{ form_start(form) }}
+
+        {{ form_row(form) }}
+        <button>Ajouter</button>
+        {{ form_end(form) }}
+
     </div>
 {% endblock %}
 

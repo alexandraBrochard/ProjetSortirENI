@@ -15,7 +15,7 @@
                 <p> Liste des participants inscrits à cette sortie</p>
                 <ul> {% for perso in sortie.participants %}
 
-                        <li>{{ perso.prenom }}</li>
+                        <li><a href="{{ path('participant_profil', {'pseudo':perso.pseudo}) }}">{{ perso.prenom }}</a></li>
                     {% else %}
                         <p>Pas de participants pour le moment</p>
                     {% endfor %}
@@ -24,6 +24,8 @@
             </li>
         </ul>
 
+            <a href="{{ path('sortie_suppression',{'suppression_id':sortie.id}) }}">supprimer</a>
+            <a href="{{ path('sortie_modification',{'sortie':sortie.id}) }}">modifier</a>
 
         {% endfor %}
 

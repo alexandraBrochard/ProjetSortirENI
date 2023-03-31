@@ -5,6 +5,24 @@
 {% endblock %}
 
 {% block body %}
+    <h1>Gérer les campus</h1>
+    <div>
+        <ul class="campus">
+            {% for singleCampus in campus %}
+                <li>{{ singleCampus.nom }} <a href="{{ path('admin_campus_suppr',{'id':singleCampus.id })}}">Supprimer </a></li>
+            {% endfor %}
 
+        </ul>
+    </div>
+
+    <div>
+        <h3>Nouveau campus</h3>
+        {{ form_start(form) }}
+
+        {{ form_row(form) }}
+        <button>Ajouter</button>
+        {{ form_end(form) }}
+
+    </div>
 {% endblock %}
 
