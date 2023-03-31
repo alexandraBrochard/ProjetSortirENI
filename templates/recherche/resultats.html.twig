@@ -12,11 +12,11 @@
             {% else %}
                 <ul>
                     {% for sortie in sorties %}
-                        {% if sortie.etat.id == 2 %}
+
                         <li>
                             <a href="{{ path('sortie_detail',{'detail_id':sortie.id}) }}"> {{ sortie.nom }}</a>
                         </li>
-                        {%  endif  %}
+
                     {% endfor %}
                 </ul>
             {% endif %}
