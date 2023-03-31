@@ -1,7 +1,7 @@
 
 <div class="navbar">
-        <a href="{{ path('app_main') }}">Villes</a>
-        <a href="{{ path('app_main') }}">Campus</a>
+        {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('admin_villes') }}">Villes</a>{% endif %}
+        {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('admin_campus') }}">Campus</a>{% endif %}
         <a href="{{ path('app_main') }}">Accueil</a>
         <a href="#">A propos</a>
             <div class="dropdown">

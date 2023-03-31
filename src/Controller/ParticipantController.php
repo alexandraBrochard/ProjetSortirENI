@@ -81,7 +81,6 @@ class ParticipantController extends AbstractController
     public function inscrireSortie(
         int $sortie_id,
         EntityManagerInterface $manager,
-        participantRepository $participantRepository,
         SortieRepository $sortieRepository
     ): Response
     {
@@ -90,7 +89,7 @@ class ParticipantController extends AbstractController
 
         $participant=$this->getUser();
 
-        //$participant = $participantRepository->findOneBy(["email" => $this->getUser()->getUserIdentifier()]);
+
 
         $participant->addSorty($sortie);
         $manager->persist($participant);
@@ -103,7 +102,6 @@ class ParticipantController extends AbstractController
     public function desinscrireSortie(
         int $sortie_id,
         EntityManagerInterface $manager,
-        participantRepository $participantRepository,
         SortieRepository $sortieRepository
     ): Response
     {
@@ -112,7 +110,7 @@ class ParticipantController extends AbstractController
 
         $participant=$this->getUser();
 
-        //$participant = $participantRepository->findOneBy(["email" => $this->getUser()->getUserIdentifier()]);
+
 
         $participant->removeSorty($sortie);
         $manager->persist($participant);

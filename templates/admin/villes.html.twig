@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block body %}
+<h1>Gérer les villes</h1>
+    <div>
+        <ul class="villes">
+            {{ form_start(form) }}
+            {% for ville in form.villes %}
+                <li>{{ form_row(ville.nom) }}</li>
+            {% endfor %}
+            {{ form_end(form) }}
+        </ul>
+    </div>
+{% endblock %}
+
+
+
