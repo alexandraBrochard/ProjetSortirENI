@@ -2,6 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Ville;
+use App\Form\VillesCollectionType;
+use App\Form\VilleType;
+use App\Repository\VilleRepository;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,12 +25,21 @@ class AdminController extends AbstractController
 
         ]);
     }
-    #[Route('/admin/villes', name: 'admiin_villes')]
-    public function villes(): Response
+    #[Route('/admin/villes', name: 'admin_villes')]
+    public function villes(EntityManagerInterface $entityManager,
+                        Request $request, VilleRepository $villeRepository): Response
     {
+        $villes = $villeRepository->findALl();
+        $ville = new Ville();
+//        $ville->setNom('test');
+//        $ville->setCodePostal('00000');
+
+        $form = $this->createForm(VillesCollectionType::class, ['villes'=>$villes]);
+        $form->handleRequest();
+
 
         return $this->render('admin/villes.html.twig', [
-
+            'form' => $form
         ]);
     }
 

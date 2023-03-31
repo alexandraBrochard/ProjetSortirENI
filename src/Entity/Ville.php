@@ -15,10 +15,10 @@ class Ville
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 100, nullable: true)]
     private ?string $nom = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $codePostal = null;
 
     #[ORM\OneToMany(mappedBy: 'ville', targetEntity: Lieu::class)]
@@ -39,7 +39,7 @@ class Ville
         return $this->nom;
     }
 
-    public function setNom(string $nom): self
+    public function setNom(?string $nom): self
     {
         $this->nom = $nom;
 
@@ -51,7 +51,7 @@ class Ville
         return $this->codePostal;
     }
 
-    public function setCodePostal(int $codePostal): self
+    public function setCodePostal(?int $codePostal): self
     {
         $this->codePostal = $codePostal;
 
