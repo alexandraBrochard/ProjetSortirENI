@@ -17,6 +17,7 @@
     <body>
         <!-- nav bar -->
         {%  include "_partials/_nav.html.twig" %}
+        <p>Il est actuellement {{ 'now' | date('d/m/y H:i') }}</p>
         <!-- body -->
         {% block body %}{% endblock %}
         <!-- footer -->

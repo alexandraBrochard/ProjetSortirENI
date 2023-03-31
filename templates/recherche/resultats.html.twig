@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+
+        {% block content %}
+            <h1>Résultats de la recherche pour {{ app.user.pseudo }}</h1>
+
+            {% if sorties is empty %}
+                <p>Aucun résultat trouvé pour votre recherche.</p>
+            {% else %}
+                <ul>
+                    {% for sortie in sorties %}
+                        {% if sortie.etat.id == 2 %}
+                        <li>
+                            <a href="{{ path('sortie_detail',{'detail_id':sortie.id}) }}"> {{ sortie.nom }}</a>
+                        </li>
+                        {%  endif  %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endblock %}
+
+    <a href="{{ path('recherche_search') }}">Retour à la recherche</a>
+
+
+{% endblock %}
+
+
+

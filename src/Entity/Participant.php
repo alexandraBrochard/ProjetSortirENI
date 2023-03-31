@@ -263,6 +263,10 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string',nullable: true)]
     private string $brochureFilename ='';
 
+    #[ORM\ManyToOne(inversedBy: 'participant')]
+    #[ORM\JoinColumn(nullable: false)]
+
+
     public function getBrochureFilename(): string
     {
         return $this->brochureFilename;
@@ -274,6 +278,8 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+
 
 
 }

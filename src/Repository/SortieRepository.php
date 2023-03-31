@@ -39,20 +39,47 @@ class SortieRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Sortie[] Returns an array of Sortie objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('s.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+
+    /**
+     * @return Sortie[] Returns an array of Sortie objects
+     */
+
+
+    public function findSorties($participantId)
+    {
+
+        $qb = $this->createQueryBuilder('s');
+        $qb->innerjoin('s.participants', 'p')
+            ->where('p.id = :participantId')
+            ->setParameter('participantId', $participantId);
+
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findSortiesnoninscrite($participantId)
+    {
+        $qb = $this->createQueryBuilder('s');
+        $nots = $qb->innerjoin('s.participants', 'p')
+            ->where('p.id = :participantId')
+            ->setParameter('participantId', $participantId);
+
+        $qb = $this->createQueryBuilder('s2');
+        $libre=$qb->leftjoin('s2.participants', 'p2')
+            ->where('p2.id IS NULL')
+            ->orWhere('s2.id NOT IN (' . $nots . ')')
+        ->setParameter('participantId', $participantId);
+
+
+
+
+
+        return $libre->getQuery()->getResult();
+
+    }
+
+
+
 
 //    public function findOneBySomeField($value): ?Sortie
 //    {

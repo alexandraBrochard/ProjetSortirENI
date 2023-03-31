@@ -4,9 +4,11 @@ namespace App\Controller;
 
 
 use App\Entity\Etat;
+use App\Entity\Lieu;
 use App\Entity\Sortie;
 use App\Form\SortieType;
 use App\Repository\EtatRepository;
+use App\Repository\LieuRepository;
 use App\Repository\SortieRepository;
 
 
@@ -24,7 +26,8 @@ class SortieController extends AbstractController
     public function cree(
         request                $request,
         EntityManagerInterface $entityManager,
-        EtatRepository         $etatRepository): Response
+        EtatRepository         $etatRepository,
+        lieuRepository         $lieuRepository): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
         $etat = $etatRepository->findOneBy(['id' => 1]);
@@ -37,22 +40,30 @@ class SortieController extends AbstractController
 
         $sortieForm->handleRequest($request);
         if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
-            try {
+
+            // try {
+
+                $lieu = $sortie->getLieu();
+
+                $entityManager->persist($lieu);
+                $entityManager->flush();
 
                 $entityManager->persist($sortie);
                 $entityManager->flush();
-                $sortie = new Sortie();
+
                 $sortieForm = $this->createForm(SortieType::class, $sortie);
 
                 return $this->redirectToRoute('sortie_liste');
-            } catch (\Exception $exception) {
-                $this->addFlash('echec', 'La sortie n\'a pas pu être ajoutée');
-
-                return $this->redirectToRoute('sortie_creation');
-            }
+//            } catch (\Exception $exception) {
+//                $this->addFlash('echec', 'La sortie n\'a pas pu être ajoutée');
+//
+//                return $this->redirectToRoute('sortie_creation');
+//            }
         }
         return $this->render('sortie/creation.html.twig', compact('sortieForm'));
     }
+
+
 
     #[Route('/supprimer/{suppression_id}', name: 'sortie_suppression', requirements: ['suppression_id' => '\d+'])]
     public function supprimer(Sortie $suppression_id, EntityManagerInterface $entityManager): Response
@@ -84,7 +95,7 @@ class SortieController extends AbstractController
             return $this->redirectToRoute('sortie_detail', ['detail_id' => $sortie->getId()]);
         }
 
-        return $this->render('sortie/modification.html.twig', compact('sortieForm'));
+        return $this->render('sortie/modification.html.twig',  compact('sortieForm'));
     }
 
     #[Route('/publication', name: 'sortie_publication')]
@@ -124,15 +135,14 @@ class SortieController extends AbstractController
         $maintenant = new DateTime();
 
         $sorties = $sortieRepository->findAll();
-
         $nbreSortie = count($sorties);
+
 
 
         foreach ($sorties as $element) {
 
             $debut = $element->getDateHeureDebut();
             $limite = $element->getDateLimiteInscription();
-
 
             $dureeEnMinutes = $element->getDuree(); // Récupérer la valeur de la durée depuis l'objet $sortie
 
