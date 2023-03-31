@@ -22,14 +22,15 @@
     <nav>
         <a href="{{ path('sortie_liste') }}">Retour à la liste</a>
         {% if (app.user.pseudo == detail_id.organisateur.pseudo) %}
+
+        {% if detail_id.organisateur.id == app.user.id %}
         <a href="{{ path('sortie_suppression',{'suppression_id':detail_id.id}) }}">supprimer</a>
 
         <a href="{{ path('sortie_modification',{'sortie':detail_id.id}) }}">modifier</a>
         {%  endif %}
 
+        {% endif %}
     </nav>
 
 {% endblock %}
-
-
 

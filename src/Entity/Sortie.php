@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 #[ORM\Entity(repositoryClass: SortieRepository::class)]
 class Sortie
@@ -73,6 +75,8 @@ class Sortie
         return $this;
     }
 
+
+
     public function getDateHeureDebut(): ?\DateTimeInterface
     {
         return $this->dateHeureDebut;
@@ -84,6 +88,8 @@ class Sortie
 
         return $this;
     }
+
+
 
     public function getDuree(): ?int
     {
@@ -108,6 +114,33 @@ class Sortie
 
         return $this;
     }
+/* --------------- Fonction exception formulaire création d'une sortie ------------*/
+
+    #[Assert\Callback()]
+    public function isDateInscriptionValid(ExecutionContextInterface $context):void
+    {
+        $now = new \Datetime('now');
+        if ($now > $this->dateLimiteInscription) {
+            $context
+                ->buildViolation('La date limite d\'inscription doit être supérieur à aujourd\'hui')
+                ->atPath('dateLimiteInscription')
+                ->addViolation();
+        }
+    }
+
+    #[Assert\Callback()]
+    public function isDateDebutValid(ExecutionContextInterface $context):void
+    {
+        if ($this -> dateLimiteInscription > $this->dateHeureDebut) {
+            $context
+                ->buildViolation('La date de début doit être supérieur à la date limite  d\'inscription' )
+                ->atPath('dateLimiteInscription')
+                ->addViolation();
+        }
+    }
+
+
+
 
     public function getNbInscriptionsMax(): ?int
     {

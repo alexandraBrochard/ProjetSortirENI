@@ -19,6 +19,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class SortieController extends AbstractController
 {
@@ -38,10 +39,11 @@ class SortieController extends AbstractController
         $sortie->setOrganisateur($this->getUser());
         $sortieForm = $this->createForm(SortieType::class, $sortie);
 
+
         $sortieForm->handleRequest($request);
         if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
 
-            // try {
+             try {
 
                 $lieu = $sortie->getLieu();
 
@@ -53,12 +55,13 @@ class SortieController extends AbstractController
 
                 $sortieForm = $this->createForm(SortieType::class, $sortie);
 
+
                 return $this->redirectToRoute('sortie_liste');
-//            } catch (\Exception $exception) {
-//                $this->addFlash('echec', 'La sortie n\'a pas pu être ajoutée');
-//
-//                return $this->redirectToRoute('sortie_creation');
-//            }
+           } catch (\Exception $exception) {
+               $this->addFlash('echec', 'La sortie n\'a pas pu être ajoutée');
+
+               return $this->redirectToRoute('sortie_creation');
+            }
         }
         return $this->render('sortie/creation.html.twig', compact('sortieForm'));
     }
