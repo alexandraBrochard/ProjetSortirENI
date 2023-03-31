@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Participant;
-use App\Entity\Sortie;
 use App\Form\ParticipantType;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;

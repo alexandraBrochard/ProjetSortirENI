@@ -24,6 +24,8 @@
             </li>
         </ul>
 
+            <a href="{{ path('sortie_suppression',{'suppression_id':sortie.id}) }}">supprimer</a>
+            <a href="{{ path('sortie_modification',{'sortie':sortie.id}) }}">modifier</a>
 
         {% endfor %}
 

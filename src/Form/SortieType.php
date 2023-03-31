@@ -19,14 +19,36 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SortieType extends AbstractType
 {
+    /**
+     * @throws \Exception
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom')
-            ->add('dateHeureDebut', null, ['html5' => true, 'widget' => 'single_text'])
+            ->add('nom', TextType::class, [
+                'label'=>'nom',
+                'attr'=>['placeholder'=>'Le nom de votre sortie ici']
+            ])
+
+            ->add('dateHeureDebut', null, [
+                'html5' => true,
+                'widget' => 'single_text','data' => new \DateTimeImmutable('now', new \DateTimeZone(date_default_timezone_get())),
+                'input' => 'datetime_immutable',
+            ])
+
             ->add('duree')
-            ->add('dateLimiteInscription', null, ['html5' => true, 'widget' => 'single_text'])
-            ->add('nbInscriptionsMax')
+
+            ->add('dateLimiteInscription', null, [
+                'html5' => true,
+                'widget' => 'single_text','data' => new \DateTimeImmutable('now', new \DateTimeZone(date_default_timezone_get())),
+
+            ])
+
+            ->add('nbInscriptionsMax', TextType::class, [
+                'attr'=>['placeholder'=>'Le nombre de participants max']
+            ])
+
+
             ->add('infosSortie')
 
             ->add('lieu', EntityType::class, [
