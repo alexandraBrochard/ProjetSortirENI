@@ -4,21 +4,37 @@
 
     <h1>Résultats de la recherche pour {{ app.user.pseudo }}</h1>
 
-    {% if sorties is empty %}
+    {% if sortiesavecdoublons is empty or sortiesavecdoublons is empty %}
         <p>Aucun résultat trouvé pour votre recherche .</p>
     {% else %}
 
-    {% set ids = [] %}
-    {% for sortie in sorties %}
-        {% if sortie.id in ids %}
-            <li>
-                <a href="{{ path('sortie_detail',{'detail_id':sortie.id}) }}"> {{ sortie.nom }} </a>
+        {% if sortiessansdoublons is same as sortiesavecdoublons %}
+            {% for sortie in sortiessansdoublons %}
 
-            </li>
+                <li>
+                    <a href="{{ path('sortie_detail',{'detail_id':sortie.id}) }}"> {{ sortie.nom }} </a>
+                </li>
+            {% endfor %}
+            <br>
+        {% else %}
+
+            {% set ids = [] %}
+            {% for sortie in sortiesavecdoublons %}
+                {% if sortie.id in ids %}
+                    <li>
+                        <a href="{{ path('sortie_detail',{'detail_id':sortie.id}) }}"> {{ sortie.nom }} </a>
+                    </li>
+
+                {% endif %}
+                {% set ids = ids|merge([sortie.id]) %}
+            {% endfor %}
         {% endif %}
-        {% set ids = ids|merge([sortie.id]) %}
-    {% endfor %}
+
+
+
+
     {% endif %}
+
 
 
 
