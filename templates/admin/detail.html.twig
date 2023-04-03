@@ -4,7 +4,17 @@
 {% endblock %}
 
 {% block body %}
+    <div>
+        {{ form_start(form) }}
 
+        {{ form_row(form) }}
+        <button>Modifier</button>
+        {{ form_end(form) }}
+    </div>
+    <div>
+        <p><a href="{{ path('admin_util_suppr', {'id':user.id}) }}">Supprimer l'utilisateur</a></p>
+        <p><a href="">Désactiver l'utilisateur</a></p>
+    </div>
 {% endblock %}
 
 

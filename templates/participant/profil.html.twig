@@ -15,11 +15,7 @@
 
 
 
-    {% if participant.actif %}
-        <p>Connecté</p>
-    {% else%}
-        <p>Deconnecté</p>
-    {% endif %}
+
     {% if app.user.pseudo==participant.pseudo %}
     <a href="{{ path('participant_modifier') }}" class="btn-modifier">Modifier mon profil</a>
     {%  endif %}

@@ -3,6 +3,8 @@
 namespace App\Form;
 
 
+use App\Entity\Campus;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -19,6 +21,7 @@ class FormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+
             ->add('nom',TextareaType::class,[
                 'label' => 'Le nom de la sortie doit contenir   ',
                 'required' => false,
@@ -29,6 +32,12 @@ class FormType extends AbstractType
             ])
             ->add('inscrit', CheckboxType::class, [
                 'label' => 'Sorties auxquelles je suis inscrit/te   ',
+                'required' => false,
+            ])
+            ->add('Campus', EntityType::class, [
+                'class' => Campus::class,
+                'choice_label' => 'nom',
+                'placeholder' => 'Sélectionner un campus',
                 'required' => false,
             ])
             ->add('noninscrit', CheckboxType::class, [

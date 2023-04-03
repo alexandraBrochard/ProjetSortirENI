@@ -51,6 +51,9 @@ class Sortie
     #[ORM\JoinColumn(nullable: true)]
     private ?Lieu $lieu = null;
 
+    #[ORM\ManyToOne(inversedBy: 'sorties')]
+    private ?Campus $campus = null;
+
 
     public function __construct()
     {
@@ -243,6 +246,18 @@ class Sortie
         else{
             return 1;
         }
+    }
+
+    public function getCampus(): ?Campus
+    {
+        return $this->campus;
+    }
+
+    public function setCampus(?Campus $campus): self
+    {
+        $this->campus = $campus;
+
+        return $this;
     }
 
 
