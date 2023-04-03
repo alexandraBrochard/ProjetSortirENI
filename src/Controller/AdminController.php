@@ -117,7 +117,7 @@ class AdminController extends AbstractController
                                          Request $request, ParticipantRepository $participantRepository): Response
     {
         $participant = new Participant();
-        $participant = $participantRepository->findBy(['id'=>$id]);
+        $participant = $participantRepository->find($id);
 
         $form = $this->createForm(ParticipantType::class, $participant);
         $form->handleRequest($request);
