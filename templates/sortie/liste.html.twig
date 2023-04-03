@@ -12,18 +12,39 @@
             rechercher
         </button>
         {{ form_end(form) }}
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% for message in app.flashes('echec') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% for message in app.flashes('warning') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
     {% endblock %}
     <hr>
     <div class="container-liste-1">
         <h2>Voici la liste des sorties ouvertes pour {{ app.user.prenom }}</h2>
         <p>Nombre total de sortie crées sur ce site {{ nbreSortie }}</p>
+
+        <a href="{{ path('sortie_creation') }}"> Ajouter une sortie</a>
+        <hr>
+
     </div>
 
     <div class="container-general">
         <div id="liste">
             <ol>
                 {% for sortie in sorties %}
-                {% if sortie.etat.id == 2 %}
+                {# {% if sortie.etat.id == 2 %} #}
                 {% set inscrit = false %}
                 <li>
                     <hr>
@@ -83,15 +104,11 @@
                         </nav>
                     </div>
                     <br>
-                    {% endif %}
+                    {# {% endif %} #}
                     {% endfor %}
             </ol>
         </div>
-        <div class="container-list-fin">
-            <hr>
-            <a href="{{ path('sortie_creation') }}"> Ajouter une sortie</a>
-            <hr>
-        </div>
+
     </div>
 
 {% endblock %}

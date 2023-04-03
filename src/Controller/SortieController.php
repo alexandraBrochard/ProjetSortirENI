@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Entity\Etat;
 use App\Entity\Lieu;
 use App\Entity\Sortie;
+use App\Entity\Ville;
 use App\Form\FormType;
 use App\Form\SortieType;
 use App\Repository\EtatRepository;
@@ -39,15 +40,13 @@ class SortieController extends AbstractController
         $sortie = new Sortie();
         $sortie->setEtat($etat);
 
-
         $sortie->setOrganisateur($this->getUser());
         $sortieForm = $this->createForm(SortieType::class, $sortie);
-
 
         $sortieForm->handleRequest($request);
         if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
 
-             try {
+            try {
 
                 $lieu = $sortie->getLieu();
 
@@ -57,35 +56,40 @@ class SortieController extends AbstractController
                 $entityManager->persist($sortie);
                 $entityManager->flush();
 
+
+                $this->addFlash('success','Sortie correctement enregistrée !' );
+
                 $sortieForm = $this->createForm(SortieType::class, $sortie);
 
-
                 return $this->redirectToRoute('sortie_liste');
-           } catch (\Exception $exception) {
-               $this->addFlash('echec', 'La sortie n\'a pas pu être ajoutée');
+            } catch (\Exception $exception) {
 
-               return $this->redirectToRoute('sortie_creation');
+                $this->addFlash('echec','La sortie n\'a pas pu être ajoutée' );
+
+                return $this->redirectToRoute('sortie_creation');
             }
         }
         return $this->render('sortie/creation.html.twig', compact('sortieForm'));
     }
-    #[Route('/lieu', name: 'get_lieux_by_ville')]
-    public function getLieuxByVille(Request $request, VilleRepository $villeRepository)
-    {
-        $villeId = $request->get('ville');
-        $lieux = $villeRepository->findBy(['ville' => $villeId]);
 
-        $responseArray = array();
+    #[Route('/lieu/{ville}', name: 'sortie_lieuxByVille')]
+    public function LieuxByVille(
+             Ville           $ville
+    ) : Response
+    {
+
+        $lieux = $ville->getLieu();
+
+        $recup = array();
         foreach ($lieux as $lieu) {
-            $responseArray[] = array(
+            $recup[] = array(
                 'id' => $lieu->getId(),
                 'nom' => $lieu->getNom()
             );
         }
-dump($responseArray);
-        return new JsonResponse($responseArray);
-    }
 
+        return new JsonResponse($recup);
+    }
 
 
     #[Route('/supprimer/{suppression_id}', name: 'sortie_suppression', requirements: ['suppression_id' => '\d+'])]
@@ -118,7 +122,7 @@ dump($responseArray);
             return $this->redirectToRoute('sortie_detail', ['detail_id' => $sortie->getId()]);
         }
 
-        return $this->render('sortie/modification.html.twig',  compact('sortieForm'));
+        return $this->render('sortie/modification.html.twig', compact('sortieForm'));
     }
 
 
@@ -145,11 +149,13 @@ dump($responseArray);
         $nbreSortie = count($sorties);
 
 
-
         foreach ($sorties as $element) {
-
+            $nom=$element->getNom();
             $debut = $element->getDateHeureDebut();
             $limite = $element->getDateLimiteInscription();
+            $nbMax=$element->getNbInscriptionsMax();
+            $inscrits=$element->getParticipants();
+            $nbinscrits = count($inscrits);
 
             $dureeEnMinutes = $element->getDuree(); // Récupérer la valeur de la durée depuis l'objet $sortie
 
@@ -158,6 +164,8 @@ dump($responseArray);
 
             $interval2 = new DateInterval('P1M');
             $archive = $debut->add($interval2);
+
+
 
             if ($maintenant < $debut) {
 
@@ -175,17 +183,17 @@ dump($responseArray);
                 $entityManager->flush();
             }
 
-            if ($maintenant > $debut && $maintenant < $fin) {
+            if ($maintenant > $limite) {
 
-                $etat = $etatRepository->find(3);
+                $etat = $etatRepository->find(4);
                 $element->setEtat($etat);
                 $entityManager->persist($element);
                 $entityManager->flush();
             }
 
-            if ($maintenant > $limite) {
+            if ($maintenant > $debut && $maintenant < $fin) {
 
-                $etat = $etatRepository->find(4);
+                $etat = $etatRepository->find(3);
                 $element->setEtat($etat);
                 $entityManager->persist($element);
                 $entityManager->flush();
@@ -204,7 +212,18 @@ dump($responseArray);
                 $entityManager->persist($element);
                 $entityManager->flush();
             }
+
+            if($nbinscrits>=$nbMax){
+
+                $etat = $etatRepository->find(4);
+                $element->setEtat($etat);
+                $entityManager->persist($element);
+                $entityManager->flush();
+
+            }
         }
+
+
 
         $form = $this->createForm(FormType::class);
         $form->handleRequest($request);
@@ -238,48 +257,42 @@ dump($responseArray);
                 $sorties2 = $sortieRepository->findSorties($this->getUser());
             }
 
-
             if ($sortiesNonInscrit == true) {
                 $sorties3 = $sortieRepository->findSortiesnoninscrite($this->getUser());
             }
 
             if ($textRecherche != null) {
                 $sorties4 = $sortieRepository->findbySortiestext($textRecherche);
-
             }
 
             if (($debut1 != null) and ($debut2 != null)) {
                 $sorties5 = $sortieRepository->findbySortiesdate($debut1, $debut2);
-
             }
 
             if ($passe != null) {
                 $sorties6 = $sortieRepository->findSortiespasses();
-
-            }
-            if($campus != null) {
-                $sortiesParCampus = $sortieRepository->findBy(['campus'=> $campus]);
             }
 
+            if ($campus != null) {
+                $sortiesParCampus = $sortieRepository->findBy(['campus' => $campus]);
+            }
 
-            $sorties= array_merge($sorties1,$sorties2);
-            $sorties= array_merge($sorties,$sorties3);
-            $sorties= array_merge($sorties,$sorties4);
-            $sorties= array_merge($sorties,$sorties5);
-            $sorties= array_merge($sorties,$sorties6);
-            $sorties= array_merge($sorties,$sortiesParCampus);
-            $sortiessansdoublons=array_unique($sorties,SORT_REGULAR);
-            $sortiesavecdoublons=$sorties;
+            $sorties = array_merge($sorties1, $sorties2);
+            $sorties = array_merge($sorties, $sorties3);
+            $sorties = array_merge($sorties, $sorties4);
+            $sorties = array_merge($sorties, $sorties5);
+            $sorties = array_merge($sorties, $sorties6);
+            $sorties = array_merge($sorties, $sortiesParCampus);
+            $sortiessansdoublons = array_unique($sorties, SORT_REGULAR);
+            $sortiesavecdoublons = $sorties;
 
             return $this->render('sortie/resultats.html.twig', [
                 'sortiessansdoublons' => $sortiessansdoublons,
-                'sortiesavecdoublons'=>$sortiesavecdoublons
+                'sortiesavecdoublons' => $sortiesavecdoublons
             ]);
         }
-
         //return $this->render('recherche/index.html.twig', ['form' => $form->createView()]);
-        return $this->render('sortie/liste.html.twig', compact('sorties','nbreSortie','form')
-
+        return $this->render('sortie/liste.html.twig', compact('sorties', 'nbreSortie', 'form')
         );
 
     }
@@ -292,8 +305,6 @@ dump($responseArray);
         request                $request
     ): Response
     {
-
-
         $sorties = $sortieRepository->findBy(["organisateur" => $this->getUser()]);
 
         return $this->render('sortie/organisateur.html.twig', compact('sorties')
@@ -301,7 +312,6 @@ dump($responseArray);
         );
 
     }
-
 
 
 }

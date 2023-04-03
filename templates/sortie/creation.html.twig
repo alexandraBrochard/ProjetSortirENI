@@ -13,32 +13,37 @@
         {{ form_label(sortieForm) }}
 
         <script>
-            $(document).ready(function () {
-                $('#ville').change(function () {
-                    var villeId = $(this).val();
-                    $.ajax({
-                        url: "{{ path('get_lieux_by_ville') }}",
-                        data: {villeId: villeId},
-                        type: 'GET',
-                        dataType: 'json',
-                        success: function (lieux) {
-                            $('#lieu').empty();
-                            $.each(lieux, function (index, lieu) {
-                                $('#lieu').append('<option value="' + lieu.id + '">' + lieu.nom + '</option>');
-                            });
+
+            //let url=
+            $("#sortie_ville").change(function () {
+                let villeId = document.getElementById('sortie_ville').value;
+                let adresse = "/lieu/"+villeId;
+                $.ajax({
+                    url: adresse,
+                    //data: {villeId: villeId},
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (recup) {
+
+                        let selectLieux = $("#sortie_lieu");
+                        selectLieux.html('');
+
+                        for (let i = 0; i < recup.length; i++) {
+                            let textOption = "<option value=" + recup[i]["id"] + ">" + recup[i]["nom"] + "</option>";
+                            selectLieux.append(textOption);
                         }
-                    });
-                });
+                    },
+                    error : function (err) {
+                        alert("ERROR.");
+                    }
+                })
             });
+
         </script>
         {{ form_end(sortieForm) }}
 
     </div>
 
-{#    {% block javascripts %}
-        {{ parent() }}
-        <script src="{{ asset('js/script.js') }}"></script>
-    {% endblock %}#}
 
 {% endblock %}
 
