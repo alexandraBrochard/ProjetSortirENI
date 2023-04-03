@@ -6,6 +6,7 @@ namespace App\Form;
 use App\Entity\Etat;
 use App\Entity\Lieu;
 use App\Entity\Sortie;
+use App\Entity\Ville;
 use Doctrine\ORM\EntityRepository;
 use phpDocumentor\Reflection\Types\False_;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -57,6 +58,9 @@ class SortieType extends AbstractType
             'placeholder' => 'Sélectionner un lieu',
             'required' => false,
             ])
+
+
+
 
             ->add('nouveaulieu', LieuType::class, [
                 'mapped'=> false,

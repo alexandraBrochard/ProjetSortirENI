@@ -8,6 +8,29 @@
         {{ form_start(sortieForm) }}
         {{ form_widget(sortieForm) }}
         <button>ajouter</button>
+
+
+        {{ form_label(sortieForm) }}
+
+        <script>
+            $(document).ready(function () {
+                $('#ville').change(function () {
+                    var villeId = $(this).val();
+                    $.ajax({
+                        url: "{{ path('get_lieux_by_ville') }}",
+                        data: {villeId: villeId},
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (lieux) {
+                            $('#lieu').empty();
+                            $.each(lieux, function (index, lieu) {
+                                $('#lieu').append('<option value="' + lieu.id + '">' + lieu.nom + '</option>');
+                            });
+                        }
+                    });
+                });
+            });
+        </script>
         {{ form_end(sortieForm) }}
 
     </div>

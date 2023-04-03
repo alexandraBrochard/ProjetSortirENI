@@ -12,10 +12,12 @@ use App\Repository\LieuRepository;
 use App\Repository\SortieRepository;
 
 
+use App\Repository\VilleRepository;
 use DateInterval;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -64,6 +66,22 @@ class SortieController extends AbstractController
             }
         }
         return $this->render('sortie/creation.html.twig', compact('sortieForm'));
+    }
+    #[Route('/lieu', name: 'get_lieux_by_ville')]
+    public function getLieuxByVille(Request $request, VilleRepository $villeRepository)
+    {
+        $villeId = $request->get('ville');
+        $lieux = $villeRepository->findBy(['ville' => $villeId]);
+
+        $responseArray = array();
+        foreach ($lieux as $lieu) {
+            $responseArray[] = array(
+                'id' => $lieu->getId(),
+                'nom' => $lieu->getNom()
+            );
+        }
+dump($responseArray);
+        return new JsonResponse($responseArray);
     }
 
 
