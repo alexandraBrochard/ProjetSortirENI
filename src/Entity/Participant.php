@@ -263,6 +263,9 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string',nullable: true)]
     private string $brochureFilename ='';
 
+    #[ORM\ManyToOne(inversedBy: 'participants')]
+    private ?Campus $campus = null;
+
     #[ORM\ManyToOne(inversedBy: 'participant')]
     #[ORM\JoinColumn(nullable: false)]
 
@@ -275,6 +278,18 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     public function setBrochureFilename(string $brochureFilename)
     {
         $this->brochureFilename = $brochureFilename;
+
+        return $this;
+    }
+
+    public function getCampus(): ?Campus
+    {
+        return $this->campus;
+    }
+
+    public function setCampus(?Campus $campus): self
+    {
+        $this->campus = $campus;
 
         return $this;
     }

@@ -21,10 +21,18 @@ class Campus
     #[ORM\OneToMany(mappedBy: 'campus', targetEntity: Participant::class)]
     private Collection $participant;
 
+    #[ORM\OneToMany(mappedBy: 'campus', targetEntity: Sortie::class)]
+    private Collection $sorties;
+
+    #[ORM\OneToMany(mappedBy: 'campus', targetEntity: Participant::class)]
+    private Collection $participants;
+
 
     public function __construct()
     {
         $this->participant = new ArrayCollection();
+        $this->sorties = new ArrayCollection();
+        $this->participants = new ArrayCollection();
 
     }
 
@@ -73,6 +81,44 @@ class Campus
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Sortie>
+     */
+    public function getSorties(): Collection
+    {
+        return $this->sorties;
+    }
+
+    public function addSorty(Sortie $sorty): self
+    {
+        if (!$this->sorties->contains($sorty)) {
+            $this->sorties->add($sorty);
+            $sorty->setCampus($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSorty(Sortie $sorty): self
+    {
+        if ($this->sorties->removeElement($sorty)) {
+            // set the owning side to null (unless already changed)
+            if ($sorty->getCampus() === $this) {
+                $sorty->setCampus(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Participant>
+     */
+    public function getParticipants(): Collection
+    {
+        return $this->participants;
     }
 
 

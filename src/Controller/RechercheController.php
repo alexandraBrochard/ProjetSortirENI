@@ -35,6 +35,8 @@ class RechercheController extends AbstractController
             $debut1 = $data['debut1'];
             $debut2 = $data['debut2'];
             $passe = $data['passe'];
+            $campus = $data['Campus'];
+
             $sorties = null;
             $sorties1 = [];
             $sorties2 = [];
@@ -42,7 +44,7 @@ class RechercheController extends AbstractController
             $sorties4 = [];
             $sorties5 = [];
             $sorties6 = [];
-
+            $sortiesParCampus = [];
 
             if ($organisateur == true) {
                 $sorties1 = $sortieRepository->findby(["organisateur" => $this->getUser()]);
@@ -71,12 +73,17 @@ class RechercheController extends AbstractController
                 $sorties6 = $sortieRepository->findSortiespasses();
 
             }
+            if($campus != null) {
+                $sortiesParCampus = $sortieRepository->findBy(['campus'=> $campus]);
+            }
+
 
             $sorties= array_merge($sorties1,$sorties2);
             $sorties= array_merge($sorties,$sorties3);
             $sorties= array_merge($sorties,$sorties4);
             $sorties= array_merge($sorties,$sorties5);
             $sorties= array_merge($sorties,$sorties6);
+            $sorties= array_merge($sorties,$sortiesParCampus);
             $sortiessansdoublons=array_unique($sorties,SORT_REGULAR);
             $sortiesavecdoublons=$sorties;
 

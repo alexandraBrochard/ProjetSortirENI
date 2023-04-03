@@ -117,7 +117,7 @@ class AdminController extends AbstractController
                                          Request $request, ParticipantRepository $participantRepository): Response
     {
         $participant = new Participant();
-        $participant = $participantRepository->findBy(['id'=>$id]);
+        $participant = $participantRepository->find($id);
 
         $form = $this->createForm(ParticipantType::class, $participant);
         $form->handleRequest($request);
@@ -125,6 +125,17 @@ class AdminController extends AbstractController
 
         return $this->render('admin/detail.html.twig', [
         'form'=>$form,
+        'user'=>$participant
         ]);
+    }
+
+    #[Route('/admin/utilisateur/supprimer/{id}', name: 'admin_util_suppr')]
+    public function utilisateurSupprimer(EntityManagerInterface $entityManager,
+                                    Participant $id): Response
+    {
+        $entityManager->remove($id);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('admin_utilisateurs');
     }
 }
