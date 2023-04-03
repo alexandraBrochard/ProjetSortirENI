@@ -6,9 +6,11 @@ namespace App\Controller;
 use App\Entity\Etat;
 use App\Entity\Lieu;
 use App\Entity\Sortie;
+use App\Form\FormType;
 use App\Form\SortieType;
 use App\Repository\EtatRepository;
 use App\Repository\LieuRepository;
+use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
 
 
@@ -119,23 +121,6 @@ dump($responseArray);
         return $this->render('sortie/modification.html.twig',  compact('sortieForm'));
     }
 
-    #[Route('/publication', name: 'sortie_publication')]
-    public function publication(): Response
-    {
-        $this->denyAccessUnlessGranted('ROLE_USER');
-        return $this->render('sortie/publication.html.twig', [
-            'publication' => 'publication',
-        ]);
-    }
-
-    /*    #[Route('/liste', name: 'sortie_liste')]
-        public function liste(SortieRepository $sortieRepository): Response
-        {
-            $sorties = $sortieRepository->findAll();
-            return $this->render('sortie/liste.html.twig', compact('sorties')
-
-            );
-        }*/
 
     #[Route('/detail/{detail_id}', name: 'sortie_detail', requirements: ['detail_id' => '\d+'])]
     public function detail(Sortie $detail_id): Response
@@ -150,6 +135,7 @@ dump($responseArray);
         EtatRepository         $etatRepository,
         EntityManagerInterface $entityManager,
         request                $request
+
     ): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
@@ -220,7 +206,79 @@ dump($responseArray);
             }
         }
 
-        return $this->render('sortie/liste.html.twig', compact('sorties','nbreSortie')
+        $form = $this->createForm(FormType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+
+            $organisateur = $data['organisateur'];
+            $sortiesDejaInscrit = $data['inscrit'];
+            $sortiesNonInscrit = $data['noninscrit'];
+            $textRecherche = $data['nom'];
+            $debut1 = $data['debut1'];
+            $debut2 = $data['debut2'];
+            $passe = $data['passe'];
+            $campus = $data['Campus'];
+
+            $sorties = null;
+            $sorties1 = [];
+            $sorties2 = [];
+            $sorties3 = [];
+            $sorties4 = [];
+            $sorties5 = [];
+            $sorties6 = [];
+            $sortiesParCampus = [];
+
+            if ($organisateur == true) {
+                $sorties1 = $sortieRepository->findby(["organisateur" => $this->getUser()]);
+            }
+
+            if ($sortiesDejaInscrit == true) {
+                $sorties2 = $sortieRepository->findSorties($this->getUser());
+            }
+
+
+            if ($sortiesNonInscrit == true) {
+                $sorties3 = $sortieRepository->findSortiesnoninscrite($this->getUser());
+            }
+
+            if ($textRecherche != null) {
+                $sorties4 = $sortieRepository->findbySortiestext($textRecherche);
+
+            }
+
+            if (($debut1 != null) and ($debut2 != null)) {
+                $sorties5 = $sortieRepository->findbySortiesdate($debut1, $debut2);
+
+            }
+
+            if ($passe != null) {
+                $sorties6 = $sortieRepository->findSortiespasses();
+
+            }
+            if($campus != null) {
+                $sortiesParCampus = $sortieRepository->findBy(['campus'=> $campus]);
+            }
+
+
+            $sorties= array_merge($sorties1,$sorties2);
+            $sorties= array_merge($sorties,$sorties3);
+            $sorties= array_merge($sorties,$sorties4);
+            $sorties= array_merge($sorties,$sorties5);
+            $sorties= array_merge($sorties,$sorties6);
+            $sorties= array_merge($sorties,$sortiesParCampus);
+            $sortiessansdoublons=array_unique($sorties,SORT_REGULAR);
+            $sortiesavecdoublons=$sorties;
+
+            return $this->render('sortie/resultats.html.twig', [
+                'sortiessansdoublons' => $sortiessansdoublons,
+                'sortiesavecdoublons'=>$sortiesavecdoublons
+            ]);
+        }
+
+        //return $this->render('recherche/index.html.twig', ['form' => $form->createView()]);
+        return $this->render('sortie/liste.html.twig', compact('sorties','nbreSortie','form')
 
         );
 
@@ -243,6 +301,7 @@ dump($responseArray);
         );
 
     }
+
 
 
 }
