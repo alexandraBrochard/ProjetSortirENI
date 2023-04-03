@@ -22,7 +22,7 @@
                         <hr>
                         <div class="container-description">
                             <ul>
-                                <div>
+
                                     <!-- bloc description -->
                                     <p>Lieu de la sortie : {{ sortie.lieu.nom }} : {{ sortie.lieu.rue }}</p>
                                     <p>Debut de la sortie : {{ sortie.dateHeureDebut | date('d/m/y H:i') }}</p>
@@ -33,7 +33,7 @@
                                     {% if (sortie.participants|length >= sortie.nbInscriptionsmax) %}
                                            => Sortie complete</p>
                                     {% endif %}
-                                </div>
+
                                     <!-- bloc liste participant -->
                                 <div>
                                     <ul>
