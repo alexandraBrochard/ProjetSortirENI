@@ -2,7 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Campus;
 use App\Entity\Participant;
+use App\Entity\Ville;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -22,6 +25,13 @@ class RegistrationFormType extends AbstractType
             ->add('prenom')
             ->add('pseudo')
             ->add('telephone')
+            ->add('campus', EntityType::class, [
+                'class' => Campus::class,
+                'choice_label' => 'nom',
+                'placeholder' => 'Sélectionner un campus',
+                'required' => false,
+                'mapped'=> true,
+            ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [

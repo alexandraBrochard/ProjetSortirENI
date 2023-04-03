@@ -57,14 +57,14 @@ class SortieController extends AbstractController
                 $entityManager->flush();
 
 
-                $this->addFlash('success','Sortie correctement enregistrée !' );
+                $this->addFlash('success', 'Sortie correctement enregistrée !');
 
                 $sortieForm = $this->createForm(SortieType::class, $sortie);
 
                 return $this->redirectToRoute('sortie_liste');
             } catch (\Exception $exception) {
 
-                $this->addFlash('echec','La sortie n\'a pas pu être ajoutée' );
+                $this->addFlash('echec', 'La sortie n\'a pas pu être ajoutée');
 
                 return $this->redirectToRoute('sortie_creation');
             }
@@ -74,8 +74,8 @@ class SortieController extends AbstractController
 
     #[Route('/lieu/{ville}', name: 'sortie_lieuxByVille')]
     public function LieuxByVille(
-             Ville           $ville
-    ) : Response
+        Ville $ville
+    ): Response
     {
 
         $lieux = $ville->getLieu();
@@ -100,6 +100,23 @@ class SortieController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('sortie_liste', compact('suppression_id'));
+    }
+
+    #[Route('/annulation/{sortie}', name: 'sortie_annulation', requirements: ['sortie' => '\d+'])]
+    public function annuler(
+        Sortie                 $sortie,
+        EntityManagerInterface $entityManager,
+        EtatRepository         $etatRepository): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+        $etat = $etatRepository->findOneBy(['id' => 7]);
+
+        $sortie->setEtat($etat);
+
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('sortie_liste', compact('sortie'));
     }
 
     #[Route('/modification/{sortie}', name: 'sortie_modification', requirements: ['sortie' => '\d+'])]
@@ -150,11 +167,11 @@ class SortieController extends AbstractController
 
 
         foreach ($sorties as $element) {
-            $nom=$element->getNom();
+            $nom = $element->getNom();
             $debut = $element->getDateHeureDebut();
             $limite = $element->getDateLimiteInscription();
-            $nbMax=$element->getNbInscriptionsMax();
-            $inscrits=$element->getParticipants();
+            $nbMax = $element->getNbInscriptionsMax();
+            $inscrits = $element->getParticipants();
             $nbinscrits = count($inscrits);
 
             $dureeEnMinutes = $element->getDuree(); // Récupérer la valeur de la durée depuis l'objet $sortie
@@ -165,64 +182,65 @@ class SortieController extends AbstractController
             $interval2 = new DateInterval('P1M');
             $archive = $debut->add($interval2);
 
+            if ($element->getEtat()->getId() != 7) {
+
+                if ($maintenant < $debut) {
+
+                    $etat = $etatRepository->find(1);
+                    $element->setEtat($etat);
+                    $entityManager->persist($element);
+                    $entityManager->flush();
+                }
+
+                if ($maintenant < $limite) {
+
+                    $etat = $etatRepository->find(2);
+                    $element->setEtat($etat);
+                    $entityManager->persist($element);
+                    $entityManager->flush();
+                }
 
 
-            if ($maintenant < $debut) {
+                if ($maintenant > $limite) {
 
-                $etat = $etatRepository->find(1);
-                $element->setEtat($etat);
-                $entityManager->persist($element);
-                $entityManager->flush();
+                    $etat = $etatRepository->find(4);
+                    $element->setEtat($etat);
+                    $entityManager->persist($element);
+                    $entityManager->flush();
+                }
+
+                if ($nbinscrits >= $nbMax) {
+
+                    $etat = $etatRepository->find(4);
+                    $element->setEtat($etat);
+                    $entityManager->persist($element);
+                    $entityManager->flush();
+                }
+
+                if ($maintenant > $debut && $maintenant < $fin) {
+
+                    $etat = $etatRepository->find(3);
+                    $element->setEtat($etat);
+                    $entityManager->persist($element);
+                    $entityManager->flush();
+                }
+
+                if ($maintenant > $fin && $maintenant < $archive) {
+                    $etat = $etatRepository->find(5);
+                    $element->setEtat($etat);
+                    $entityManager->persist($element);
+                    $entityManager->flush();
+                }
+
+                if ($maintenant > $archive) {
+                    $etat = $etatRepository->find(6);
+                    $element->setEtat($etat);
+                    $entityManager->persist($element);
+                    $entityManager->flush();
+                }
             }
 
-            if ($maintenant < $limite) {
-
-                $etat = $etatRepository->find(2);
-                $element->setEtat($etat);
-                $entityManager->persist($element);
-                $entityManager->flush();
-            }
-
-            if ($maintenant > $limite) {
-
-                $etat = $etatRepository->find(4);
-                $element->setEtat($etat);
-                $entityManager->persist($element);
-                $entityManager->flush();
-            }
-
-            if ($maintenant > $debut && $maintenant < $fin) {
-
-                $etat = $etatRepository->find(3);
-                $element->setEtat($etat);
-                $entityManager->persist($element);
-                $entityManager->flush();
-            }
-
-            if ($maintenant > $fin && $maintenant < $archive) {
-                $etat = $etatRepository->find(5);
-                $element->setEtat($etat);
-                $entityManager->persist($element);
-                $entityManager->flush();
-            }
-
-            if ($maintenant > $archive) {
-                $etat = $etatRepository->find(6);
-                $element->setEtat($etat);
-                $entityManager->persist($element);
-                $entityManager->flush();
-            }
-
-            if($nbinscrits>=$nbMax){
-
-                $etat = $etatRepository->find(4);
-                $element->setEtat($etat);
-                $entityManager->persist($element);
-                $entityManager->flush();
-
-            }
         }
-
 
 
         $form = $this->createForm(FormType::class);
@@ -308,6 +326,26 @@ class SortieController extends AbstractController
         $sorties = $sortieRepository->findBy(["organisateur" => $this->getUser()]);
 
         return $this->render('sortie/organisateur.html.twig', compact('sorties')
+
+        );
+
+    }
+
+    #[Route('/archives', name: 'sortie_archives')]
+    public function archives(
+        SortieRepository       $sortieRepository,
+        EtatRepository         $etatRepository,
+        EntityManagerInterface $entityManager,
+        request                $request
+    ): Response
+    {
+
+        $etat = $etatRepository->findOneBy(['id' => 6]);
+        $sortie = new Sortie();
+        $sortie->setEtat($etat);
+        $sorties = $sortieRepository->findBy(["etat" => $etat]);
+
+        return $this->render('sortie/archives.html.twig', compact('sorties')
 
         );
 

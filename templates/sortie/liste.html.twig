@@ -44,7 +44,7 @@
         <div id="liste">
             <ol>
                 {% for sortie in sorties %}
-                {# {% if sortie.etat.id == 2 %} #}
+                    {% if sortie.etat.id == 2 %}
                 {% set inscrit = false %}
                 <li>
                     <hr>
@@ -56,10 +56,10 @@
                         <ul>
 
                             <!-- bloc description -->
-                            <p>Lieu de la sortie : {{ sortie.lieu.nom }} : {{ sortie.lieu.rue }}</p>
+                            <p>Lieu de la sortie : {{ sortie.lieu.nom }} situé à l'adresse suivante {{ sortie.lieu.rue }}  {{ sortie.lieu.ville.nom}} </p>
                             <p>Debut de la sortie : {{ sortie.dateHeureDebut | date('d/m/y H:i') }}</p>
                             <p>Fin des inscription : {{ sortie.dateLimiteInscription | date('d/m/y H:i') }}</p>
-                            <p>Etat de l'activité : {{ sortie.etat.libelle }} </p>
+
                             <p>Liste des participants inscrits à cette sortie</p>
                             <p>Participants {{ sortie.participants|length }}/{{ sortie.nbInscriptionsmax }}
                                 {% if (sortie.participants|length >= sortie.nbInscriptionsmax) %}
@@ -84,7 +84,7 @@
 
                     <div class="container">
                         <nav>
-                            {% if sortie.etat.id == 1 %}
+                            {% if sortie.etat.id == 1 or sortie.etat.id == 7 %}
                                 <a href="{{ path('sortie_liste') }}">Publier</a>
                             {% endif %}
 
@@ -104,7 +104,7 @@
                         </nav>
                     </div>
                     <br>
-                    {# {% endif %} #}
+                     {% endif %}
                     {% endfor %}
             </ol>
         </div>
