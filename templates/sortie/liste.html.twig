@@ -29,6 +29,7 @@
                                     <p>Fin des inscription : {{ sortie.dateLimiteInscription | date('d/m/y H:i') }}</p>
                                     <p>Etat de l'activité : {{ sortie.etat.libelle }} </p>
                                     <p>Liste des participants inscrits à cette sortie</p>
+                                    <p>Participant {{ sortie.participants|length }}/{{ sortie.nbInscriptionsmax }}</p>
                                 </div>
                                     <!-- bloc liste participant -->
                                 <div>
@@ -37,7 +38,7 @@
                                             <li><a href="{{ path('participant_profil',{'pseudo':perso.prenom}) }}">{{ perso.prenom }}</a></li>
                                         {% else %}
                                             <p>Pas de participants pour le moment</p>
-                                         {% endfor %}
+                                        {% endfor %}
                                      </ul>
                                      <br>
                                 </div>
@@ -57,9 +58,10 @@
                                     {% endif %}
                                 {% endfor %}
 
-                                {% if ((inscrit == false) and((sortie.etat.id == 2) or (sortie.etat.id == 3))) %}
+                                {% if ((inscrit == false) and((sortie.etat.id == 2) or (sortie.etat.id == 3))) and  (sortie.participants|length <= sortie.nbInscriptionsmax) %}
                                     <a href="{{ path('inscrire_sortie',{'sortie_id':sortie.id}) }}">s'inscrire</a>
                                 {% endif %}
+
                             </nav>
                         </div>
                         <br>
