@@ -4,10 +4,9 @@
     <hr>
     {% block content %}
         {% if app.user %}
-        <h2>Recherche par filtre</h2>
 
     <h3>Recherche par filtre</h3>
-
+    {% endif %}
     <div id="dispo-sortie">
         <p id="nb-sortie">Nombre de sorties disponibles : {{ nbreSortie }}</p>
         {{ form_start(form, {'attr': {'class':'form-inline'}}) }}
