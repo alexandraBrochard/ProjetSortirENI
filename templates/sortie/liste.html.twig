@@ -6,6 +6,16 @@
 
         <h2>Recherche par filtre</h2>
 
+    <div class="container-presentation">
+        <div id="titre-liste">
+            <h2>Voici la liste des sorties ouvertes pour {{ app.user.prenom }}</h2>
+        </div>
+    </div>
+    <div class="container-liste-ajouter">
+        <a id="btn-ajout" href="{{ path('sortie_creation') }}">Ajouter une sortie</a>
+    </div>
+    <div id="dispo-sortie">
+        <p>Nombre de sorties disponibles : {{ nbreSortie }}</p>
         {{ form_start(form) }}
         {{ form_widget(form) }}
         <button type="submit">
@@ -40,78 +50,67 @@
 
     </div>
 
-    <div class="container-general">
-        <div id="liste">
+        <div class="container-general">
             <ol>
                 {% for sortie in sorties %}
-                    {% if sortie.etat.id == 2 %}
+                {% if sortie.etat.id == 2 %}
                 {% set inscrit = false %}
-                <li>
+            </ol>
+            <div class="container-bloc">
+                <div class="liste-1">
                     <hr>
-                    <a href="{{ path('sortie_detail',{'detail_id':sortie.id}) }}"> {{ sortie.nom }}</a>
-                    organisée par
-                    <a href="{{ path('participant_profil',{'pseudo':sortie.organisateur.pseudo}) }}">{{ sortie.organisateur.pseudo }}</a>
+                    <a id="nom-sortie" href="{{ path('sortie_detail',{'detail_id':sortie.id}) }}">{{ sortie.nom }}</a>
+                    organisé par
+                    <a id="pseudo-sortie" href="{{ path('participant_profil',{'pseudo':sortie.organisateur.pseudo}) }}">{{ sortie.organisateur.pseudo }}</a>
                     <hr>
                     <div class="container-description">
-                        <ul>
-
+                        <ul class="liste-description">
                             <!-- bloc description -->
-                            <p>Lieu de la sortie : {{ sortie.lieu.nom }} situé à l'adresse suivante {{ sortie.lieu.rue }}  {{ sortie.lieu.ville.nom}} </p>
-                            <p>Debut de la sortie : {{ sortie.dateHeureDebut | date('d/m/y H:i') }}</p>
-                            <p>Fin des inscription : {{ sortie.dateLimiteInscription | date('d/m/y H:i') }}</p>
-
-                            <p>Liste des participants inscrits à cette sortie</p>
-                            <p>Participants {{ sortie.participants|length }}/{{ sortie.nbInscriptionsmax }}
+                            <p id="p-lieu"><strong id="lieu-text"> Lieu de la sortie :</strong> {{ sortie.lieu.nom }} : {{ sortie.lieu.rue }}</p>
+                            <p>Début de la sortie : {{ sortie.dateHeureDebut | date('d/m/y H:i') }}</p>
+                            <p>Fin des inscriptions : {{ sortie.dateLimiteInscription | date('d/m/y H:i') }}</p>
+                            <p>Etat de l'activité : {{ sortie.etat.libelle }} </p>
+                            <br>
+                            <p>Liste des participants inscrits à cette sortie :</p>
+                            <p>Participants : {{ sortie.participants|length }}/{{ sortie.nbInscriptionsmax }}
                                 {% if (sortie.participants|length >= sortie.nbInscriptionsmax) %}
-                                => Sortie complete</p>
+                                => Sortie complète</p>
                             {% endif %}
-
                             <!-- bloc liste participant -->
-                            <div>
+                            <div id="bloc-participant">
                                 <ul>
                                     {% for perso in sortie.participants %}
-                                        <li>
-                                            <a href="{{ path('participant_profil',{'pseudo':perso.prenom}) }}">{{ perso.prenom }}</a>
-                                        </li>
+                                        <li><a id="lien-participant" href="{{ path('participant_profil',{'pseudo':perso.prenom}) }}">{{ perso.prenom }}</a></li>
                                     {% else %}
-                                        <p>Pas de participants pour le moment</p>
+                                                <p id="pas-participant">Pas de participants pour le moment</p>
                                     {% endfor %}
                                 </ul>
                                 <br>
                             </div>
                         </ul>
-                    </div>
-
-                    <div class="container">
-                        <nav>
-                            {% if sortie.etat.id == 1 or sortie.etat.id == 7 %}
-                                <a href="{{ path('sortie_liste') }}">Publier</a>
-                            {% endif %}
-
-                            {% for perso in sortie.participants %}
-                                {% if app.user.pseudo==perso.pseudo %}
-                                    <a href="{{ path('desinscrire_sortie',{'sortie_id':sortie.id}) }}">se
-                                        desinscrire</a>
-                                    {% set inscrit=true %}
+                        <div class="container-controle">
+                            <nav>
+                                {% if sortie.etat.id == 1 %}
+                                    <a class="btn-inscription" href="{{ path('sortie_liste') }}">Publier</a>
                                 {% endif %}
-                            {% endfor %}
 
-                            {% if ((inscrit == false) and((sortie.etat.id == 2) or (sortie.etat.id == 3))) and  (sortie.participants|length < sortie.nbInscriptionsmax) %}
-                                <a href="{{ path('inscrire_sortie',{'sortie_id':sortie.id}) }}">s'inscrire</a>
-                            {% endif %}
+                                {% for perso in sortie.participants %}
+                                    {% if app.user.pseudo==perso.pseudo %}
+                                        <a class="btn-desinscrire" href="{{ path('desinscrire_sortie',{'sortie_id':sortie.id}) }}">Se désinscrire</a>
+                                        {% set inscrit=true %}
+                                    {% endif %}
+                                {% endfor %}
 
-
-                        </nav>
+                                {% if ((inscrit == false) and ((sortie.etat.id == 2) or (sortie.etat.id == 3))) and (sortie.participants|length < sortie.nbInscriptionsmax) %}
+                                    <a class="btn-inscription" href="{{ path('inscrire_sortie',{'sortie_id':sortie.id}) }}">S'inscrire</a>
+                                {% endif %}
+                            </nav>
+                        </div>
                     </div>
-                    <br>
-                     {% endif %}
-                    {% endfor %}
-            </ol>
+                </div>
         </div>
-
+            {% endif %}
+            {% endfor %}
+        </div>
     </div>
-
-{% endblock %}
-
-
-
+    {% endblock %}

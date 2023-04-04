@@ -1,8 +1,14 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
 body {
-    width: 100%;
-    margin: 20px 0 20px 0;
+    padding: 0;
+    margin:0;
     font-family: Arial, Helvetica, sans-serif;
-    background-color: rgb(164, 187, 171);
+    background-color: rgb(255, 255, 255);
 }
 /* ---------------------------------- NAVBAR -------------------------------------*/
 /* Navbar container */
@@ -22,7 +28,7 @@ body {
 .navbar a {
     float: left;
     font-size: 16px;
-    color: #229a3e;
+    color: #2c2c2c;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -122,9 +128,117 @@ body {
 
 
 /* ---------------------------------- PAGE : LISTE DES SORTIES  -------------------------------------*/
-.container-liste-1 {
-    background-color: #ccaa8e;
+.container-presentation {
+    display: flex;
+    justify-content:center;
+    background-color: #ffffff;
+}
 
+/**
+partie liste - text
+ */
+#nom-sortie {
+    font-family: "BlinkMacSystemFont", serif;
+    font-size:x-large;
+    font-weight: bold;
+    color: #19264f;
+}
+
+#pseudo-sortie {
+    font-size: medium;
+    color: #fd8b05;
+    font-weight: bold;
+}
+
+.liste-description {
+    font-family: "Cambria Math", monospace;
+    margin-top: 2rem;
+    padding: 2rem;
+    width: 30vh;
+    height: 50vh;
+}
+
+p {
+    padding:3px;
+}
+
+#lieu-text {
+    color:#8194fb;
+}
+
+/**
+participants - liens
+ */
+
+#bloc-participant {
+    margin-top:10px
+
+}
+
+#lien-participant:hover,#pas-participant:hover {
+    background-color: #5a5353;
+}
+
+
+#lien-participant, #pas-participant {
+    display: inline-block;
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #19264f;
+    font-weight: bold;
+}
+
+#lien-participant:hover, #pas-participant:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+#pas-participant {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-inscription,.btn-desinscrire {
+    display:flex;
+    justify-content: center;
+}
+
+.btn-inscription:hover,.btn-desinscrire:hover {
+   background-color: #cfddf7;
+
+}
+
+.container-general {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #ffffff;
+    justify-content: space-around;
+    font-size: 14px;
+    padding: 50px;
+
+}
+
+.container-bloc {
+    border-block-width: medium;
+    background-color: #fafafa;
+
+}
+.liste {
+    margin: 20px 20px 20px 20px;
+    background-color: #ffffff;
+}
+.liste-1{
+    margin: 20px 20px 20px 20px;
+    background-color: #f8f6f6;
+}
+
+.container-controle {
+    display: flex;
+    flex-direction:column-reverse;
+    justify-items:flex-end;
+    background-color: #ffffff;
 }
 
 /* ---------------------------------- FOOTER -------------------------------------*/
