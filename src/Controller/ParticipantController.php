@@ -87,7 +87,6 @@ class ParticipantController extends AbstractController
     ): Response
     {
 
-
         $sortie=$sortieRepository->find($sortie_id);
 
         $nbMax = $sortie->getNbInscriptionsMax();
@@ -95,25 +94,23 @@ class ParticipantController extends AbstractController
         $nbinscrits = count($inscrits);
 
         $participant=$this->getUser();
-
-
-
-        $participant->addSorty($sortie);
-        $manager->persist($participant);
-        $manager->flush();
-
+        if ($nbinscrits < $nbMax) {
+            $participant->addSorty($sortie);
+            $manager->persist($participant);
+            $manager->flush();
+            $this->addFlash("succes", $participant->getPseudo(). "Vous avez bien été ajouté à la sortie ".$sortie->getNom());
+        }
         if ($nbinscrits >= $nbMax) {
 
             $etat = $etatRepository->find(4);
             $sortie->setEtat($etat);
             $manager->persist($sortie);
             $manager->flush();
-            $this->addFlash("succes", $participant->getPseudo(). "vous avez bien été inscrit à la sortie".$sortie->getNom());
+            $this->addFlash("echec", $participant->getPseudo()." la sortie ".$sortie->getNom()." est déja complete");
+
         }
 
-        else {
-            $this->addFlash("echec", $participant->getPseudo(). "la sortie".$sortie->getNom()." est déja complete");
-    }
+
         return $this->redirectToRoute("sortie_liste");
     }
 
@@ -128,8 +125,6 @@ class ParticipantController extends AbstractController
         $sortie=$sortieRepository->find($sortie_id);
 
         $participant=$this->getUser();
-
-
 
         $participant->removeSorty($sortie);
         $manager->persist($participant);
