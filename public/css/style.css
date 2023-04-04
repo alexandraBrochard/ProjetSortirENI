@@ -141,6 +141,18 @@ formulaire boot
 
 }
 
+/* Partie liste des sorties
+
+ */
+
+.container-liste-1-titre,.container-liste-1-nbe {
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+    margin:20px;
+}
+
+
 .form.inline {
     background-color: red;
 }
@@ -274,20 +286,34 @@ Partie boutton  - Ajouter sortie
 /*
 ajouter
  */
-.btn-ajouter-liste {
-
-    display:flex;
+.btn-ajout {
+    display: flex;
     justify-content: center;
-    border: 2px solid #15998e;
+    font-size: large;
+}
+
+#btn-ajouter-liste {
+
     background-color: #15998e;
     color: white;
     border-radius: 6px;
     padding: 0.2em;
-    font-size: 1rem;
     cursor: pointer;
     box-shadow: 0 5px 0 white;
     transition-duration: 0.4s;
+    text-decoration: none;
 }
+
+#btn-ajouter-liste:hover{
+    transform: translateY(5px);
+    box-shadow: 0 0 0 #15998e;
+    text-shadow: 2px 2px 0 #15998e;
+    background-color: #15998e;
+    border: 2px solid whitesmoke;
+    text-decoration: none;
+}
+
+
 
 .btn-inscription:hover{
     transform: translateY(5px);
