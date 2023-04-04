@@ -39,6 +39,18 @@ class VilleRepository extends ServiceEntityRepository
         }
     }
 
+    public function findlieubyville($lieu)
+    {
+
+        $qb = $this->createQueryBuilder('v');
+        $qb->innerjoin('v.lieu', 'l')
+            ->where('l.lieu = :lieuId')
+            ->setParameter('lieuId', $lieu);
+
+
+        return $qb->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return Ville[] Returns an array of Ville objects
 //     */

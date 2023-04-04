@@ -28,6 +28,9 @@
 
         <a href="{{ path('sortie_modification',{'sortie':detail_id.id}) }}">modifier</a>
         {%  endif %}
+            {%  if detail_id.etat.id is not same as 7 %}
+                <a href="{{ path('sortie_annulation',{'sortie':detail_id.id}) }}">annuler la sortie</a>
+            {%  endif %}
 
         {% endif %}
     </nav>

@@ -8,14 +8,42 @@
         {{ form_start(sortieForm) }}
         {{ form_widget(sortieForm) }}
         <button>ajouter</button>
+
+
+        {{ form_label(sortieForm) }}
+
+        <script>
+
+            //let url=
+            $("#sortie_ville").change(function () {
+                let villeId = document.getElementById('sortie_ville').value;
+                let adresse = "/lieu/"+villeId;
+                $.ajax({
+                    url: adresse,
+                    //data: {villeId: villeId},
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (recup) {
+
+                        let selectLieux = $("#sortie_lieu");
+                        selectLieux.html('');
+
+                        for (let i = 0; i < recup.length; i++) {
+                            let textOption = "<option value=" + recup[i]["id"] + ">" + recup[i]["nom"] + "</option>";
+                            selectLieux.append(textOption);
+                        }
+                    },
+                    error : function (err) {
+                        alert("ERROR.");
+                    }
+                })
+            });
+
+        </script>
         {{ form_end(sortieForm) }}
 
     </div>
 
-{#    {% block javascripts %}
-        {{ parent() }}
-        <script src="{{ asset('js/script.js') }}"></script>
-    {% endblock %}#}
 
 {% endblock %}
 

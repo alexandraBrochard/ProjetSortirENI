@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>Résultats de la recherche pour {{ app.user.pseudo }}</h1>
+
+    {% if sortiesavecdoublons is empty or sortiesavecdoublons is empty %}
+        <p>Aucun résultat trouvé pour votre recherche .</p>
+    {% else %}
+
+        {% if sortiessansdoublons is same as sortiesavecdoublons %}
+            {% for sortie in sortiessansdoublons %}
+
+                <li>
+                    <a href="{{ path('sortie_detail',{'detail_id':sortie.id}) }}"> {{ sortie.nom }} </a>
+                </li>
+            {% endfor %}
+            <br>
+        {% else %}
+
+            {% set ids = [] %}
+            {% for sortie in sortiesavecdoublons %}
+                {% if sortie.id in ids %}
+                    <li>
+                        <a href="{{ path('sortie_detail',{'detail_id':sortie.id}) }}"> {{ sortie.nom }} </a>
+                    </li>
+
+                {% endif %}
+                {% set ids = ids|merge([sortie.id]) %}
+            {% endfor %}
+        {% endif %}
+
+    {% endif %}
+
+{% endblock %}
+
+
+

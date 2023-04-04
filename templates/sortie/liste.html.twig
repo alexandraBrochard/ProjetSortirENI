@@ -1,85 +1,114 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <hr>
+    {% block content %}
 
+        <h2>Recherche par filtre</h2>
 
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit">
+            rechercher
+        </button>
+        {{ form_end(form) }}
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% for message in app.flashes('echec') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% for message in app.flashes('warning') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+    {% endblock %}
+    <hr>
     <div class="container-liste-1">
-            <h2>Voici la liste des sorties ouvertes pour {{ app.user.prenom }}</h2>
-           <p>Nombre total de sortie crées sur ce site {{ nbreSortie }}</p>
+        <h2>Voici la liste des sorties ouvertes pour {{ app.user.prenom }}</h2>
+        <p>Nombre total de sortie crées sur ce site {{ nbreSortie }}</p>
+
+        <a href="{{ path('sortie_creation') }}"> Ajouter une sortie</a>
+        <hr>
+
     </div>
 
     <div class="container-general">
         <div id="liste">
             <ol>
                 {% for sortie in sorties %}
-                    {%  if sortie.etat.id == 2 %}
-                    {%  set inscrit = false %}
-                    <li>
-                        <hr>
-                        <a href="{{ path('sortie_detail',{'detail_id':sortie.id}) }}"> {{ sortie.nom }}</a>
-                        organisée par
-                        <a href="{{ path('participant_profil',{'pseudo':sortie.organisateur.pseudo}) }}">{{ sortie.organisateur.pseudo }}</a>
-                        <hr>
-                        <div class="container-description">
-                            <ul>
+                    {% if sortie.etat.id == 2 %}
+                {% set inscrit = false %}
+                <li>
+                    <hr>
+                    <a href="{{ path('sortie_detail',{'detail_id':sortie.id}) }}"> {{ sortie.nom }}</a>
+                    organisée par
+                    <a href="{{ path('participant_profil',{'pseudo':sortie.organisateur.pseudo}) }}">{{ sortie.organisateur.pseudo }}</a>
+                    <hr>
+                    <div class="container-description">
+                        <ul>
 
-                                    <!-- bloc description -->
-                                    <p>Lieu de la sortie : {{ sortie.lieu.nom }} : {{ sortie.lieu.rue }}</p>
-                                    <p>Debut de la sortie : {{ sortie.dateHeureDebut | date('d/m/y H:i') }}</p>
-                                    <p>Fin des inscription : {{ sortie.dateLimiteInscription | date('d/m/y H:i') }}</p>
-                                    <p>Etat de l'activité : {{ sortie.etat.libelle }} </p>
-                                    <p>Liste des participants inscrits à cette sortie</p>
-                                    <p>Participants {{ sortie.participants|length }}/{{ sortie.nbInscriptionsmax }}
-                                    {% if (sortie.participants|length >= sortie.nbInscriptionsmax) %}
-                                           => Sortie complete</p>
-                                    {% endif %}
+                            <!-- bloc description -->
+                            <p>Lieu de la sortie : {{ sortie.lieu.nom }} situé à l'adresse suivante {{ sortie.lieu.rue }}  {{ sortie.lieu.ville.nom}} </p>
+                            <p>Debut de la sortie : {{ sortie.dateHeureDebut | date('d/m/y H:i') }}</p>
+                            <p>Fin des inscription : {{ sortie.dateLimiteInscription | date('d/m/y H:i') }}</p>
 
-                                    <!-- bloc liste participant -->
-                                <div>
-                                    <ul>
-                                        {% for perso in sortie.participants %}
-                                            <li><a href="{{ path('participant_profil',{'pseudo':perso.prenom}) }}">{{ perso.prenom }}</a></li>
-                                        {% else %}
-                                            <p>Pas de participants pour le moment</p>
-                                        {% endfor %}
-                                     </ul>
-                                     <br>
-                                </div>
-                            </ul>
-                        </div>
+                            <p>Liste des participants inscrits à cette sortie</p>
+                            <p>Participants {{ sortie.participants|length }}/{{ sortie.nbInscriptionsmax }}
+                                {% if (sortie.participants|length >= sortie.nbInscriptionsmax) %}
+                                => Sortie complete</p>
+                            {% endif %}
 
-                        <div class="container">
-                            <nav>
-                                {% if sortie.etat.id == 1 %}
-                                    <a href="{{ path('sortie_liste') }}">Publier</a>
+                            <!-- bloc liste participant -->
+                            <div>
+                                <ul>
+                                    {% for perso in sortie.participants %}
+                                        <li>
+                                            <a href="{{ path('participant_profil',{'pseudo':perso.prenom}) }}">{{ perso.prenom }}</a>
+                                        </li>
+                                    {% else %}
+                                        <p>Pas de participants pour le moment</p>
+                                    {% endfor %}
+                                </ul>
+                                <br>
+                            </div>
+                        </ul>
+                    </div>
+
+                    <div class="container">
+                        <nav>
+                            {% if sortie.etat.id == 1 or sortie.etat.id == 7 %}
+                                <a href="{{ path('sortie_liste') }}">Publier</a>
+                            {% endif %}
+
+                            {% for perso in sortie.participants %}
+                                {% if app.user.pseudo==perso.pseudo %}
+                                    <a href="{{ path('desinscrire_sortie',{'sortie_id':sortie.id}) }}">se
+                                        desinscrire</a>
+                                    {% set inscrit=true %}
                                 {% endif %}
+                            {% endfor %}
 
-                                {% for perso in sortie.participants %}
-                                    {% if app.user.pseudo==perso.pseudo %}
-                                        <a href="{{ path('desinscrire_sortie',{'sortie_id':sortie.id}) }}">se desinscrire</a>
-                                        {% set inscrit=true %}
-                                    {% endif %}
-                                {% endfor %}
-
-                                {% if ((inscrit == false) and((sortie.etat.id == 2) or (sortie.etat.id == 3))) and  (sortie.participants|length < sortie.nbInscriptionsmax) %}
-                                    <a href="{{ path('inscrire_sortie',{'sortie_id':sortie.id}) }}">s'inscrire</a>
-                                {% endif %}
+                            {% if ((inscrit == false) and((sortie.etat.id == 2) or (sortie.etat.id == 3))) and  (sortie.participants|length < sortie.nbInscriptionsmax) %}
+                                <a href="{{ path('inscrire_sortie',{'sortie_id':sortie.id}) }}">s'inscrire</a>
+                            {% endif %}
 
 
-
-
-                            </nav>
-                        </div>
-                        <br>
-                                {% endif %}
-                                {% endfor %}
+                        </nav>
+                    </div>
+                    <br>
+                     {% endif %}
+                    {% endfor %}
             </ol>
         </div>
-            <div class="container-list-fin">
-            <hr>
-            <a href="{{ path('sortie_creation') }}"> Ajouter une sortie</a>
-            <hr>
-            </div>
+
     </div>
 
 {% endblock %}

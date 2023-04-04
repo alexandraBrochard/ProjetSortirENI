@@ -87,13 +87,13 @@ class RechercheController extends AbstractController
             $sortiessansdoublons=array_unique($sorties,SORT_REGULAR);
             $sortiesavecdoublons=$sorties;
 
-            return $this->render('recherche/resultats.html.twig', [
+            return $this->render('sortie/resultats.html.twig', [
                 'sortiessansdoublons' => $sortiessansdoublons,
                 'sortiesavecdoublons'=>$sortiesavecdoublons
             ]);
         }
 
-        return $this->render('recherche/index.html.twig', ['form' => $form->createView()]);
+        return $this->render('sortie/liste.html.twig', ['form' => $form->createView()]);
     }
 
 
