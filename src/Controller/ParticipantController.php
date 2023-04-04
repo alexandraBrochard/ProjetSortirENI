@@ -57,7 +57,7 @@ class ParticipantController extends AbstractController
                         $this->getParameter('brochures_directory'),
                         $newFilename
                     );
-                } catch (FileException $e) {
+                }   catch (FileException $e) {
                     // ... handle exception if something happens during file upload
                 }
                 // updates the 'brochureFilename' property to store the PDF file name

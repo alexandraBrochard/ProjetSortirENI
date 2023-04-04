@@ -163,7 +163,7 @@ class SortieController extends AbstractController
 
     ): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_USER');
+
         $maintenant = new DateTime();
 
         $sorties = $sortieRepository->findAll();
