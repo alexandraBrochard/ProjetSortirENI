@@ -54,7 +54,7 @@
     <div class="container-general">
         <ol>
             {% for sortie in sorties %}
-            {% if sortie.etat.id == 2 or sortie.etat.id == 7 %}
+{#            {% if sortie.etat.id == 2 or sortie.etat.id == 7 %}#}
             {% set inscrit = false %}
         </ol>
         <div class="container-bloc">
@@ -119,7 +119,7 @@
                 </div>
             </div>
         </div>
-        {% endif %}
+{#        {% endif %}#}
         {% endfor %}
     </div>
     </div>
