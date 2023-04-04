@@ -49,7 +49,7 @@ class SortieController extends AbstractController
 
                 $entityManager->persist($lieu);
                 $entityManager->flush();
-
+                $sortie->setCampus($this->getUser()->getCampus());
                 $entityManager->persist($sortie);
                 $entityManager->flush();
 

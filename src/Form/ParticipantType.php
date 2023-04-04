@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Campus;
 use App\Entity\Participant;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -19,6 +21,11 @@ class ParticipantType extends AbstractType
             ->add('prenom')
             ->add('telephone')
             ->add('pseudo')
+            ->add('campus', EntityType::class,[
+                        'class'=>Campus::class,
+                        'choice_label'=>'nom',
+                        'required'=>false,
+            ])
             ->add('brochure',FileType::class, [
                 'label'=>'Brochure (png file)',
                 // unmapped means that this field is not associated to any entity property

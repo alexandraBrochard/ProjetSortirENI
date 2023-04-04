@@ -5,13 +5,17 @@ namespace App\Controller;
 use App\Entity\Campus;
 use App\Entity\Participant;
 use App\Entity\Ville;
+use App\Form\AdminRegistrationFormType;
 use App\Form\CampusType;
+use App\Form\CSVRegistrationFormType;
 use App\Form\ParticipantType;
+
 use App\Form\VillesCollectionType;
 use App\Form\VilleType;
 use App\Repository\CampusRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\VilleRepository;
+use Container7MuBGso\getDoctrine_UlidGeneratorService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -19,6 +23,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
@@ -137,5 +142,67 @@ class AdminController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('admin_utilisateurs');
+    }
+
+    #[Route('/admin/utilisateur/ajouter}', name: 'admin_util_ajout')]
+    public function utilisateurAjouter(EntityManagerInterface $entityManager,
+                                        UserPasswordHasherInterface $userPasswordHasher, Request $request): Response
+    {
+        $user = new Participant();
+        $form = $this->createForm(AdminRegistrationFormType::class,$user);
+        $form2 = $this->createForm(CSVRegistrationFormType::class);
+
+
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // encode the plain password
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    $form->get('plainPassword')->getData()
+                )
+            );
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+            // do anything else you need here, like send an email
+
+            return $this->redirectToRoute('admin_utilisateurs');
+        }
+
+
+        $form2->handleRequest($request);
+        if ($form2->isSubmitted() && $form2->isValid()) {
+
+            $csv = $form2->get('csv')->getData();
+            $row = 1;
+            if (($handle = fopen($csv, 'r')) !== FALSE) {
+                while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
+                    $user2 = new Participant();
+                    if(filter_var($data[0], FILTER_VALIDATE_EMAIL)) {
+                        $user2->setEmail($data[0]);
+                    }
+                    $user2->setNom($data[1]);
+                    $user2->setPrenom($data[2]);
+                    $user2->setPseudo($data[3]);
+                    $user2->setTelephone($data[4]);
+
+                    $entityManager->persist($user2);
+                    $entityManager->flush();
+
+                    $row++;
+
+                }
+                fclose($handle);
+            }
+            return $this->redirectToRoute('admin_utilisateurs');
+        }
+
+        return $this->render('admin/ajoutUser.html.twig',[
+            'form'=>$form,
+            'form2'=>$form2,
+        ]);
     }
 }
