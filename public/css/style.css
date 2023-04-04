@@ -449,6 +449,40 @@ désinscrire
     .footer .col {
         width: 100%;
     }
+
+
 }
+#encartGlobal {
+    display:grid;
+    grid-template-rows: repeat(1,1fr);
+    grid-template-columns: repeat(3,1fr);
+
+   }
+#clock {
+    grid-row: 1/2;
+    display:flex;
+    justify-content: center;
+}
+
+#user {
+    grid-row: 2/3;
+    display:flex;
+    justify-content: center;
+}
+
+.encart {
+    grid-column: 2/3;
+
+    display:grid;
+    justify-content:center;
+
+    border: solid;
+}
+
+#annulation {
+
+    background-color: red;
+}
+
 
 

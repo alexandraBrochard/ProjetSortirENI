@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Participant;
 use App\Form\ParticipantType;
+use App\Repository\EtatRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
+use ContainerJlsexGA\getCache_ValidatorExpressionLanguageService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -55,7 +57,7 @@ class ParticipantController extends AbstractController
                         $this->getParameter('brochures_directory'),
                         $newFilename
                     );
-                } catch (FileException $e) {
+                }   catch (FileException $e) {
                     // ... handle exception if something happens during file upload
                 }
                 // updates the 'brochureFilename' property to store the PDF file name
@@ -80,20 +82,35 @@ class ParticipantController extends AbstractController
     public function inscrireSortie(
         int $sortie_id,
         EntityManagerInterface $manager,
-        SortieRepository $sortieRepository
+        SortieRepository $sortieRepository,
+        EtatRepository $etatRepository
     ): Response
     {
 
         $sortie=$sortieRepository->find($sortie_id);
 
+        $nbMax = $sortie->getNbInscriptionsMax();
+        $inscrits = $sortie->getParticipants();
+        $nbinscrits = count($inscrits);
+
         $participant=$this->getUser();
+        if ($nbinscrits < $nbMax) {
+            $participant->addSorty($sortie);
+            $manager->persist($participant);
+            $manager->flush();
+            $this->addFlash("succes", $participant->getPseudo(). "Vous avez bien été ajouté à la sortie ".$sortie->getNom());
+        }
+        if ($nbinscrits >= $nbMax) {
+
+            $etat = $etatRepository->find(4);
+            $sortie->setEtat($etat);
+            $manager->persist($sortie);
+            $manager->flush();
+            $this->addFlash("echec", $participant->getPseudo()." la sortie ".$sortie->getNom()." est déja complete");
+
+        }
 
 
-
-        $participant->addSorty($sortie);
-        $manager->persist($participant);
-        $manager->flush();
-        $this->addFlash("succes", $sortie->getNom() . " a été ajouté en ami par " . $participant->getPseudo());
         return $this->redirectToRoute("sortie_liste");
     }
 
@@ -108,8 +125,6 @@ class ParticipantController extends AbstractController
         $sortie=$sortieRepository->find($sortie_id);
 
         $participant=$this->getUser();
-
-
 
         $participant->removeSorty($sortie);
         $manager->persist($participant);

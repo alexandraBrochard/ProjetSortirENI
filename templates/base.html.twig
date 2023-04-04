@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="fr">
-<link>
+<head>
     <meta charset="UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
     <title>{% block title %}ENI : sortons ! {% endblock %}</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    <link rel="icon"
+          href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
     <link>
     <link rel="icon" href="">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
@@ -13,21 +14,37 @@
 
 
     <!-- -Feuilles de style / JS -->
-    {% block javascripts %}{% endblock %}
-    {# <script src="{{ asset('assets/js/script.js') }}" defer></script>#}
+    {% block javascripts %}
+        <script src="{{ asset('js/clock.js') }}"></script>
+    {% endblock %}
+    {# <script src="{{ asset('assets/js/script.js') }}" defer></script> #}
 
 </head>
 
-    <body>
-        <!-- nav bar -->
-        {%  include "_partials/_nav.html.twig" %}
-        <p>Il est actuellement {{ 'now' | date('d/m/y H:i') }}</p>
-        <!-- body -->
-        {% block body %}{% endblock %}
-        <!-- footer -->
-        {%  include "_partials/_footer.html.twig" %}
+<body>
+<!-- nav bar -->
+{% include "_partials/_nav.html.twig" %}
+<br>
+<div id="encartGlobal">
+    <div class="encart">
+        <div id="clock">
+        </div>
+        <div id="user">
+            {% if app.user %}
+                <p>Hello {{ app.user.pseudo }}!!</p>
+            {% else %}
+                <p>Connecte-toi si tu veux plus de details sur les sorties et t'inscrire!!</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
 
-    </body>
+<!-- body -->
+    {% block body %}{% endblock %}
+    <!-- footer -->
+    {% include "_partials/_footer.html.twig" %}
+
+</body>
 </html>
 
 {# TODO flavicon à insérer quand nos ordis auront décidé #}

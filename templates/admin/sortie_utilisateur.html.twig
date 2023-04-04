@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+
+<ol>
+    {% for sortie in sorties %}
+        <ul>
+            <li>
+                <p>Titre   : {{ sortie.nom }} </p>
+                <p>Debut de la sortie : {{ sortie.dateHeureDebut | date('d/m/y H:i') }}</p>
+                <p>Fin des inscription : {{ sortie.dateLimiteInscription | date('d/m/y H:i') }}</p>
+                <p> Etat de l'activité : {{ sortie.etat.libelle }}
+                <p> Liste des participants inscrits à cette sortie</p>
+                <ul> {% for perso in sortie.participants %}
+
+                        <li><a href="{{ path('participant_profil', {'pseudo':perso.pseudo}) }}">{{ perso.prenom }}</a></li>
+                    {% else %}
+                        <p>Pas de participants pour le moment</p>
+                    {% endfor %}
+                </ul>
+                <br>
+            </li>
+        </ul>
+        </ol>
+        <a href="{{ path('sortie_suppression',{'suppression_id':sortie.id}) }}">supprimer</a>
+        <a href="{{ path('sortie_modification',{'sortie':sortie.id}) }}">modifier</a>
+        {%  if sortie.etat.id is not same as 7 %}
+            <a href="{{ path('sortie_annulation',{'sortie':sortie.id}) }}">annuler la sortie</a>
+        {%  endif %}
+
+    {% endfor %}
+
+    {% endblock %}
+
+
+
+
