@@ -101,7 +101,6 @@ body {
     display:flex;
     justify-content: center;
     margin-top: 3%;
-    width: auto;
 }
 
 /* ---------------------------------- FORMULAIRE -LOGIN -------------------------------------*/
@@ -139,8 +138,21 @@ formulaire boot
     background-color: #f8f8f8;
     font-size:14px ;
     height: auto;
-    width: 30%;
+
 }
+
+/*#dispo-sortie {
+    width: 50%;
+    height: auto;
+    margin: auto;
+    padding: 2rem;
+    background-color: #f8f8f8;
+    font-size: 14px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}*/
 .form.inline {
     background-color: red;
 }
