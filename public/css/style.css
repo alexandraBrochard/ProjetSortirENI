@@ -9,6 +9,7 @@ body {
     margin:0;
     font-family: Arial, Helvetica, sans-serif;
     background-color: rgb(255, 255, 255);
+
 }
 /* ---------------------------------- NAVBAR -------------------------------------*/
 /* Navbar container */
@@ -105,34 +106,83 @@ body {
 
 /* ---------------------------------- FORMULAIRE -LOGIN -------------------------------------*/
 
+/*
 .container-login{
     display:flex;
     justify-content: center;
 }
+*/
 
 /* ---------------------------------- FORMULAIRE -INSCRIPTION  -------------------------------------*/
 
-.container-register{
+/*.container-register{
     display:flex;
     justify-content: center;
-}
+}*/
 
-/* --------- PHOTO DE PROFIL -----------*/
+/* ---------------------------------- FORMULAIRE FILTRE LISTES  -------------------------------------------*/
 
-.photo-modifier {
-    width: 150px;
+
+
+/* ---------------------------------- PAGE : MON PROFIL ---------------------------------------------------*/
+
+
+/* ---------------------------------- PAGE : FORMULAIRE BOOTSTRAP + LISTE SORTIES --------------------------------------------*/
+
+/*
+formulaire boot
+ */
+
+#dispo-sortie {
+    margin: 1rem;
+    padding: 2rem;
+    background-color: #f8f8f8;
+    font-size:14px ;
     height: auto;
+    width: 30%;
 }
-
-/* ---------------------------------- PAGE : MON PROFIL --------------------------------------------*/
-
-
-/* ---------------------------------- PAGE : LISTE DES SORTIES  -------------------------------------*/
-.container-presentation {
+.form.inline {
+    background-color: red;
+}
+/*
+form.form-inline {
     display: flex;
-    justify-content:center;
-    background-color: #ffffff;
+    justify-content: center;
 }
+.container-liste-ajouter {
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    width: 30%;
+}
+
+.form-control {
+    margin-bottom:10px;
+}
+
+form.form-inline {
+
+}
+*/
+
+
+/* -----Liste -----*/
+.container-general {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #ffffff;
+    justify-content: space-around;
+    font-size: 14px;
+    padding: 50px;
+
+}
+
+.container-bloc {
+    border-block-width: 250px;
+    background-color: #fafafa;
+    margin: 20px 10px 20px 10px;
+}
+
 
 /**
 partie liste - text
@@ -142,6 +192,8 @@ partie liste - text
     font-size:x-large;
     font-weight: bold;
     color: #19264f;
+    text-decoration: none;
+
 }
 
 #pseudo-sortie {
@@ -171,7 +223,9 @@ participants - liens
  */
 
 #bloc-participant {
-    margin-top:10px
+    margin-top:10px;
+    display: flex;
+    justify-content: center;
 
 }
 
@@ -200,46 +254,99 @@ participants - liens
     justify-content: center;
 }
 
-.btn-inscription,.btn-desinscrire {
+/*
+Partie boutton  - Ajouter sortie
+                - inscription
+                - s'inscrire
+ */
+
+/*
+ajouter
+ */
+.btn-ajouter-liste {
+
     display:flex;
     justify-content: center;
+    border: 2px solid #15998e;
+    background-color: #15998e;
+    color: white;
+    border-radius: 6px;
+    padding: 0.2em;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 5px 0 white;
+    transition-duration: 0.4s;
 }
 
-.btn-inscription:hover,.btn-desinscrire:hover {
-   background-color: #cfddf7;
-
+.btn-inscription:hover{
+    transform: translateY(5px);
+    box-shadow: 0 0 0 #15998e;
+    text-shadow: 2px 2px 0 #15998e;
+    background-color: #15998e;
+    border: 2px solid whitesmoke;
 }
 
-.container-general {
-    display: flex;
-    flex-wrap: wrap;
-    background-color: #ffffff;
-    justify-content: space-around;
-    font-size: 14px;
-    padding: 50px;
-
-}
-
-.container-bloc {
-    border-block-width: medium;
-    background-color: #fafafa;
-
-}
-.liste {
-    margin: 20px 20px 20px 20px;
-    background-color: #ffffff;
-}
-.liste-1{
-    margin: 20px 20px 20px 20px;
-    background-color: #f8f6f6;
-}
-
-.container-controle {
+/*
+inscription
+ */
+.container-inscription {
     display: flex;
     flex-direction:column-reverse;
     justify-items:flex-end;
+    margin-top: 3vh;
     background-color: #ffffff;
+
 }
+.btn-inscription
+{
+    display:flex;
+    justify-content: center;
+    border: 2px solid #15998e;
+    background-color: #15998e;
+    color: white;
+    border-radius: 6px;
+    padding: 0.2em;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 5px 0 white;
+    transition-duration: 0.4s;
+}
+
+.btn-inscription:hover{
+    transform: translateY(5px);
+    box-shadow: 0 0 0 #c7b75f;
+    text-shadow: 2px 2px 0 #42964c;
+    background-color: #69c160;
+    border: 2px solid whitesmoke;
+}
+
+/*
+désinscrire
+ */
+
+.btn-desinscription
+{
+    display:flex;
+    justify-content: center;
+    border: 2px solid #811a2a;
+    background-color: #811a2a;
+    color: white;
+    border-radius: 6px;
+    padding: 0.2em;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 5px 0 white;
+    transition-duration: 0.4s;
+}
+
+.btn-desinscription:hover{
+    transform: translateY(5px);
+    box-shadow: 0 0 0 #ede4da;
+    text-shadow: 2px 2px 0 #ede4da;
+    background-color: #ede4da;
+    border: 2px solid #ede4da;
+}
+
 
 /* ---------------------------------- FOOTER -------------------------------------*/
 

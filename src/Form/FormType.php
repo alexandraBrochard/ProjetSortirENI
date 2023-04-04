@@ -23,7 +23,7 @@ class FormType extends AbstractType
         $builder
 
             ->add('nom',TextareaType::class,[
-                'label' => 'Le nom de la sortie doit contenir   ',
+                'label' => 'Rechercher une sortie  ',
                 'required' => false,
             ])
             ->add('organisateur', CheckboxType::class, [
@@ -63,7 +63,6 @@ class FormType extends AbstractType
                 'required' => false,
 
             ));
-
 
 
 

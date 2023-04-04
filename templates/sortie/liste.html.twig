@@ -21,6 +21,9 @@
         <div id="dispo-sortie">
         <p>Nombre de sorties disponibles : {{ nbreSortie }}</p>
         {{ form_start(form) }}
+    <div id="dispo-sortie">
+        <p id="nb-sortie">Nombre de sorties disponibles : {{ nbreSortie }}</p>
+        {{ form_start(form, {'attr': {'class':'form-inline'}}) }}
         {{ form_widget(form) }}
         <button type="submit">
             rechercher
@@ -42,9 +45,7 @@
                 {{ message }}
             </div>
         {% endfor %}
-        </br>
-        {% endif %}
-
+    </div>
     {% endblock %}
     <hr>
     <div class="container-liste-1">
@@ -53,15 +54,13 @@
         {% endif %}
         <p>Nombre total de sortie crées sur ce site {{ nbreSortie }}</p>
 
-        <a href="{{ path('sortie_creation') }}"> Ajouter une sortie</a>
-        <hr>
-
+        <a class="btn-ajouter-liste" href="{{ path('sortie_creation') }}"> Ajouter une sortie</a>
     </div>
 
     <div class="container-general">
         <ol>
             {% for sortie in sorties %}
-{#            {% if sortie.etat.id == 2 or sortie.etat.id == 7 %}#}
+       {#     {% if sortie.etat.id == 2 or sortie.etat.id == 7 %}#}
             {% set inscrit = false %}
         </ol>
         <div class="container-bloc">
@@ -104,6 +103,46 @@
                             {% if sortie.etat.id == 1 %}
                                 <a class="btn-inscription" href="{{ path('sortie_liste') }}">Publier</a>
                             {% endif %}
+        <div class="container-general">
+            <ol>
+                {% for sortie in sorties %}
+                {% if sortie.etat.id == 2 %}
+                {% set inscrit = false %}
+            </ol>
+            <div class="container-bloc">
+                <div class="liste-1">
+                    <a id="nom-sortie" href="{{ path('sortie_detail',{'detail_id':sortie.id}) }}">{{ sortie.nom }}</a>
+                    organisé par
+                    <a id="pseudo-sortie" href="{{ path('participant_profil',{'pseudo':sortie.organisateur.pseudo}) }}">{{ sortie.organisateur.pseudo }}</a>
+                    <hr>
+                    <div class="container-description">
+                        <ul class="liste-description">
+                            <!-- bloc description -->
+                            <p id="p-lieu"><strong id="lieu-text"> Lieu de la sortie :</strong> {{ sortie.lieu.nom }} : {{ sortie.lieu.rue }}</p>
+                            <p><strong id="lieu-text">Début de la sortie :</strong> {{ sortie.dateHeureDebut | date('d/m/y H:i') }}</p>
+                            <p><strong id="lieu-text">Fin des inscriptions :</strong> {{ sortie.dateLimiteInscription | date('d/m/y H:i') }}</p>
+                            <p><strong id="lieu-text">Etat de l'activité :</strong> {{ sortie.etat.libelle }} </p>
+                            <br>
+                            <p id="police"> Liste des participants inscrits à cette sortie :</p>
+                            <p id="lieu-text">Participants : {{ sortie.participants|length }}/{{ sortie.nbInscriptionsmax }}
+                                {% if (sortie.participants|length >= sortie.nbInscriptionsmax) %}
+                                => Sortie complète</p>
+                            {% endif %}
+                            <!-- bloc liste participant -->
+                            <div id="bloc-participant">
+                                <ul>
+                                    {% for perso in sortie.participants %}
+                                        <li><a id="lien-participant" href="{{ path('participant_profil',{'pseudo':perso.prenom}) }}">{{ perso.prenom }}</a></li>
+                                    {% else %}
+                                                <p id="pas-participant">Pas de participants pour le moment</p>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                                <div class="container-inscription">
+                                    <nav>
+                                        {% if sortie.etat.id == 1 %}
+                                            <a class="btn-inscription" href="{{ path('sortie_liste') }}">Publier</a>
+                                        {% endif %}
 
                             {% for perso in sortie.participants %}
                                 {% if app.user %}
@@ -116,6 +155,12 @@
                                 {% endif %}
                             {% endfor %}
                             {% if app.user %}
+                                        {% for perso in sortie.participants %}
+                                            {% if app.user.pseudo==perso.pseudo %}
+                                                <a class="btn-desinscription" href="{{ path('desinscrire_sortie',{'sortie_id':sortie.id}) }}">Se désinscrire</a>
+                                                {% set inscrit=true %}
+                                            {% endif %}
+                                        {% endfor %}
 
                             {% if ((inscrit == false) and ((sortie.etat.id == 2) or (sortie.etat.id == 3))) and (sortie.participants|length < sortie.nbInscriptionsmax) %}
                                 <a class="btn-inscription" href="{{ path('inscrire_sortie',{'sortie_id':sortie.id}) }}">S'inscrire</a>
@@ -128,9 +173,23 @@
                     </div>
                 </div>
             </div>
+                                        {% if ((inscrit == false) and ((sortie.etat.id == 2) or (sortie.etat.id == 3))) and (sortie.participants|length < sortie.nbInscriptionsmax) %}
+                                            <a class="btn-inscription" href="{{ path('inscrire_sortie',{'sortie_id':sortie.id}) }}">S'inscrire</a>
+
+                                        {% endif %}
+                                    </nav>
+                                </div>
+                        </ul>
+                    </div>
+                </div>
         </div>
-{#        {% endif %}#}
+        {#{% endif %}#}
         {% endfor %}
     </div>
     </div>
 {% endblock %}
+            {% endif %}
+            {% endfor %}
+        </div>
+
+    {% endblock %}
