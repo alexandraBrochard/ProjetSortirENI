@@ -48,6 +48,8 @@ class SortieController extends AbstractController
 
             try {
 
+                $sortie->addParticipant($this->getUser());
+
                 $lieu = $sortie->getLieu();
 
                 $entityManager->persist($lieu);
@@ -115,6 +117,8 @@ class SortieController extends AbstractController
 
         $entityManager->persist($sortie);
         $entityManager->flush();
+
+        $this->addFlash('success', 'désolée, cette sortie a du être annulée !');
 
         return $this->redirectToRoute('sortie_liste', compact('sortie'));
     }
