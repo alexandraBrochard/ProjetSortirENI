@@ -1,23 +1,27 @@
 
 <div class="navbar">
+    <a href="{{ path('sortie_liste') }}">
+        <img id="logo" src="{{ asset('logos/logo-transparent-svg.svg') }}" alt="Accueil" width="50%">
+    </a>
+
         {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('app_admin') }}">Administration</a>{% endif %}
 
-        <a href="{{ path('app_main') }}">Accueil</a>
+
         <a href="#">A propos</a>
-            <div class="dropdown">
+{#            <div class="dropdown">
                 <button class="dropbtn">Information
                     <i class="fa fa-caret-down"></i>
-                </button>
+                </button>#}
                 <div class="dropdown-content">
                     <a href="#">Contact</a>
                     <a href="#">A propos</a>
                 </div>
-            </div>
+
     {%  if app.user %}
+        <a href="{{ path('sortie_liste') }}">Liste des sorties </a>
+        <a href="{{ path('sortie_organisateur') }}">Tes sorties organisées</a>
         <a href="{{ path('participant_profil', {'pseudo': app.user.pseudo}) }}">Mon profil</a>
         <a href="{{ path('app_logout') }}">Se déconnecter</a>
-        <a href="{{ path('sortie_liste') }}">Liste des sorties ouvertes </a>
-        <a href="{{ path('sortie_organisateur') }}">Tes sorties organisées</a>
     {% else %}
         <a href="{{ path('app_register') }}">M'inscrire</a>
         <a href="{{ path('app_login') }}">Se connecter</a>
