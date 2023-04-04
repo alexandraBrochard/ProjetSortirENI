@@ -86,14 +86,14 @@
                                         {% endif %}
 
                                         {% for perso in sortie.participants %}
-                                            {% if app.user %}{# RAJOUT#}
+                                            {% if app.user %}
                                                 {% if app.user.pseudo==perso.pseudo %}
                                                     <a class="btn-desinscription" href="{{ path('desinscrire_sortie',{'sortie_id':sortie.id}) }}">Se désinscrire</a>
                                                     {% set inscrit=true %}
                                                 {% endif %}
                                             {% endif %}
                                         {% endfor %}
-                                        {% if app.user %} {#RAJOUT#}
+                                        {% if app.user %}
 
                                         {% if ((inscrit == false) and ((sortie.etat.id == 2) or (sortie.etat.id == 3))) and (sortie.participants|length < sortie.nbInscriptionsmax) %}
                                             <a class="btn-inscription" href="{{ path('inscrire_sortie',{'sortie_id':sortie.id}) }}">S'inscrire</a>

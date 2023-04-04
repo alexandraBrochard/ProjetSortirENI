@@ -141,18 +141,6 @@ formulaire boot
 
 }
 
-/*#dispo-sortie {
-    width: 50%;
-    height: auto;
-    margin: auto;
-    padding: 2rem;
-    background-color: #f8f8f8;
-    font-size: 14px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-}*/
 .form.inline {
     background-color: red;
 }
@@ -189,10 +177,22 @@ form.form-inline {
 
 }
 
+.container-description {
+    display:flex;
+    justify-content: center;
+}
+
 .container-bloc {
     border-block-width: 250px;
     background-color: #fafafa;
     margin: 20px 10px 20px 10px;
+    height: 800px;
+    width: 360px ;
+}
+
+.liste-1 {
+    padding-top:1rem;
+    margin: 0 0 0 2rem;
 }
 
 
@@ -212,9 +212,10 @@ partie liste - text
     font-size: medium;
     color: #fd8b05;
     font-weight: bold;
+    text-decoration: none;
 }
 
-.liste-description {
+ul.liste-description {
     font-family: "Cambria Math", monospace;
     margin-top: 2rem;
     padding: 2rem;
@@ -237,7 +238,10 @@ participants - liens
 #bloc-participant {
     margin-top:10px;
     display: flex;
+    text-align: start;
     justify-content: center;
+    font-size: small;
+
 
 }
 
@@ -277,7 +281,7 @@ ajouter
  */
 .btn-ajouter-liste {
 
-    display:flex;
+    display: flex;
     justify-content: center;
     border: 2px solid #15998e;
     background-color: #15998e;
@@ -296,6 +300,7 @@ ajouter
     text-shadow: 2px 2px 0 #15998e;
     background-color: #15998e;
     border: 2px solid whitesmoke;
+    text-decoration: none;
 }
 
 /*
@@ -307,6 +312,7 @@ inscription
     justify-items:flex-end;
     margin-top: 3vh;
     background-color: #ffffff;
+    text-decoration: none;
 
 }
 .btn-inscription
@@ -322,6 +328,7 @@ inscription
     cursor: pointer;
     box-shadow: 0 5px 0 white;
     transition-duration: 0.4s;
+    text-decoration: none;
 }
 
 .btn-inscription:hover{
@@ -330,6 +337,7 @@ inscription
     text-shadow: 2px 2px 0 #42964c;
     background-color: #69c160;
     border: 2px solid whitesmoke;
+    text-decoration: none;
 }
 
 /*
@@ -349,6 +357,7 @@ désinscrire
     cursor: pointer;
     box-shadow: 0 5px 0 white;
     transition-duration: 0.4s;
+    text-decoration: none;
 }
 
 .btn-desinscription:hover{
@@ -357,6 +366,7 @@ désinscrire
     text-shadow: 2px 2px 0 #ede4da;
     background-color: #ede4da;
     border: 2px solid #ede4da;
+    text-decoration: none;
 }
 
 

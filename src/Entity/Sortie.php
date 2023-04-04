@@ -119,7 +119,7 @@ class Sortie
     }
 /* --------------- Fonction exception formulaire création d'une sortie ------------*/
 
-    #[Assert\Callback()]
+/*    #[Assert\Callback()]
     public function isDateInscriptionValid(ExecutionContextInterface $context):void
     {
         $now = new \Datetime('now');
@@ -140,9 +140,7 @@ class Sortie
                 ->atPath('dateLimiteInscription')
                 ->addViolation();
         }
-    }
-
-
+    }*/
 
 
     public function getNbInscriptionsMax(): ?int
