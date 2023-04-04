@@ -15,6 +15,18 @@
         <li> Nombre max de participant {{ detail_id.nbInscriptionsMax }} </li>
         <li> Description de la sortie {{ detail_id.infosSortie }} </li>
         <li> Etat de la sortie {{ detail_id.etat.libelle }}</li>
+        <div >
+            <ul>
+                {% for perso in detail_id.participants %}
+                    <li>
+                        {{ perso.pseudo }}</a>
+                    </li>
+                {% else %}
+                    <p id="pas-participant">Pas de participants pour le moment</p>
+                {% endfor %}
+            </ul>
+
+        </div>
 
 
     </ul>
