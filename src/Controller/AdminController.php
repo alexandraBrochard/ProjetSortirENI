@@ -14,10 +14,12 @@ use App\Form\VillesCollectionType;
 use App\Form\VilleType;
 use App\Repository\CampusRepository;
 use App\Repository\ParticipantRepository;
+use App\Repository\SortieRepository;
 use App\Repository\VilleRepository;
 use Container7MuBGso\getDoctrine_UlidGeneratorService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -148,6 +150,8 @@ class AdminController extends AbstractController
     public function utilisateurAjouter(EntityManagerInterface $entityManager,
                                         UserPasswordHasherInterface $userPasswordHasher, Request $request): Response
     {
+        $messageErreur = [];
+        $listeUserInsert = [];
         $user = new Participant();
         $form = $this->createForm(AdminRegistrationFormType::class,$user);
         $form2 = $this->createForm(CSVRegistrationFormType::class);
@@ -177,7 +181,7 @@ class AdminController extends AbstractController
         if ($form2->isSubmitted() && $form2->isValid()) {
 
             $csv = $form2->get('csv')->getData();
-            $row = 1;
+            $row = 2;
             if (($handle = fopen($csv, 'r')) !== FALSE) {
                 while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
                     $user2 = new Participant();
@@ -187,22 +191,49 @@ class AdminController extends AbstractController
                     $user2->setNom($data[1]);
                     $user2->setPrenom($data[2]);
                     $user2->setPseudo($data[3]);
-                    $user2->setTelephone($data[4]);
+                    if(preg_match('/^\d{10}$/', $data[4])){
+                        $user2->setTelephone($data[4]);
+                    }
 
-                    $entityManager->persist($user2);
-                    $entityManager->flush();
+                    try{
+
+                        $entityManager->persist($user2);
+                        $entityManager->flush();
+                        $listeUserInsert[] = $user2;
+                    }catch (\Exception $exception){
+                        $messageErreur[]='Erreur à la ligne '.$row;
+                    }
+
+
 
                     $row++;
 
                 }
                 fclose($handle);
             }
-            return $this->redirectToRoute('admin_utilisateurs');
+            return $this->render('admin/resultatInsertion.html.twig',[
+                'listeUser'=>$listeUserInsert,
+                'erreurs'=>$messageErreur,
+            ]);
         }
 
         return $this->render('admin/ajoutUser.html.twig',[
             'form'=>$form,
             'form2'=>$form2,
         ]);
+    }
+
+
+    #[Route('/admin/utilisateur/sorties/{id}', name: 'admin_util_sorties')]
+    public function adminUtilisateurSorties(EntityManagerInterface $entityManager,
+                                         Participant $id, SortieRepository $sortieRepository): Response
+    {
+
+
+        $sorties = $sortieRepository->findBy(["organisateur" => $id]);
+
+        return $this->render('admin/sortie_utilisateur.html.twig', compact('sorties')
+
+        );
     }
 }
