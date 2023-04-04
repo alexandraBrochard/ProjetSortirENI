@@ -43,11 +43,11 @@
         <a class="btn-ajouter-liste" href="{{ path('sortie_creation') }}"> Ajouter une sortie</a>
     </div>
         <div class="container-general">
-            <ol>
+
                 {% for sortie in sorties %}
                 {# {% if sortie.etat.id == 2 or sortie.ertat.id ==7 %}#} {#// RAJOUTE#}
                 {% set inscrit = false %}
-            </ol>
+
             <div class="container-bloc">
                 <div class="liste-1">
                     <a id="nom-sortie" href="{{ path('sortie_detail',{'detail_id':sortie.id}) }}">{{ sortie.nom }}</a>

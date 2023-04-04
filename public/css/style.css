@@ -171,7 +171,7 @@ form.form-inline {
     display: flex;
     flex-wrap: wrap;
     background-color: #ffffff;
-    justify-content: space-around;
+    justify-content:flex-start;
     font-size: 14px;
     padding: 50px;
 
@@ -186,10 +186,10 @@ form.form-inline {
     border-block-width: 250px;
     background-color: #fafafa;
     margin: 20px 10px 20px 10px;
-    height: 700px;
+    height: 750px;
+    width: 400px;
 
 }
-
 
 /**
 partie liste - text
@@ -235,7 +235,6 @@ participants - liens
     display: flex;
     /*text-align: start;*/
     justify-content: center;
-    overflow-y: scroll;
     font-size: small;
 
 
