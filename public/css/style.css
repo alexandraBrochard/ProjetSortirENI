@@ -217,7 +217,6 @@ body {
 }
 
 
-
 /* -----Liste -----*/
 .container-general {
     display: flex;
@@ -303,13 +302,11 @@ participants - liens
     justify-content: center;
     font-size: small;
 
-
 }
 
 #lien-participant:hover, #pas-participant:hover {
     background-color: #5a5353;
 }
-
 
 #lien-participant, #pas-participant {
     display: inline-block;

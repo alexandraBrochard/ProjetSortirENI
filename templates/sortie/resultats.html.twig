@@ -12,7 +12,7 @@
             {% for sortie in sortiessansdoublons %}
 
                 <li>
-                    <a href="{{ path('sortie_detail',{'detail_id':sortie.id}) }}"> {{ sortie.nom }} </a>
+                    <a href="{{ path('sortie_detail',{'sortie':sortie.id}) }}"> {{ sortie.nom }} </a>
                 </li>
             {% endfor %}
             <br>
@@ -22,7 +22,7 @@
             {% for sortie in sortiesavecdoublons %}
                 {% if sortie.id in ids %}
                     <li>
-                        <a href="{{ path('sortie_detail',{'detail_id':sortie.id}) }}"> {{ sortie.nom }} </a>
+                        <a href="{{ path('sortie_detail',{'sortie':sortie.id}) }}"> {{ sortie.nom }} </a>
                     </li>
 
                 {% endif %}

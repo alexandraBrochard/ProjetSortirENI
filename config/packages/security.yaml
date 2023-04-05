@@ -1,7 +1,10 @@
 security:
+
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+
+
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
         # used to reload user from session & other features (e.g. switch_user)
@@ -28,6 +31,7 @@ security:
                 always_remember_me: true
             logout:
                 path: app_logout
+#                anonymous: ~
                 # where to redirect after logout
                 # target: app_any_route
 
@@ -55,3 +59,10 @@ when@test:
                 cost: 4 # Lowest possible value for bcrypt
                 time_cost: 3 # Lowest possible value for argon
                 memory_cost: 10 # Lowest possible value for argon
+
+
+                    # Add the following route at the end of the file
+#reset_password:
+                path: /reset-password
+                controller: App\Controller\ResetPasswordController::reset
+                methods: [ GET, POST ]
