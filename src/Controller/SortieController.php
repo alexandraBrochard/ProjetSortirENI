@@ -147,11 +147,11 @@ class SortieController extends AbstractController
     }
 
 
-    #[Route('/detail/{detail_id}', name: 'sortie_detail', requirements: ['detail_id' => '\d+'])]
-    public function detail(Sortie $detail_id): Response
+    #[Route('/detail/{sortie}', name: 'sortie_detail', requirements: ['sortie' => '\d+'])]
+    public function detail(Sortie $sortie): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
-        return $this->render('sortie/detail.html.twig', compact('detail_id'));
+        return $this->render('sortie/detail.html.twig', compact('sortie'));
     }
 
     #[Route('/liste', name: 'sortie_liste')]

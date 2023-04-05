@@ -336,6 +336,16 @@ inscription
     text-decoration: none;
 
 }
+
+.container-organisateur {
+    display: flex;
+    flex-direction:column-reverse;
+    justify-items:flex-end;
+    margin-top: 3vh;
+    background-color: #ffffff;
+    text-decoration: none;
+
+}
 .btn-inscription
 {
     display:flex;
@@ -389,6 +399,77 @@ désinscrire
     border: 2px solid #ede4da;
     text-decoration: none;
 }
+
+.btn-suppression
+{
+    display:flex;
+    justify-content: center;
+    border: 2px solid lightseagreen;
+    background-color:lightseagreen;
+    color: white;
+    border-radius: 6px;
+    padding: 0.2em;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 5px 0 white;
+    transition-duration: 0.4s;
+    text-decoration: none;
+
+}
+
+.btn-modification
+{
+    display:flex;
+    justify-content: center;
+    border: 2px solid lightseagreen;
+    background-color:lightseagreen;
+    color: white;
+    border-radius: 6px;
+    padding: 0.2em;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 5px 0 white;
+    transition-duration: 0.4s;
+    text-decoration: none;
+
+}
+
+.btn-annulation
+{
+    display:flex;
+    justify-content: center;
+    border: 2px solid lightseagreen;
+    background-color:lightseagreen;
+    color: white;
+    border-radius: 6px;
+    padding: 0.2em;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 5px 0 white;
+    transition-duration: 0.4s;
+    text-decoration: none;
+
+
+}
+
+.btn-liste
+{
+    display:flex;
+    justify-content: center;
+    border: 2px solid lightseagreen;
+    background-color:lightseagreen;
+    color: white;
+    border-radius: 6px;
+    padding: 0.2em;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 5px 0 white;
+    transition-duration: 0.4s;
+    text-decoration: none;
+
+
+}
+
 
 
 /* ---------------------------------- FOOTER -------------------------------------*/
@@ -511,9 +592,10 @@ désinscrire
     grid-row: 2/3;
     display:flex;
     justify-content: center;
-    font-size: 30px;
-    background-color:sandybrown;
-    border-radius: 30px ;
+    font-size: 2em;
+    background-color:#ffb285;
+    border-radius: 20px ;
+    margin:auto;
 }
 
 .encart {
@@ -524,9 +606,21 @@ désinscrire
 
 }
 
-#annulation {
+#annulation_sortie {
 
-    background-color: red;
+
+
+    background-color:#ffb285;
+    color: black;
+    border-radius: 6px;
+    padding: 0.2em;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 5px 0 white;
+    transition-duration: 0.4s;
+    text-decoration: none;
+    display:flex;
+    justify-content: center;
 }
 
 

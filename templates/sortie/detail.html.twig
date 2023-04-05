@@ -3,49 +3,63 @@
 {% block body %}
 
 
-    <h1> Detail de la sortie {{ detail_id.nom }}</h1>
+<div class="container-bloc">
+    <div class="liste-1">
+        <a id="nom-sortie"
+           href="{{ path('sortie_detail',{'sortie':sortie.id}) }}">{{ sortie.nom }}</a>
+        <hr>
+        <div class="container-description">
+            <ul class="liste-description">
 
+                <p id="p-lieu"><strong id="lieu-text"> Lieu de la sortie
+                        :</strong> {{ sortie.lieu.nom }} :
+                    situé à l'adresse suivante: {{ sortie.lieu.rue }} à {{ sortie.lieu.ville.nom }}</p>
+                <p><strong id="lieu-text">Début de la sortie
+                        :</strong> {{ sortie.dateHeureDebut | date('d/m/y H:i') }}</p>
+                <p><strong id="lieu-text">Fin des inscriptions
+                        :</strong> {{ sortie.dateLimiteInscription | date('d/m/y H:i') }}</p>
+                <p><strong id="lieu-text">Etat de l'activité :</strong> {{ sortie.etat.libelle }} </p>
+                <br>
+                <p id="police"> Liste des participants inscrits à cette sortie :</p>
+                <p id="lieu-text">Participants : {{ sortie.participants|length }}
+                    /{{ sortie.nbInscriptionsmax }}
+                    {% if (sortie.participants|length >= sortie.nbInscriptionsmax) %}
+                    => Sortie complète</p>
+                {% endif %}
+                <div id="bloc-participant">
+                    <ul>
+                        {% for perso in sortie.participants %}
+                            <a id="lien-participant"
+                               href="{{ path('participant_profil', {'pseudo':perso.pseudo}) }}">{{ perso.pseudo }}</a>
+                        {% else %}
+                            <p id="pas-participant">Pas de participants pour le moment</p>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <br>
 
+                <nav>
+                    <a class="btn-liste" href="{{ path('sortie_liste') }}">Retour à la liste</a>
+                    <br>
+                    {% if (app.user.pseudo == sortie.organisateur.pseudo) %}
 
-    <ul>
-        <li> Organisateur de la sortie : {{ detail_id.organisateur.pseudo }}</li>
-        <li> Date de début : {{ detail_id.dateHeureDebut | date('d/m/y H:i')}} </li>
-        <li> Durée de la sortie {{ detail_id.duree }} minutes </li>
-        <li> Date limite <strong>d'inscription</strong> {{ detail_id.datelimiteInscription | date('d/m/y H:i')}} </li>
-        <li> Nombre max de participant {{ detail_id.nbInscriptionsMax }} </li>
-        <li> Description de la sortie {{ detail_id.infosSortie }} </li>
-        <li> Etat de la sortie {{ detail_id.etat.libelle }}</li>
-        <div >
-            <ul>
-                {% for perso in detail_id.participants %}
-                    <li>
-                        {{ perso.pseudo }}</a>
-                    </li>
-                {% else %}
-                    <p id="pas-participant">Pas de participants pour le moment</p>
-                {% endfor %}
+                        {% if sortie.organisateur.id == app.user.id %}
+                            <a class="btn-suppression" href="{{ path('sortie_suppression',{'suppression_id':sortie.id}) }}">supprimer</a>
+                            <br>
+                            <a class="btn-modification" href="{{ path('sortie_modification',{'sortie':sortie.id}) }}">modifier</a>
+                            <br>
+                        {% endif %}
+                        {% if sortie.etat.id is not same as 7 %}
+                            <a class="btn-annulation" href="{{ path('sortie_annulation',{'sortie':sortie.id}) }}">annuler la sortie</a>
+                            <br>
+                        {% endif %}
+
+                    {% endif %}
+                </nav>
             </ul>
-
         </div>
+    </div>
+</div>
 
-
-    </ul>
-
-    <nav>
-        <a href="{{ path('sortie_liste') }}">Retour à la liste</a>
-        {% if (app.user.pseudo == detail_id.organisateur.pseudo) %}
-
-        {% if detail_id.organisateur.id == app.user.id %}
-        <a href="{{ path('sortie_suppression',{'suppression_id':detail_id.id}) }}">supprimer</a>
-
-        <a href="{{ path('sortie_modification',{'sortie':detail_id.id}) }}">modifier</a>
-        {%  endif %}
-            {%  if detail_id.etat.id is not same as 7 %}
-                <a href="{{ path('sortie_annulation',{'sortie':detail_id.id}) }}">annuler la sortie</a>
-            {%  endif %}
-
-        {% endif %}
-    </nav>
-
-{% endblock %}
+        {% endblock %}
 
