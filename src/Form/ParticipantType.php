@@ -27,7 +27,7 @@ class ParticipantType extends AbstractType
                         'required'=>false,
             ])
             ->add('brochure',FileType::class, [
-                'label'=>'Brochure (png file)',
+                'label'=>'Brochure (Fichier png)',
                 // unmapped means that this field is not associated to any entity property
                 'mapped' => false,
 
@@ -40,8 +40,8 @@ class ParticipantType extends AbstractType
                 'constraints' => [
                     new File(
                         maxSize: '1000k',
-                        mimeTypes: ['image/png'],
-                        mimeTypesMessage: 'Téléchargez un fichier PNG valide'
+                        mimeTypes: ['image/png','image/jpg','image/pdf'],
+                        mimeTypesMessage: 'Téléchargez un fichier  valide'
                     )
                 ],
             ])
