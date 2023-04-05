@@ -177,9 +177,15 @@ body {
 
 #boutonForm{
 
+    color:white;
     background-color: lightseagreen;
-    display:flex;
-    justify-content: center;
+    border-color:lightseagreen ;
+    border-radius: 6px;
+    width: 7em;
+    height: 2.5em;
+
+
+
 }
 
 /*nombre de sorties*/
@@ -342,7 +348,7 @@ ajouter
 
 #btn-ajouter-liste {
 
-    background-color: #15998e;
+    background-color: lightseagreen;
     color: white;
     border-radius: 6px;
     padding: 0.2em;
