@@ -2,7 +2,7 @@
 
 {% block body %}
 
-
+<div class="container-general2">
 <div class="container-bloc">
     <div class="liste-1">
         <a id="nom-sortie"
@@ -11,7 +11,7 @@
         <div class="container-description">
             <ul class="liste-description">
 
-                <p id="p-lieu"><strong id="lieu-text"> Lieu de la sortie
+                <p><strong id="lieu-text"> Lieu de la sortie
                         :</strong> {{ sortie.lieu.nom }} :
                     situé à l'adresse suivante: {{ sortie.lieu.rue }} à {{ sortie.lieu.ville.nom }}</p>
                 <p><strong id="lieu-text">Début de la sortie
@@ -59,6 +59,7 @@
             </ul>
         </div>
     </div>
+</div>
 </div>
 
         {% endblock %}
