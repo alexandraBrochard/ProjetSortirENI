@@ -4,17 +4,23 @@
 
 {% block body %}
     <div>
-        {{ form_start(participantform) }}
-        {{ form_row(participantform.nom,{label: 'Nom : '}) }}
-        {{ form_row(participantform.prenom,{label: 'Prenom : '}) }}
-        {{ form_row(participantform.pseudo,{label: 'Pseudo : '}) }}
-        {{ form_row(participantform.email,{label: 'Email : '}) }}
-        {{ form_row(participantform.telephone,{label: 'Telephone : '}) }}
-        {{ form_row(participantform.campus) }}
-        {{  form_row(participantform.brochure) }}
-        <button>Modifier</button>
+        <div class="formProfilParent">
+            <div class="formProfil">
+                {{ form_start(participantform) }}
+                {{ form_row(participantform.nom,{label: 'Nom : '}) }}
+                {{ form_row(participantform.prenom,{label: 'Prenom : '}) }}
+                {{ form_row(participantform.pseudo,{label: 'Pseudo : '}) }}
+                {{ form_row(participantform.email,{label: 'Email : '}) }}
+                {{ form_row(participantform.telephone,{label: 'Telephone : '}) }}
+                {{ form_row(participantform.campus) }}
+                {{ form_row(participantform.brochure) }}
+                <button id="boutonForm">Modifier</button>
+            </div>
+        </div>
         {{ form_end(participantform) }}
     </div>
+<br>
+    <a class="btn-liste-accueil" href="{{ path('sortie_liste') }}">Retour à la liste</a>
 
 {% endblock %}
 

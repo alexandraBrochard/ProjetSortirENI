@@ -2,15 +2,21 @@
 
 {% block body %}
 
-    <h1> Modification des sorties</h1>
+    <h3 id="titreForm"> Modification des sorties</h3>
 
     <div>
+        <div class="formAjoutParent">
+            <div class="formAjout">
         {{ form_start(sortieForm) }}
         {{ form_widget(sortieForm) }}
-        <button>modifier</button>
-        <a href="{{ path('sortie_liste') }}">Retour à la liste</a>
+        <button id="boutonForm">modifier</button>
+
+            </div>
+        </div>
         {{ form_end(sortieForm) }}
     </div>
+    <br>
+    <a class="btn-liste-accueil" href="{{ path('sortie_liste') }}">Retour à la liste</a>
 
 
 {% endblock %}

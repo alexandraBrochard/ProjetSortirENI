@@ -5,16 +5,25 @@
     {% block content %}
         {% if app.user %}
 
-            <h3>Recherche par filtre</h3>
+            <h3 id="titreForm">Recherche par filtre</h3>
         {% endif %}
         <div id="dispo-sortie">
             <p id="nb-sortie">Nombre de sorties disponibles : {{ nbreSortie }}</p>
-            {{ form_start(form, {'attr': {'class':'form-inline'}}) }}
-            {{ form_widget(form) }}
-            <button id="btn-bootstrap" type="submit">
+            <div class="formRechercheParent">
+                <div class="formRecherche">
+
+                    {{ form_start(form, {'attr': {'class':'form-inline'}}) }}
+                    {{ form_widget(form) }}
+
+            <button id="btn-formRecherche" type="submit">
                 rechercher
             </button>
+
+                </div>
+            </div>
             {{ form_end(form) }}
+
+
 
             {% for message in app.flashes('success') %}
                 <div class="alert alert-success">
@@ -61,7 +70,8 @@
                     <div class="container-description">
                         <ul class="liste-description">
                             <!-- bloc description -->
-                            <p id="p-lieu"><strong id="lieu-text"> Lieu de la sortie :</strong> {{ sortie.lieu.nom }} :
+                            <p id="p-lieu"><strong id="lieu-text"> Lieu de la sortie
+                                    :</strong> {{ sortie.lieu.nom }} :
                                 situé à l'adresse suivante: {{ sortie.lieu.rue }} à {{ sortie.lieu.ville.nom }}</p>
                             <p><strong id="lieu-text">Début de la sortie
                                     :</strong> {{ sortie.dateHeureDebut | date('d/m/y H:i') }}</p>

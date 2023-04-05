@@ -4,45 +4,44 @@
 
 {% block body %}
 
-    <section class="container-register">
-        <div class="row">
-            <div class="col-md-6 mx auto">
-                <h1 class="inscription-title">Inscription</h1>
 
-                {{ form_start(registrationForm) }}
-                <fieldset class="mb-3">
-                    <legend> Mon identité</legend>
-                    {{ form_row(registrationForm.nom) }}
-                    {{ form_row(registrationForm.prenom) }}
-                    {{ form_row(registrationForm.pseudo) }}
-                    {{ form_row(registrationForm.email) }}
-                </fieldset>
+                <h3 id="titreForm" class="inscription-title">Inscription</h3>
+                <div class="formProfilParent">
+                    <div class="formProfil">
+                        {{ form_start(registrationForm) }}
+                        <fieldset class="mb-3">
+                            <legend> Mon identité</legend>
+                            {{ form_row(registrationForm.nom) }}
+                            {{ form_row(registrationForm.prenom) }}
+                            {{ form_row(registrationForm.pseudo) }}
+                            {{ form_row(registrationForm.email) }}
+                        </fieldset>
 
-                <fieldset class="mb-3">
-                    <legend> Mes coordonnées</legend>
-                    {{ form_row(registrationForm.telephone) }}
-                </fieldset>
+                        <fieldset class="mb-3">
+                            <legend> Mes coordonnées</legend>
+                            {{ form_row(registrationForm.telephone) }}
+                        </fieldset>
 
-                <fieldset class="mb-3">
-                    <legend> Mes coordonnées</legend>
-                    {{ form_row(registrationForm.campus) }}
-                </fieldset>
+                        <fieldset class="mb-3">
+                            <legend> Mes coordonnées</legend>
+                            {{ form_row(registrationForm.campus) }}
+                        </fieldset>
 
-                <fieldset class="mb-3">
-                    <legend> Mon mot de passe</legend>
-                    {{ form_row(registrationForm.plainPassword, {
-                        label: 'Mot de passe'
-                    }) }}
-                </fieldset>
+                        <fieldset class="mb-3">
+                            <legend> Mon mot de passe</legend>
+                            {{ form_row(registrationForm.plainPassword, {
+                                label: 'Mot de passe'
+                            }) }}
+                        </fieldset>
 
-                {{ form_row(registrationForm.agreeTerms) }}
+                        {{ form_row(registrationForm.agreeTerms) }}
 
-                <button type="submit" class="btn">M'inscrire</button>
-                {#     <a href="{{ path('/app_login') }}"></a> Me connecter</a>#}
+                        <button type="submit" class="btn">M'inscrire</button>
+                        {#     <a href="{{ path('/app_login') }}"></a> Me connecter</a> #}
+                    </div>
+                </div>
                 {{ form_end(registrationForm) }}
-            </div>
-        </div>
-    </section>
+
 {% endblock %}
 
 
