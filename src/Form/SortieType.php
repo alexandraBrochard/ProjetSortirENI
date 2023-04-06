@@ -39,7 +39,7 @@ class SortieType extends AbstractType
                 'input' => 'datetime_immutable',
             ])
 
-            ])
+
             ->add('duree')
 
             ->add('dateLimiteInscription', null, [
