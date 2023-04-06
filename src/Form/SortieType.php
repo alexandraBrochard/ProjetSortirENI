@@ -17,6 +17,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class SortieType extends AbstractType
 {
@@ -27,56 +28,47 @@ class SortieType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class, [
-                'label'=>'nom',
-                'attr'=>['placeholder'=>'Le nom de votre sortie ici']
-            ])
+                    'label' => 'nom',
+                    'attr' => ['placeholder' => 'Le nom de votre sortie ici'],
 
+                    ]
+            )
             ->add('dateHeureDebut', null, [
                 'html5' => true,
-                'widget' => 'single_text','data' => new \DateTimeImmutable('now', new \DateTimeZone(date_default_timezone_get())),
+                'widget' => 'single_text', 'data' => new \DateTimeImmutable('now', new \DateTimeZone(date_default_timezone_get())),
                 'input' => 'datetime_immutable',
+
             ])
-
             ->add('duree')
-
             ->add('dateLimiteInscription', null, [
                 'html5' => true,
-                'widget' => 'single_text','data' => new \DateTimeImmutable('now', new \DateTimeZone(date_default_timezone_get())),
+                'widget' => 'single_text', 'data' => new \DateTimeImmutable('now', new \DateTimeZone(date_default_timezone_get())),
 
             ])
-
             ->add('nbInscriptionsMax', TextType::class, [
-                'attr'=>['placeholder'=>'Le nombre de participants max']
+                'attr' => ['placeholder' => 'Le nombre de participants max']
             ])
-
-
             ->add('infosSortie')
-
             ->add('ville', EntityType::class, [
                 'class' => Ville::class,
                 'choice_label' => 'nom',
                 'placeholder' => 'Sélectionner une ville',
                 'required' => false,
-                'mapped'=> false,
+                'mapped' => false,
             ])
-
             ->add('lieu', EntityType::class, [
-            'class' => Lieu::class,
-            'choice_label' => 'nom',
-            'placeholder' => 'Sélectionner un lieu',
-            'required' => false,
+                'class' => Lieu::class,
+                'choice_label' => 'nom',
+                'placeholder' => 'Sélectionner un lieu',
+                'required' => false,
             ])
-
-
-
-
             ->add('nouveaulieu', LieuType::class, [
-                'mapped'=> false,
-                'required'=>false,
+                'mapped' => false,
+                'required' => false,
                 'property_path' => 'lieu',
             ]);
 
-        $builder->addEventListener(FormEvents::PRE_SUBMIT, function(FormEvent $event) {
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
             $data = $event->getData();
             $form = $event->getForm();
 
@@ -90,16 +82,15 @@ class SortieType extends AbstractType
                 ]);
             }
         });
-            /*'query_builder' => function (EntityRepository $er) {
-               return $er->createQueryBuilder('l')
-                   ->orderBy('l.nom', 'ASC');
-           },*/
-            /*  ->add('etat', EntityType::class,
-                  [
-                      'class' => Etat::class,
-                      'choice_label' => 'libelle',
-                  ])*/
-
+        /*'query_builder' => function (EntityRepository $er) {
+           return $er->createQueryBuilder('l')
+               ->orderBy('l.nom', 'ASC');
+       },*/
+        /*  ->add('etat', EntityType::class,
+              [
+                  'class' => Etat::class,
+                  'choice_label' => 'libelle',
+              ])*/
 
 
     }
