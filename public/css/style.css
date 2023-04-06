@@ -152,18 +152,90 @@ body {
 
 /* Ajouter un profil */
 .formProfilParent {
-
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(1, 1fr);
-
 }
 
 .formProfil {
     grid-column: 3/6;
     grid-row: 1/2;
-
 }
+
+/* Se logger */
+.formLoggParent {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+}
+
+.formLogg {
+    grid-column: 2/3;
+    grid-row: 1/2;
+}
+
+/* mdpOublié */
+.formmdpParent {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+}
+
+.formmdp {
+    grid-column: 2/3;
+    grid-row: 1/2;
+}
+
+/* mdpOublié */
+.lienParent {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+}
+
+.lien {
+    grid-column: 4/5;
+    grid-row: 1/2;
+}
+
+.lienAdminParent {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+}
+
+
+.lienAdmin {
+    grid-column: 3/4;
+    grid-row: 1/2;
+}
+
+.lienAdminSupprParent {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+}
+
+
+.lienAdminSuppr {
+    grid-column: 5/6;
+    grid-row: 1/2;
+}
+
+
+
+/* Administration */
+.formAdminParent {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+}
+
+.formAdmin {
+    grid-column: 2/3;
+    grid-row: 1/2;
+}
+
 
 /* titre des formulaires */
 
@@ -171,6 +243,15 @@ body {
     display: flex;
    justify-content: center;
     background-color: #fafafa;
+}
+
+.listeAdmin{
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    color: black;
+    font-size: 1.2em;
+
 }
 
 /* boutons des formulaires */
@@ -348,6 +429,7 @@ ajouter
     display: flex;
     justify-content: center;
     font-size: large;
+
 }
 
 #btn-ajouter-liste {
@@ -456,39 +538,7 @@ désinscrire
     text-decoration: none;
 }
 
-.btn-suppression {
-    display: flex;
-    justify-content: center;
-    border: 2px solid lightseagreen;
-    background-color: lightseagreen;
-    color: white;
-    border-radius: 6px;
-    padding: 0.2em;
-    font-size: 1rem;
-    cursor: pointer;
-    box-shadow: 0 5px 0 white;
-    transition-duration: 0.4s;
-    text-decoration: none;
-
-}
-
-.btn-modification {
-    display: flex;
-    justify-content: center;
-    border: 2px solid lightseagreen;
-    background-color: lightseagreen;
-    color: white;
-    border-radius: 6px;
-    padding: 0.2em;
-    font-size: 1rem;
-    cursor: pointer;
-    box-shadow: 0 5px 0 white;
-    transition-duration: 0.4s;
-    text-decoration: none;
-
-}
-
-.btn-annulation {
+.btn-suppression,.btn-modification,.btn-annulation,.btn-register,.btn-liste,.btn-liste-accueil {
     display: flex;
     justify-content: center;
     border: 2px solid lightseagreen;
@@ -505,38 +555,6 @@ désinscrire
 
 }
 
-.btn-liste {
-    display: flex;
-    justify-content: center;
-    border: 2px solid lightseagreen;
-    background-color: lightseagreen;
-    color: white;
-    border-radius: 6px;
-    padding: 0.2em;
-    font-size: 1rem;
-    cursor: pointer;
-    box-shadow: 0 5px 0 white;
-    transition-duration: 0.4s;
-    text-decoration: none;
-
-}
-
-.btn-liste-accueil {
-    display: flex;
-    justify-content: center;
-    border: 2px solid lightseagreen;
-    background-color: lightseagreen;
-    color: white;
-    border-radius: 6px;
-    padding: 0.2em;
-    font-size: 1rem;
-    cursor: pointer;
-    box-shadow: 0 5px 0 white;
-    transition-duration: 0.4s;
-    text-decoration: none;
-    margin:fill;
-
-}
 
 
 /* ---------------------------------- FOOTER -------------------------------------*/

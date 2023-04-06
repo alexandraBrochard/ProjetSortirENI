@@ -4,18 +4,35 @@
 {% endblock %}
 
 {% block body %}
-<div>
-    <h3>Listes des utilisateurs inscrits</h3>
-    <ul>
-        {% for user in participants %}
-        <li><a href="{{ path('admin_utilisateurs_detail',{'id':user.id}) }}">{{user.pseudo}}</a>  | <a href="{{ path('admin_util_suppr', {'id':user.id}) }}">Supprimer </a> </li>
-        {% endfor %}
-    </ul>
 
-</div>
-    <div>
-        <a href="{{ path('admin_util_ajout') }}">Ajouter des utilisateurs</a>
-    </div>
+        <h3 id="titreForm">Listes des utilisateurs inscrits</h3>
+        <ul>
+            {% for user in participants %}
+                <div class="lienAdminSupprParent">
+                    <div class="lienAdminSuppr">
+                        <a class="listeAdmin"
+                           href="{{ path('admin_utilisateurs_detail',{'id':user.id}) }}">{{ user.pseudo }}</a>
+                        <a class="btn-liste"
+                           href="{{ path('admin_util_suppr', {'id':user.id}) }}">Supprimer </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </ul>
+    <br>
+    <br>
+    <br>
+
+
+        <div class="lienAdminParent">
+            <div class="lienAdmin">
+                <br>
+                <a class="btn-liste-accueil" href="{{ path('admin_util_ajout') }}">Ajouter des utilisateurs</a>
+                <br>
+                <a class="btn-liste" href="{{ path('app_admin') }}">Retour à l'administration</a>
+                <br>
+            </div>
+        </div>
+
 {% endblock %}
 
 
