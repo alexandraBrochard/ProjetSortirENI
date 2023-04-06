@@ -8,6 +8,7 @@
             <h2> Voici la liste des sorties que tu as organisées </h2>
         </div>
     </div>
+    {%  if sorties %}
         <div class="container-general">
             {% for sortie in sorties %}
                 <div class="container-bloc">
@@ -33,14 +34,23 @@
                                     {% if (sortie.participants|length >= sortie.nbInscriptionsmax) %}</p>
                                 <strong class="input-blink" id="complete">=>  Sortie complète</strong>
                                 {% endif %}
-                                <div id="bloc-participant">
-                                        {% for perso in sortie.participants %}
-                                            <a id="lien-participant"
-                                               href="{{ path('participant_profil', {'pseudo':perso.pseudo}) }}">{{ perso.pseudo }}</a>
-                                        {% else %}
-                                            <p id="pas-participant">Pas de participants pour le moment</p>
-                                        {% endfor %}
-                                </div>
+
+                                    <div id="bloc-participant">
+                                        <div>
+                                            <div class="listeP">
+                                                {% for perso in sortie.participants %}
+                                                    <a id="lien-participant"
+                                                       href="{{ path('participant_profil',{'pseudo':perso.pseudo}) }}">{{ perso.prenom }}</a>
+
+                                                {% endfor %}
+                                            </div>
+                                            {% if sortie.participants|length is same as 1 %}
+                                                <p id="pas-participant">Pas de participants hormis l'organisateur</p>
+                                            {% endif %}
+                                        </div>
+
+                                    </div>
+
                                 <br>
                             <div class="container-organisateur">
                                 <a class="btn-suppression"
@@ -61,6 +71,13 @@
                 </div>
             {% endfor %}
         </div>
+    {% else %}
+        <h5 id="titreForm"> Tu n'as organisé aucune sortie pour le moment</h5>
+        <div class="btn-ajout">
+            <a id="btn-ajouter-liste" href="{{ path('sortie_creation') }}"> Ajoute une sortie</a>
+        </div>
+
+    {% endif %}
 {% endblock %}
 
 

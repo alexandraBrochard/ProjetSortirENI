@@ -35,14 +35,14 @@ class SortieType extends AbstractType
             )
             ->add('dateHeureDebut', null, [
                 'html5' => true,
-                'widget' => 'single_text', 'data' => new \DateTimeImmutable('now', new \DateTimeZone(date_default_timezone_get())),
+                'widget' => 'single_text', 'data' => new \DateTimeImmutable('+1 day', new \DateTimeZone(date_default_timezone_get())),
                 'input' => 'datetime_immutable',
 
             ])
             ->add('duree')
             ->add('dateLimiteInscription', null, [
                 'html5' => true,
-                'widget' => 'single_text', 'data' => new \DateTimeImmutable('now', new \DateTimeZone(date_default_timezone_get())),
+                'widget' => 'single_text', 'data' => new \DateTimeImmutable('+1 hour', new \DateTimeZone(date_default_timezone_get())),
 
             ])
             ->add('nbInscriptionsMax', TextType::class, [

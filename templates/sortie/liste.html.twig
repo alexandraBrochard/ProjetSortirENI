@@ -93,14 +93,19 @@
                             {% endif %}
                             <!-- bloc liste participant -->
                             <div id="bloc-participant">
-                                <ul>
-                                    {% for perso in sortie.participants %}
-                                        <a id="lien-participant"
-                                           href="{{ path('participant_profil',{'pseudo':perso.pseudo}) }}">{{ perso.prenom }}</a>
-                                    {% else %}
-                                        <p id="pas-participant">Pas de participants</p>
-                                    {% endfor %}
-                                </ul>
+                                <div>
+                                    <div class="listeP">
+                                        {% for perso in sortie.participants %}
+                                            <a id="lien-participant"
+                                               href="{{ path('participant_profil',{'pseudo':perso.pseudo}) }}">{{ perso.prenom }}</a>
+
+                                        {% endfor %}
+                                    </div>
+                                    {% if sortie.participants|length is same as 1 %}
+                                        <p id="pas-participant">Pas de participants hormis l'organisateur</p>
+                                    {% endif %}
+                                </div>
+
                             </div>
                             <div class="container-inscription">
                                 <nav>
