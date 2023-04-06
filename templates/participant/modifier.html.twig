@@ -17,12 +17,18 @@
                 {{  form_row(participantform.plainPassword, {label : 'Nouveau mot de passe'}) }}
 
                 <button id="boutonForm">Modifier</button>
-                <button id="boutonForm"><a href="{{ path('sortie_liste') }}">Retour à la liste</a></button>
+
             </div>
         </div>
         {{ form_end(participantform) }}
     </div>
-<br>
+    <br>
+    <div class="lienParent">
+        <div class="lien">
+            <a class="btn-liste" href="{{ path('sortie_liste') }}">Retour à la liste</a>
+        </div>
+    </div>
+    <br>
 
 
 {% endblock %}

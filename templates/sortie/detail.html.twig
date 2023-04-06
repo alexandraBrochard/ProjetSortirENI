@@ -38,7 +38,6 @@
                 </div>
                 <br>
 
-                <nav>
                     <a class="btn-liste" href="{{ path('sortie_liste') }}">Retour à la liste</a>
                     <br>
                     {% if (app.user.pseudo == sortie.organisateur.pseudo) %}
@@ -55,7 +54,6 @@
                         {% endif %}
 
                     {% endif %}
-                </nav>
             </ul>
         </div>
     </div>

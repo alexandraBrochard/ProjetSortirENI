@@ -5,24 +5,45 @@
 {% endblock %}
 
 {% block body %}
-<h1>Gérer les villes</h1>
-    <div>
-        <ul class="villes">
-            {% for ville in villes %}
-                <li>{{ ville.nom }}   {{ ville.codePostal }}  <a href="{{ path('admin_villes_suppr', {'id': ville.id}) }}">Supprimer</a></li>
-            {% endfor %}
+    <h3 id="titreForm">Gérer les villes</h3>
 
-        </ul>
+    <ul class="villes">
+        {% for ville in villes %}
+            <div class="lienAdminSupprParent">
+                <div class="lienAdminSuppr">
+                    <div class="listeAdmin">
+                        {{ ville.nom }}   {{ ville.codePostal }}</div>
+                    <a class="btn-liste" href="{{ path('admin_villes_suppr', {'id': ville.id}) }}">Supprimer</a>
+
+                </div>
+            </div>
+        {% endfor %}
+
+    </ul>
+    <br>
+    <br>
+    <br>
+    <h3 id="titreForm">Nouvelle ville</h3>
+    <div class="formAdminParent">
+        <div class="formAdmin">
+            {{ form_start(form) }}
+
+            {{ form_row(form) }}
+            <button>Ajouter</button>
+        </div>
     </div>
+    {{ form_end(form) }}
+    <br>
+    <br>
+    <br>
 
-    <div>
-        <h3>Nouvelle ville</h3>
-        {{ form_start(form) }}
 
-        {{ form_row(form) }}
-        <button>Ajouter</button>
-        {{ form_end(form) }}
-
+    <div class="lienAdminParent">
+        <div class="lienAdmin">
+            <br>
+            <a class="btn-liste" href="{{ path('app_admin') }}">Retour à l'administration</a>
+            <br>
+        </div>
     </div>
 {% endblock %}
 

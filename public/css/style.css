@@ -162,8 +162,19 @@ body {
 .formProfil {
     grid-column: 3/6;
     grid-row: 1/2;
-
 }
+/* Administration */
+.formAdminParent {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+}
+
+.formAdmin {
+    grid-column: 2/3;
+    grid-row: 1/2;
+}
+
 
 /* titre des formulaires */
 
@@ -173,9 +184,18 @@ body {
     background-color: #fafafa;
 }
 
+.listeAdmin{
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    color: black;
+    font-size: 1.2em;
+
+}
+
 /* boutons des formulaires */
 
-/*#boutonForm{
+#boutonForm{
 
     color:white;
     background-color: lightseagreen;
@@ -186,7 +206,14 @@ body {
     height: 3em;
     width: auto;
 
-}*/
+
+
+
+
+
+
+
+}
 
 /*nombre de sorties*/
 
@@ -195,7 +222,7 @@ body {
     justify-content: center;
 
 }
-/* ---------------------------------- PAGE : TITTRE LISTE- btnrecherche  --------------------------------------------*/
+/* ---------------------------------- PAGE : LISTE- btnrecherche  --------------------------------------------*/
 
 .bloc-sortie-general{
     background-color:#fafafa ;
@@ -249,10 +276,10 @@ body {
     border-block-width: 250px;
     background-color: #fafafa;
     margin: 20px 10px 20px 10px;
-    height: 750px;
+    height: 780px;
     width: 400px;
-
 }
+
 
 /**
 partie liste - text
@@ -348,6 +375,7 @@ ajouter
     display: flex;
     justify-content: center;
     font-size: large;
+
 }
 
 #btn-ajouter-liste {
@@ -358,14 +386,12 @@ ajouter
     padding: 0.2em;
     cursor: pointer;
     box-shadow: 0 5px 0 white;
-    transition-duration: 0.4s;
+    transition-duration: 0.1s;
     text-decoration: none;
 }
 
 #btn-ajouter-liste:hover {
-    transform: translateY(5px);
-    box-shadow: 0 0 0 #15998e;
-    text-shadow: 2px 2px 0 #15998e;
+    transform: translateY(1px);
     background-color: #15998e;
     border: 2px solid whitesmoke;
     text-decoration: none;
@@ -398,7 +424,7 @@ inscription
     display: flex;
     flex-direction: column-reverse;
     justify-items: flex-end;
-    margin-top: 3vh;
+    margin-top: 1vh;
     background-color: #ffffff;
     text-decoration: none;
 
@@ -456,7 +482,7 @@ désinscrire
     text-decoration: none;
 }
 
-.btn-suppression {
+.btn-suppression,.btn-modification,.btn-annulation,.btn-register,.btn-liste,.btn-liste-accueil {
     display: flex;
     justify-content: center;
     border: 2px solid lightseagreen;
@@ -472,71 +498,6 @@ désinscrire
 
 }
 
-.btn-modification {
-    display: flex;
-    justify-content: center;
-    border: 2px solid lightseagreen;
-    background-color: lightseagreen;
-    color: white;
-    border-radius: 6px;
-    padding: 0.2em;
-    font-size: 1rem;
-    cursor: pointer;
-    box-shadow: 0 5px 0 white;
-    transition-duration: 0.4s;
-    text-decoration: none;
-
-}
-
-.btn-annulation {
-    display: flex;
-    justify-content: center;
-    border: 2px solid lightseagreen;
-    background-color: lightseagreen;
-    color: white;
-    border-radius: 6px;
-    padding: 0.2em;
-    font-size: 1rem;
-    cursor: pointer;
-    box-shadow: 0 5px 0 white;
-    transition-duration: 0.4s;
-    text-decoration: none;
-
-
-}
-
-.btn-liste {
-    display: flex;
-    justify-content: center;
-    border: 2px solid lightseagreen;
-    background-color: lightseagreen;
-    color: white;
-    border-radius: 6px;
-    padding: 0.2em;
-    font-size: 1rem;
-    cursor: pointer;
-    box-shadow: 0 5px 0 white;
-    transition-duration: 0.4s;
-    text-decoration: none;
-
-}
-
-.btn-liste-accueil {
-    display: flex;
-    justify-content: center;
-    border: 2px solid lightseagreen;
-    background-color: lightseagreen;
-    color: white;
-    border-radius: 6px;
-    padding: 0.2em;
-    font-size: 1rem;
-    cursor: pointer;
-    box-shadow: 0 5px 0 white;
-    transition-duration: 0.4s;
-    text-decoration: none;
-    margin:fill;
-
-}
 
 
 /* ---------------------------------- FOOTER -------------------------------------*/

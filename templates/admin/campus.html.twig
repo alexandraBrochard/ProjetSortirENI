@@ -5,24 +5,47 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Gérer les campus</h1>
+    <h3 id="titreForm">Gérer les campus</h3>
+
     <div>
         <ul class="campus">
             {% for singleCampus in campus %}
-                <li>{{ singleCampus.nom }} <a href="{{ path('admin_campus_suppr',{'id':singleCampus.id })}}">Supprimer </a></li>
+                <div class="lienAdminSupprParent">
+                    <div class="lienAdminSuppr">
+                        <div class="listeAdmin"> {{ singleCampus.nom }}  </div>
+                        <a class="btn-liste" href="{{ path('admin_campus_suppr',{'id':singleCampus.id }) }}">Supprimer </a>
+                    </div>
+                </div>
             {% endfor %}
-
         </ul>
+
     </div>
-
+    <br>
+    <br>
+    <br>
     <div>
-        <h3>Nouveau campus</h3>
-        {{ form_start(form) }}
+        <h3 id="titreForm">Nouveau campus</h3>
+        <div class="formAdminParent">
+            <div class="formAdmin">
+                {{ form_start(form) }}
 
-        {{ form_row(form) }}
-        <button>Ajouter</button>
+                {{ form_row(form) }}
+                <button>Ajouter</button>
+            </div>
+        </div>
         {{ form_end(form) }}
-
+        <br>
+        <br>
+        <br>
+    </div>
+    <div class="lienAdminParent">
+        <div class="lienAdmin">
+            <br>
+            <a class="btn-liste" href="{{ path('app_admin') }}">Retour à l'administration</a>
+            <br>
+        </div>
     </div>
 {% endblock %}
+
+
 

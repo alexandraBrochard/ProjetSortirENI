@@ -7,8 +7,8 @@
         <div class="container-liste-1-titre">
             <h2> Voici la liste des sorties que tu as organisées </h2>
         </div>
+    </div>
         <div class="container-general">
-
             {% for sortie in sorties %}
                 <div class="container-bloc">
                     <div class="liste-1">
@@ -34,20 +34,14 @@
                                     => Sortie complète</p>
                                 {% endif %}
                                 <div id="bloc-participant">
-                                    <ul>
                                         {% for perso in sortie.participants %}
                                             <a id="lien-participant"
                                                href="{{ path('participant_profil', {'pseudo':perso.pseudo}) }}">{{ perso.pseudo }}</a>
                                         {% else %}
                                             <p id="pas-participant">Pas de participants pour le moment</p>
                                         {% endfor %}
-                                    </ul>
                                 </div>
                                 <br>
-
-
-
-
                             <div class="container-organisateur">
                                 <a class="btn-suppression"
                                    href="{{ path('sortie_suppression',{'suppression_id':sortie.id}) }}">supprimer</a>
@@ -67,7 +61,6 @@
                 </div>
             {% endfor %}
         </div>
-    </div>
 {% endblock %}
 
 
