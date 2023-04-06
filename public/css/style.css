@@ -195,8 +195,12 @@ body {
     justify-content: center;
 
 }
+/* ---------------------------------- PAGE : TITTRE LISTE- btnrecherche  --------------------------------------------*/
 
-
+.bloc-sortie-general{
+    background-color:#fafafa ;
+    padding-bottom: 1rem;
+}
 /* ---------------------------------- PAGE : LISTE DES SORTIES  --------------------------------------------*/
 
 
@@ -221,11 +225,9 @@ body {
 .container-general {
     display: flex;
     flex-wrap: wrap;
-    background-color: #ffffff;
     justify-content: flex-start;
     font-size: 14px;
     padding: 50px;
-
 }
 
 .container-general2 {
@@ -255,6 +257,11 @@ body {
 /**
 partie liste - text
  */
+
+.liste-1 {
+    margin: 1rem;
+
+}
 #nom-sortie {
     font-family: "BlinkMacSystemFont", serif;
     font-size: x-large;

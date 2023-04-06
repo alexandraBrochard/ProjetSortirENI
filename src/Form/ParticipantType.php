@@ -27,7 +27,7 @@ class ParticipantType extends AbstractType
                         'required'=>false,
             ])
             ->add('brochure',FileType::class, [
-                'label'=>'Brochure (png file)',
+                'label'=>'Brochure (Fichier png)',
                 // unmapped means that this field is not associated to any entity property
                 'mapped' => false,
 
