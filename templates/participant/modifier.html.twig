@@ -4,18 +4,26 @@
 
 {% block body %}
     <div>
-        {{ form_start(participantform) }}
-        {{ form_row(participantform.nom,{label: 'Nom : '}) }}
-        {{ form_row(participantform.prenom,{label: 'Prenom : '}) }}
-        {{ form_row(participantform.pseudo,{label: 'Pseudo : '}) }}
-        {{ form_row(participantform.email,{label: 'Email : '}) }}
-        {{ form_row(participantform.telephone,{label: 'Telephone : '}) }}
-        {{ form_row(participantform.campus) }}
-        {{  form_row(participantform.brochure) }}
-        {{  form_row(participantform.plainPassword, {label : 'Nouveau mot de passe'}) }}
-        <button>Modifier</button>
+        <div class="formProfilParent">
+            <div class="formProfil">
+                {{ form_start(participantform) }}
+                {{ form_row(participantform.nom,{label: 'Nom : '}) }}
+                {{ form_row(participantform.prenom,{label: 'Prenom : '}) }}
+                {{ form_row(participantform.pseudo,{label: 'Pseudo : '}) }}
+                {{ form_row(participantform.email,{label: 'Email : '}) }}
+                {{ form_row(participantform.telephone,{label: 'Telephone : '}) }}
+                {{ form_row(participantform.campus) }}
+                {{ form_row(participantform.brochure) }}
+                {{  form_row(participantform.plainPassword, {label : 'Nouveau mot de passe'}) }}
+
+                <button id="boutonForm">Modifier</button>
+                <button id="boutonForm"><a href="{{ path('sortie_liste') }}">Retour à la liste</a></button>
+            </div>
+        </div>
         {{ form_end(participantform) }}
     </div>
+<br>
+
 
 {% endblock %}
 

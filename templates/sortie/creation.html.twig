@@ -2,12 +2,16 @@
 
 {% block body %}
 
-    <h1>Création des sorties</h1>
+    <h3 id="titreForm">Création des sorties</h3>
 
     <div>
+        <div class="formAjoutParent">
+            <div class="formAjout">
         {{ form_start(sortieForm) }}
         {{ form_widget(sortieForm) }}
-        <button>ajouter</button>
+        <button id="boutonForm">ajouter</button>
+            </div>
+        </div>
 
 
         {{ form_label(sortieForm) }}

@@ -2,36 +2,72 @@
 
 {% block body %}
 
-<h1> Voici la liste des sorties organisées par toi: {{ app.user.prenom }} </h1>
 
-    <ol>
-        {% for sortie in sorties %}
-        <ul>
-            <li>
-                <p>Titre   : {{ sortie.nom }} </p>
-                <p>Debut de la sortie : {{ sortie.dateHeureDebut | date('d/m/y H:i') }}</p>
-                <p>Fin des inscription : {{ sortie.dateLimiteInscription | date('d/m/y H:i') }}</p>
-                <p> Etat de l'activité : {{ sortie.etat.libelle }}
-                <p> Liste des participants inscrits à cette sortie</p>
-                <ul> {% for perso in sortie.participants %}
+    <div class="bloc-sortie-general">
+        <div class="container-liste-1-titre">
+            <h2> Voici la liste des sorties que tu as organisées </h2>
+        </div>
+        <div class="container-general">
 
-                        <li><a href="{{ path('participant_profil', {'pseudo':perso.pseudo}) }}">{{ perso.prenom }}</a></li>
-                    {% else %}
-                        <p>Pas de participants pour le moment</p>
-                    {% endfor %}
-                </ul>
-                <br>
-            </li>
-        </ul>
+            {% for sortie in sorties %}
+                <div class="container-bloc">
+                    <div class="liste-1">
+                        <a id="nom-sortie"
+                           href="{{ path('sortie_detail',{'sortie':sortie.id}) }}">{{ sortie.nom }}</a>
+                        <hr>
+                        <div class="container-description">
+                            <ul class="liste-description">
 
-            <a href="{{ path('sortie_suppression',{'suppression_id':sortie.id}) }}">supprimer</a>
-            <a href="{{ path('sortie_modification',{'sortie':sortie.id}) }}">modifier</a>
-            {%  if sortie.etat.id is not same as 7 %}
-            <a href="{{ path('sortie_annulation',{'sortie':sortie.id}) }}">annuler la sortie</a>
-            {%  endif %}
+                                <p id="p-lieu"><strong id="lieu-text"> Lieu de la sortie
+                                        :</strong> {{ sortie.lieu.nom }} :
+                                    situé à l'adresse suivante: {{ sortie.lieu.rue }} à {{ sortie.lieu.ville.nom }}</p>
+                                <p><strong id="lieu-text">Début de la sortie
+                                        :</strong> {{ sortie.dateHeureDebut | date('d/m/y H:i') }}</p>
+                                <p><strong id="lieu-text">Fin des inscriptions
+                                        :</strong> {{ sortie.dateLimiteInscription | date('d/m/y H:i') }}</p>
+                                <p><strong id="lieu-text">Etat de l'activité :</strong> {{ sortie.etat.libelle }} </p>
+                                <br>
+                                <p id="police"> Liste des participants inscrits à cette sortie :</p>
+                                <p id="lieu-text">Participants : {{ sortie.participants|length }}
+                                    /{{ sortie.nbInscriptionsmax }}
+                                    {% if (sortie.participants|length >= sortie.nbInscriptionsmax) %}
+                                    => Sortie complète</p>
+                                {% endif %}
+                                <div id="bloc-participant">
+                                    <ul>
+                                        {% for perso in sortie.participants %}
+                                            <a id="lien-participant"
+                                               href="{{ path('participant_profil', {'pseudo':perso.pseudo}) }}">{{ perso.pseudo }}</a>
+                                        {% else %}
+                                            <p id="pas-participant">Pas de participants pour le moment</p>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                <br>
 
-        {% endfor %}
 
+
+
+                            <div class="container-organisateur">
+                                <a class="btn-suppression"
+                                   href="{{ path('sortie_suppression',{'suppression_id':sortie.id}) }}">supprimer</a>
+                                <br>
+                                <a class="btn-modification"
+                                   href="{{ path('sortie_modification',{'sortie':sortie.id}) }}">modifier</a>
+                                <br>
+                                {% if sortie.etat.id is not same as 7 %}
+                                    <a class="btn-annulation"
+                                       href="{{ path('sortie_annulation',{'sortie':sortie.id}) }}">annuler
+                                        la sortie</a>
+                                {% endif %}
+                            </div>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}
 
 

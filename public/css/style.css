@@ -4,29 +4,34 @@
     box-sizing: border-box;
     text-decoration: none;
 }
+
 body {
     padding: 0;
-    margin:0;
+    margin: 0;
     font-family: Arial, Helvetica, sans-serif;
     background-color: rgb(255, 255, 255);
 
 }
+
 /* ---------------------------------- NAVBAR -------------------------------------*/
 /* Navbar container */
-.navbar {
-    display:flex;
+.navigation {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     width: 80%;
-    justify-content: center;
+
     list-style-type: none;
     margin: auto;
     padding: 0;
     overflow: hidden;
     border-radius: 5px;
-    background-color: rgb(239, 239, 239);
+
 }
 
+
 /* Links inside the navbar */
-.navbar a {
+.navigation a {
     float: left;
     font-size: 16px;
     color: #2c2c2c;
@@ -35,62 +40,69 @@ body {
     text-decoration: none;
 }
 
-/* The dropdown container */
-.dropdown {
-    float: left;
-    overflow: hidden;
+/* grille de navigation */
+
+.col1 {
+
+    grid-column: 1/3;
+    grid-row: 1/2;
+    display: flex;
+    justify-content: center;
+
 }
 
-/* Dropdown button */
-.dropdown .dropbtn {
-    font-size: 16px;
-    border: none;
-    outline: none;
-    color: #da1919;
-    padding: 14px 16px;
-    background-color: inherit;
-    font-family: inherit; /* Important for vertical align on mobile phones */
-    margin: 0; /* Important for vertical align on mobile phones */
+.col2 {
+
+    grid-column: 3/4;
+    grid-row: 1/3;
+    display: flex;
+    justify-content: center;
+
 }
 
-/* Add a red background color to navbar links on hover */
-.navbar a:hover, .dropdown:hover .dropbtn {
-    background-color: rgb(220, 203, 203);
+.col3 {
+
+    grid-column: 4/6;
+    grid-row: 1/2;
+    display: flex;
+    justify-content: center;
+
 }
 
-/* Dropdown content (hidden by default) */
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: rgb(164, 151, 151);
-    min-width: 160px;
-    box-shadow: 0 8px 16px 0 rgba(209, 200, 200, 0.2);
-    z-index: 1;
-}
+/* Bouton de navigation gestion profil */
+.btn-nav1 {
+    display: flex;
+    justify-content: center;
+    background-color: #ffb285;
+    color: white;
 
-/* Links inside the dropdown */
-.dropdown-content a {
-    float: none;
-    color: aliceblue;
-    padding: 12px 16px;
+    border-radius: 6px;
+    padding: 0.2em;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 5px 0 white;
+    transition-duration: 0.4s;
     text-decoration: none;
-    display: block;
-    text-align: left;
+    margin: auto;
+
 }
 
-/* Add a grey background color to dropdown links on hover */
-.dropdown-content a:hover {
-    background-color: rgb(62, 62, 62);
-}
+/* Bouton de navigation gestion sortie */
+.btn-nav2 {
+    display: flex;
+    justify-content: center;
+    background-color: #fafafa;
+    color: white;
 
-/* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {
-    display: block;
-}
+    border-radius: 6px;
+    padding: 0.2em;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 5px 0 white;
+    transition-duration: 0.4s;
+    text-decoration: none;
+    margin: auto;
 
-/* -- presentation-home-- */
-#presentation-home {
-    width: 80%;
 }
 
 /* ---------------------------------- INDEX.HTML -------------------------------------*/
@@ -98,110 +110,168 @@ body {
 /* --photo
 --*/
 .container-presentation {
-    display:flex;
+    display: flex;
     justify-content: center;
     margin-top: 3%;
 }
 
-/* ---------------------------------- FORMULAIRE -LOGIN -------------------------------------*/
 
-/*
-.container-login{
-    display:flex;
-    justify-content: center;
+
+/* ---------------------------------- PAGE : FORMULAIRES  --------------------------------------------*/
+
+/* recherche des sorties */
+.formRechercheParent {
+
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+
 }
-*/
 
-/* ---------------------------------- FORMULAIRE -INSCRIPTION  -------------------------------------*/
+.formRecherche {
+    grid-column: 2/5;
+    grid-row: 1/2;
 
-/*.container-register{
-    display:flex;
+}
+
+/* Ajouter une sortie */
+
+.formAjoutParent {
+
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+
+}
+
+.formAjout {
+    grid-column: 3/6;
+    grid-row: 1/2;
+
+}
+
+/* Ajouter un profil */
+.formProfilParent {
+
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+
+}
+
+.formProfil {
+    grid-column: 3/6;
+    grid-row: 1/2;
+
+}
+
+/* titre des formulaires */
+
+#titreForm{
+    display: flex;
+   justify-content: center;
+    background-color: #fafafa;
+}
+
+/* boutons des formulaires */
+
+#boutonForm{
+
+    color:white;
+    background-color: lightseagreen;
+    border-color:lightseagreen ;
+    text-decoration: none;
+
+    border-radius: 6px;
+    height: 3em;
+    width: auto;
+
+
+
+
+
+
+
+
+}
+
+/*nombre de sorties*/
+
+#nb-sortie{
+    display: flex;
     justify-content: center;
-}*/
 
-/* ---------------------------------- FORMULAIRE FILTRE LISTES  -------------------------------------------*/
+}
+/* ---------------------------------- PAGE : TITTRE LISTE- btnrecherche  --------------------------------------------*/
+
+.bloc-sortie-general{
+    background-color:#fafafa ;
+    padding-bottom: 1rem;
+}
+/* ---------------------------------- PAGE : LISTE DES SORTIES  --------------------------------------------*/
 
 
+/* Partie liste des sorties
 
-/* ---------------------------------- PAGE : MON PROFIL ---------------------------------------------------*/
-
-
-/* ---------------------------------- PAGE : FORMULAIRE BOOTSTRAP + LISTE SORTIES --------------------------------------------*/
-
-/*
-formulaire boot
  */
 
-#dispo-sortie {
-    margin: 1rem;
-    padding: 2rem;
-    background-color: #f8f8f8;
-    font-size:14px ;
-    height: auto;
-
+.container-liste-1-titre, .container-liste-1-nbe {
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+    margin: 20px;
 }
 
-/*#dispo-sortie {
-    width: 50%;
-    height: auto;
-    margin: auto;
-    padding: 2rem;
-    background-color: #f8f8f8;
-    font-size: 14px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-}*/
+
 .form.inline {
     background-color: red;
 }
-/*
-form.form-inline {
-    display: flex;
-    justify-content: center;
-}
-.container-liste-ajouter {
-    display: flex;
-    justify-content: center;
-    text-decoration: none;
-    width: 30%;
-}
-
-.form-control {
-    margin-bottom:10px;
-}
-
-form.form-inline {
-
-}
-*/
 
 
 /* -----Liste -----*/
 .container-general {
     display: flex;
     flex-wrap: wrap;
+    justify-content: flex-start;
+    font-size: 14px;
+    padding: 50px;
+}
+
+.container-general2 {
+    display: flex;
+    flex-wrap: wrap;
     background-color: #ffffff;
-    justify-content: space-around;
+    justify-content: center;
     font-size: 14px;
     padding: 50px;
 
+}
+
+.container-description {
+    display: flex;
+    justify-content: center;
 }
 
 .container-bloc {
     border-block-width: 250px;
     background-color: #fafafa;
     margin: 20px 10px 20px 10px;
-}
+    height: 750px;
+    width: 400px;
 
+}
 
 /**
 partie liste - text
  */
+
+.liste-1 {
+    margin: 1rem;
+
+}
 #nom-sortie {
     font-family: "BlinkMacSystemFont", serif;
-    font-size:x-large;
+    font-size: x-large;
     font-weight: bold;
     color: #19264f;
     text-decoration: none;
@@ -212,9 +282,10 @@ partie liste - text
     font-size: medium;
     color: #fd8b05;
     font-weight: bold;
+    text-decoration: none;
 }
 
-.liste-description {
+ul.liste-description {
     font-family: "Cambria Math", monospace;
     margin-top: 2rem;
     padding: 2rem;
@@ -223,11 +294,15 @@ partie liste - text
 }
 
 p {
-    padding:3px;
+    padding: 3px;
 }
 
 #lieu-text {
-    color:#8194fb;
+    color: #8194fb;
+}
+
+#profil {
+    color: #8194fb;
 }
 
 /**
@@ -235,16 +310,17 @@ participants - liens
  */
 
 #bloc-participant {
-    margin-top:10px;
+    margin-top: 10px;
     display: flex;
+    /*text-align: start;*/
     justify-content: center;
+    font-size: small;
 
 }
 
-#lien-participant:hover,#pas-participant:hover {
+#lien-participant:hover, #pas-participant:hover {
     background-color: #5a5353;
 }
-
 
 #lien-participant, #pas-participant {
     display: inline-block;
@@ -275,27 +351,41 @@ Partie boutton  - Ajouter sortie
 /*
 ajouter
  */
-.btn-ajouter-liste {
-
-    display:flex;
+.btn-ajout {
+    display: flex;
     justify-content: center;
-    border: 2px solid #15998e;
-    background-color: #15998e;
+    font-size: large;
+}
+
+#btn-ajouter-liste {
+
+    background-color: lightseagreen;
     color: white;
     border-radius: 6px;
     padding: 0.2em;
-    font-size: 1rem;
     cursor: pointer;
     box-shadow: 0 5px 0 white;
     transition-duration: 0.4s;
+    text-decoration: none;
 }
 
-.btn-inscription:hover{
+#btn-ajouter-liste:hover {
     transform: translateY(5px);
     box-shadow: 0 0 0 #15998e;
     text-shadow: 2px 2px 0 #15998e;
     background-color: #15998e;
     border: 2px solid whitesmoke;
+    text-decoration: none;
+}
+
+
+.btn-inscription:hover {
+    transform: translateY(5px);
+    box-shadow: 0 0 0 #15998e;
+    text-shadow: 2px 2px 0 #15998e;
+    background-color: #15998e;
+    border: 2px solid whitesmoke;
+    text-decoration: none;
 }
 
 /*
@@ -303,15 +393,26 @@ inscription
  */
 .container-inscription {
     display: flex;
-    flex-direction:column-reverse;
-    justify-items:flex-end;
+    flex-direction: column-reverse;
+    justify-items: flex-end;
     margin-top: 3vh;
     background-color: #ffffff;
+    text-decoration: none;
 
 }
-.btn-inscription
-{
-    display:flex;
+
+.container-organisateur {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-items: flex-end;
+    margin-top: 3vh;
+    background-color: #ffffff;
+    text-decoration: none;
+
+}
+
+.btn-inscription {
+    display: flex;
     justify-content: center;
     border: 2px solid #15998e;
     background-color: #15998e;
@@ -322,23 +423,24 @@ inscription
     cursor: pointer;
     box-shadow: 0 5px 0 white;
     transition-duration: 0.4s;
+    text-decoration: none;
 }
 
-.btn-inscription:hover{
+.btn-inscription:hover {
     transform: translateY(5px);
     box-shadow: 0 0 0 #c7b75f;
     text-shadow: 2px 2px 0 #42964c;
     background-color: #69c160;
     border: 2px solid whitesmoke;
+    text-decoration: none;
 }
 
 /*
 désinscrire
  */
 
-.btn-desinscription
-{
-    display:flex;
+.btn-desinscription {
+    display: flex;
     justify-content: center;
     border: 2px solid #811a2a;
     background-color: #811a2a;
@@ -349,14 +451,98 @@ désinscrire
     cursor: pointer;
     box-shadow: 0 5px 0 white;
     transition-duration: 0.4s;
+    text-decoration: none;
 }
 
-.btn-desinscription:hover{
+.btn-desinscription:hover {
     transform: translateY(5px);
     box-shadow: 0 0 0 #ede4da;
     text-shadow: 2px 2px 0 #ede4da;
     background-color: #ede4da;
     border: 2px solid #ede4da;
+    text-decoration: none;
+}
+
+.btn-suppression {
+    display: flex;
+    justify-content: center;
+    border: 2px solid lightseagreen;
+    background-color: lightseagreen;
+    color: white;
+    border-radius: 6px;
+    padding: 0.2em;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 5px 0 white;
+    transition-duration: 0.4s;
+    text-decoration: none;
+
+}
+
+.btn-modification {
+    display: flex;
+    justify-content: center;
+    border: 2px solid lightseagreen;
+    background-color: lightseagreen;
+    color: white;
+    border-radius: 6px;
+    padding: 0.2em;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 5px 0 white;
+    transition-duration: 0.4s;
+    text-decoration: none;
+
+}
+
+.btn-annulation {
+    display: flex;
+    justify-content: center;
+    border: 2px solid lightseagreen;
+    background-color: lightseagreen;
+    color: white;
+    border-radius: 6px;
+    padding: 0.2em;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 5px 0 white;
+    transition-duration: 0.4s;
+    text-decoration: none;
+
+
+}
+
+.btn-liste {
+    display: flex;
+    justify-content: center;
+    border: 2px solid lightseagreen;
+    background-color: lightseagreen;
+    color: white;
+    border-radius: 6px;
+    padding: 0.2em;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 5px 0 white;
+    transition-duration: 0.4s;
+    text-decoration: none;
+
+}
+
+.btn-liste-accueil {
+    display: flex;
+    justify-content: center;
+    border: 2px solid lightseagreen;
+    background-color: lightseagreen;
+    color: white;
+    border-radius: 6px;
+    padding: 0.2em;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 5px 0 white;
+    transition-duration: 0.4s;
+    text-decoration: none;
+    margin:fill;
+
 }
 
 
@@ -365,11 +551,12 @@ désinscrire
 /* STYLES SPECIFIC TO FOOTER  */
 .footer {
     width: 100%;
-    position:static;
+    position: static;
     bottom: 0;
     height: auto;
     background-color: #f4f4f4;
 }
+
 .footer .col {
     width: 190px;
     height: auto;
@@ -379,22 +566,25 @@ désinscrire
     -moz-box-sizing: border-box;
     padding: 0 20px 20px 20px;
 }
+
 .footer .col h1 {
     margin: 0;
     font-family: inherit;
     font-size: 12px;
     line-height: 17px;
     padding: 20px 0 5px 0;
-    color: rgba(255,255,255,0.2);
+    color: rgba(255, 255, 255, 0.2);
     font-weight: normal;
     text-transform: uppercase;
     letter-spacing: 0.250em;
 }
+
 .footer .col ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
 }
+
 .footer .col ul li {
     color: #999999;
     font-size: 14px;
@@ -406,6 +596,7 @@ désinscrire
     -webkit-transition: .2s;
     -moz-transition: .2s;
 }
+
 .social ul li {
     display: inline-block;
     padding-right: 5px !important;
@@ -417,83 +608,120 @@ désinscrire
     -webkit-transition: .1s;
     -moz-transition: .1s;
 }
+
 .clearfix {
     clear: both;
 }
+
+/* ---------------------------------- MEDIA-------------------------------------*/
+
 @media only screen and (min-width: 1280px) {
     .contain {
         width: 1200px;
         margin: 0 auto;
     }
 }
+
 @media only screen and (max-width: 1139px) {
     .contain .social {
         width: 1000px;
         display: block;
     }
+
     .social h1 {
         margin: 0;
     }
 }
+
 @media only screen and (max-width: 950px) {
     .footer .col {
         width: 33%;
     }
+
     .footer .col h1 {
         font-size: 14px;
     }
+
     .footer .col ul li {
         font-size: 13px;
     }
 }
+
 @media only screen and (max-width: 500px) {
     .footer .col {
         width: 50%;
     }
+
     .footer .col h1 {
         font-size: 14px;
     }
+
     .footer .col ul li {
         font-size: 13px;
     }
+
 }
+
 @media only screen and (max-width: 340px) {
     .footer .col {
         width: 100%;
     }
 
+    .navigation {
+        background-color: red;
+    }
+
 
 }
-#encartGlobal {
-    display:grid;
-    grid-template-rows: repeat(1,1fr);
-    grid-template-columns: repeat(3,1fr);
 
-   }
+/* ---------------------------------- ENCART-------------------------------------*/
+
+#encartGlobal {
+    display: grid;
+    grid-template-rows: repeat(1, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+
+}
+
 #clock {
     grid-row: 1/2;
-    display:flex;
+    display: flex;
     justify-content: center;
 }
 
 #user {
     grid-row: 2/3;
-    display:flex;
+    display: flex;
     justify-content: center;
+    font-size: 2em;
+
+    border-radius: 20px;
+    margin: auto;
 }
 
 .encart {
     grid-column: 2/3;
 
-    display:grid;
-    justify-content:center;
+    display: grid;
+    justify-content: center;
 
-    border: solid;
 }
 
-#annulation {
+/* ---------------------------------- ANNULATION SORTIE-------------------------------------*/
 
-    background-color: red;
+#annulation_sortie {
+
+    background-color: #ffb285;
+    color: black;
+    border-radius: 6px;
+    padding: 0.2em;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 5px 0 white;
+    transition-duration: 0.4s;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
 }
 
 

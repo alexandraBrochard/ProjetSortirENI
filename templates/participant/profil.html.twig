@@ -3,27 +3,46 @@
 {% block title %}Hello ParticipantController!{% endblock %}
 
 {% block body %}
+<div class="container-general2">
+    <div class="container-bloc">
+        <div class="liste-1">
 
-    <div class="photo-modifier">
-        <img src="{{ asset('uploads/brochures/' ~ participant.brochureFilename) }}" alt="{{ participant.brochureFilename }}">
+            <div class="photo-modifier">
+                <img src="{{ asset('uploads/brochures/' ~ participant.brochureFilename) }}"
+                     alt="{{ participant.brochureFilename }}">
+            </div>
+            <div class="container-description">
+                <ul class="liste-description">
+
+                <p><strong id="profil">
+                        Pseudo :
+                    </strong>{{ participant.pseudo }}</p>
+                <p> <strong id="profil">
+                        Nom :
+                    </strong>{{ participant.nom }}</p>
+                <p> <strong id="profil">
+                        Prenom :
+                    </strong>{{ participant.prenom }}</p>
+                <p><strong id="profil">
+                        Telephone :
+                    </strong>{{ participant.telephone }}</p>
+                <p> <strong id="profil">
+                        Campus :
+                    </strong>{{ participant.campus.nom }}</p>
+
+
+                {% if app.user.pseudo==participant.pseudo %}
+                    <a class="btn-modification" href="{{ path('participant_modifier') }}" class="btn-modifier">Modifier
+                        mon profil</a>
+                    <p><a href="{{ path('participant_suprr', {'id':app.user.id}) }}">Supprimer mon profil</a> </p>
+
+                {% endif %}
+                <br>
+                <a class="btn-liste" href="{{ path('sortie_liste') }}">Retour à la liste des sorties </a>
+                </ul>
+            </div>
+        </div>
     </div>
-    <div>
-        <p>Pseudo :{{participant.pseudo }}</p>
-        <p>Nom : {{participant.nom }}</p>
-        <p>Prenom : {{participant.prenom }}</p>
-        <p>Telephone :{{participant.telephone }}</p>
-        <p>Campus : {{ participant.campus.nom }}</p>
-
-
-
-
-    {% if app.user.pseudo==participant.pseudo %}
-    <a href="{{ path('participant_modifier') }}" class="btn-modifier">Modifier mon profil</a>
-        <p><a href="{{ path('participant_suprr', {'id':app.user.id}) }}">Supprimer mon profil</a> </p>
-    {%  endif %}
-    <a href="{{ path('sortie_liste') }}">Retour à la liste des sorties </a>
-
-
 </div>
 
 {% endblock %}
