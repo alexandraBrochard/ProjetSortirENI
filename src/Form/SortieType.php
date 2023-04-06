@@ -65,6 +65,9 @@ class SortieType extends AbstractType
             'choice_label' => 'nom',
             'placeholder' => 'Sélectionner un lieu',
             'required' => false,
+
+
+
             ])
 
 
@@ -76,20 +79,20 @@ class SortieType extends AbstractType
                 'property_path' => 'lieu',
             ]);
 
-        $builder->addEventListener(FormEvents::PRE_SUBMIT, function(FormEvent $event) {
-            $data = $event->getData();
-            $form = $event->getForm();
-
-            if (!empty($data['nouveaulieu']['nom'])) {
-                $form->remove('item');
-
-                $form->add('nouveaulieu', LieuType::class, [
-                    'required' => TRUE,
-                    'mapped' => TRUE,
-                    'property_path' => 'lieu',
-                ]);
-            }
-        });
+//        $builder->addEventListener(FormEvents::PRE_SUBMIT, function(FormEvent $event) {
+//            $data = $event->getData();
+//            $form = $event->getForm();
+//
+//            if (!empty($data['nouveaulieu']['nom'])) {
+//                $form->remove('lieu');
+//
+//                $form->add('nouveaulieu', LieuType::class, [
+//                    'required' => TRUE,
+//                    'mapped' => TRUE,
+//                    'property_path' => 'lieu',
+//                ]);
+//            }
+//        });
             /*'query_builder' => function (EntityRepository $er) {
                return $er->createQueryBuilder('l')
                    ->orderBy('l.nom', 'ASC');
