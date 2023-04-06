@@ -14,9 +14,9 @@
     <div>
         <p><a href="{{ path('admin_util_suppr', {'id':user.id}) }}">Supprimer l'utilisateur</a></p>
         {% if 'ROLE_INACTIF' in user.roles %}
-            <p><a href="">Activer l'utilisateur</a></p>
+            <p><a href="{{ path('admin_util_enable',{'id':user.id}) }}">Activer l'utilisateur</a></p>
         {% else %}
-            <p><a href="">Désactiver l'utilisateur</a></p>
+            <p><a href="{{ path('admin_util_disable',{'id':user.id}) }}">Désactiver l'utilisateur</a></p>
         {% endif %}
 
         <p><a href="{{ path('admin_util_sorties', {'id':user.id}) }}">Sorties de l'utilisateur</a> </p>

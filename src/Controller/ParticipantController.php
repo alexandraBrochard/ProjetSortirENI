@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
@@ -31,7 +32,7 @@ class ParticipantController extends AbstractController
     }
     #[Route('/profil/modifier', name: 'participant_modifier' )]
     public function modifier(EntityManagerInterface $entityManager,
-                             Request $request, SluggerInterface $slugger
+                             Request $request, SluggerInterface $slugger, UserPasswordHasherInterface $userPasswordHasher
 
 
     ):Response{
@@ -64,7 +65,12 @@ class ParticipantController extends AbstractController
                 // instead of its contents
                 $participant->setBrochureFilename($newFilename);
             }
-
+            $participant->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $participant,
+                    $participantform->get('plainPassword')->getData()
+                )
+            );
             $entityManager->persist($participant);
             $entityManager->flush();
             $route = new Route('/profil/'.$participant->getPseudo());
@@ -131,6 +137,21 @@ class ParticipantController extends AbstractController
         $manager->flush();
 
         return $this->redirectToRoute("sortie_liste");
+    }
+
+    #[Route("/profil/supprimer/{id}", name: "participant_suprr")]
+    public function desinscrireParticipant(
+        int $id,
+        EntityManagerInterface $manager,
+
+    ): Response
+    {
+        if($id==$this->getUser()->getID()){
+            $manager->remove($this->getUser());
+            $manager->flush();
+        }
+
+        return $this->redirectToRoute("app_main");
     }
 
 

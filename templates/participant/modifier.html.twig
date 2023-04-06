@@ -14,6 +14,8 @@
                 {{ form_row(participantform.telephone,{label: 'Telephone : '}) }}
                 {{ form_row(participantform.campus) }}
                 {{ form_row(participantform.brochure) }}
+                {{  form_row(participantform.plainPassword, {label : 'Nouveau mot de passe'}) }}
+
                 <button id="boutonForm">Modifier</button>
                 <button id="boutonForm"><a href="{{ path('sortie_liste') }}">Retour à la liste</a></button>
             </div>

@@ -236,4 +236,34 @@ class AdminController extends AbstractController
 
         );
     }
+
+    #[Route('/admin/utilisateur/disable/{id}', name: 'admin_util_disable')]
+    public function adminUtilisateurDisable(EntityManagerInterface $entityManager,
+                                            Participant $id): Response
+    {
+
+
+
+        $id->setRoles(["ROLE_INACTIF"]);
+        $entityManager->persist($id);
+        $entityManager->flush();
+        return $this->redirectToRoute('admin_utilisateurs');
+
+
+    }
+
+    #[Route('/admin/utilisateur/enable/{id}', name: 'admin_util_enable')]
+    public function adminUtilisateurEnable(EntityManagerInterface $entityManager,
+                                            Participant $id): Response
+    {
+
+
+
+        $id->setRoles([]);
+        $entityManager->persist($id);
+        $entityManager->flush();
+        return $this->redirectToRoute('admin_utilisateurs');
+
+
+    }
 }
