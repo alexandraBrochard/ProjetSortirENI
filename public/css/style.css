@@ -720,6 +720,23 @@ désinscrire
 
 }
 
+.defile{
+    overflow: hidden;
+}
+
+.scrolling-text {
+    animation: scrollText 10s linear infinite; /* Définir l'animation de défilement */
+}
+
+@keyframes scrollText {
+    0% {
+        transform: translateX(100%); /* Déplacer le texte vers la droite */
+    }
+    100% {
+        transform: translateX(-100%); /* Déplacer le texte vers la gauche */
+    }
+}
+
 /* ---------------------------------- ANNULATION SORTIE-------------------------------------*/
 
 #annulation_sortie {
@@ -748,7 +765,7 @@ désinscrire
 
 /* Appliquer l'animation au champ d'entrée */
 .input-blink {
-    animation: blink 2s infinite;
+    animation: blink 1s infinite;
 }
 
 #blink {
@@ -756,6 +773,11 @@ désinscrire
     font-weight: bold;
 
 }
+
+#complete,#annulee{
+    color:#ffb285;
+}
+
 
 
 

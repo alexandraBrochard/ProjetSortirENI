@@ -30,8 +30,8 @@
                                 <p id="police"> Liste des participants inscrits à cette sortie :</p>
                                 <p id="lieu-text">Participants : {{ sortie.participants|length }}
                                     /{{ sortie.nbInscriptionsmax }}
-                                    {% if (sortie.participants|length >= sortie.nbInscriptionsmax) %}
-                                    => Sortie complète</p>
+                                    {% if (sortie.participants|length >= sortie.nbInscriptionsmax) %}</p>
+                                <strong class="input-blink" id="complete">=>  Sortie complète</strong>
                                 {% endif %}
                                 <div id="bloc-participant">
                                         {% for perso in sortie.participants %}
