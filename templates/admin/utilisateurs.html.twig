@@ -8,7 +8,7 @@
     <h3>Listes des utilisateurs inscrits</h3>
     <ul>
         {% for user in participants %}
-        <li><a href="{{ path('admin_utilisateurs_detail',{'id':user.id}) }}">{{user.pseudo}}</a>   <a href="{{ path('admin_util_suppr', {'id':user.id}) }}"></a> </li>
+        <li><a href="{{ path('admin_utilisateurs_detail',{'id':user.id}) }}">{{user.pseudo}}</a>  | <a href="{{ path('admin_util_suppr', {'id':user.id}) }}">Supprimer </a> </li>
         {% endfor %}
     </ul>
 
