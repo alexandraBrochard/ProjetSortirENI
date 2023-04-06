@@ -8,18 +8,33 @@
         <div class="formAjoutParent">
             <div class="formAjout">
         {{ form_start(sortieForm) }}
-        {{ form_widget(sortieForm) }}
+        {{ form_row(sortieForm.nom) }}
+                {{ form_row(sortieForm.dateHeureDebut) }}
+                {{ form_row(sortieForm.duree) }}
+                {{ form_row(sortieForm.dateLimiteInscription) }}
+                {{ form_row(sortieForm.nbInscriptionsMax) }}
+                {{ form_row(sortieForm.infosSortie) }}
+                {{ form_row(sortieForm.ville) }}
+
+                {{ form_row(sortieForm.lieu) }}
+                <div class="test" id="test" hidden="hidden">
+                    {{ form_row(sortieForm.nouveaulieu, { 'attr': {'class': 'hidden-row'}}) }}
+                </div>
+
         <button id="boutonForm">ajouter</button>
             </div>
         </div>
 
 
-        {{ form_label(sortieForm) }}
+        {{ form_end(sortieForm) }}
 
         <script>
 
             //let url=
+
             $("#sortie_ville").change(function () {
+
+
                 let villeId = document.getElementById('sortie_ville').value;
                 let adresse = "/lieu/"+villeId;
                 $.ajax({
@@ -36,12 +51,25 @@
                             let textOption = "<option value=" + recup[i]["id"] + ">" + recup[i]["nom"] + "</option>";
                             selectLieux.append(textOption);
                         }
+                        selectLieux.append("<option value=''>" + "Nouveau lieu"+"</option>");
+
                     },
-                    error : function (err) {
-                        alert("ERROR.");
-                    }
+                    // error : function (err) {
+                    //     alert("ERROR.");
+                    // }
                 })
             });
+            document.getElementById('sortie_lieu').addEventListener('change', function (e) {
+                if (e.target.value === "") {
+                    document.getElementById("test").hidden=false;
+                    document.getElementById("test").disabled=false;
+
+                }else{
+                    document.getElementById("test").hidden=true;
+                    document.getElementById("test").disabled=true;
+                }
+            });
+
 
         </script>
         {{ form_end(sortieForm) }}

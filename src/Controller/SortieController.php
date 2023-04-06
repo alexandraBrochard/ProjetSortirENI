@@ -44,8 +44,18 @@ class SortieController extends AbstractController
         $sortieForm = $this->createForm(SortieType::class, $sortie);
 
         $sortieForm->handleRequest($request);
+
+
+
         if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
 
+            if(!$sortieForm->get('lieu')->getData()){
+                $nouveauLieu = $sortieForm->get('nouveaulieu')->getData();
+
+
+                $nouveauLieu->setVille($sortieForm->get('ville')->getData());
+                $sortie->setLieu($nouveauLieu);
+            };
             try {
 
                 $sortie->addParticipant($this->getUser());

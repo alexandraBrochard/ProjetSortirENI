@@ -37,18 +37,24 @@ class SortieType extends AbstractType
                 'html5' => true,
                 'widget' => 'single_text', 'data' => new \DateTimeImmutable('+1 day', new \DateTimeZone(date_default_timezone_get())),
                 'input' => 'datetime_immutable',
-
             ])
+
+
             ->add('duree')
+
             ->add('dateLimiteInscription', null, [
                 'html5' => true,
                 'widget' => 'single_text', 'data' => new \DateTimeImmutable('+1 hour', new \DateTimeZone(date_default_timezone_get())),
 
             ])
+
             ->add('nbInscriptionsMax', TextType::class, [
                 'attr' => ['placeholder' => 'Le nombre de participants max']
             ])
+
+
             ->add('infosSortie')
+
             ->add('ville', EntityType::class, [
                 'class' => Ville::class,
                 'choice_label' => 'nom',
@@ -56,41 +62,47 @@ class SortieType extends AbstractType
                 'required' => false,
                 'mapped' => false,
             ])
+
             ->add('lieu', EntityType::class, [
                 'class' => Lieu::class,
                 'choice_label' => 'nom',
                 'placeholder' => 'Sélectionner un lieu',
                 'required' => false,
             ])
+
+
+
+
             ->add('nouveaulieu', LieuType::class, [
                 'mapped' => false,
                 'required' => false,
                 'property_path' => 'lieu',
             ]);
 
-        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
-            $data = $event->getData();
-            $form = $event->getForm();
+//        $builder->addEventListener(FormEvents::PRE_SUBMIT, function(FormEvent $event) {
+//            $data = $event->getData();
+//            $form = $event->getForm();
+//
+//            if (!empty($data['nouveaulieu']['nom'])) {
+//                $form->remove('lieu');
+//
+//                $form->add('nouveaulieu', LieuType::class, [
+//                    'required' => TRUE,
+//                    'mapped' => TRUE,
+//                    'property_path' => 'lieu',
+//                ]);
+//            }
+//        });
+            /*'query_builder' => function (EntityRepository $er) {
+               return $er->createQueryBuilder('l')
+                   ->orderBy('l.nom', 'ASC');
+           },*/
+            /*  ->add('etat', EntityType::class,
+                  [
+                      'class' => Etat::class,
+                      'choice_label' => 'libelle',
+                  ])*/
 
-            if (!empty($data['nouveaulieu']['nom'])) {
-                $form->remove('item');
-
-                $form->add('nouveaulieu', LieuType::class, [
-                    'required' => TRUE,
-                    'mapped' => TRUE,
-                    'property_path' => 'lieu',
-                ]);
-            }
-        });
-        /*'query_builder' => function (EntityRepository $er) {
-           return $er->createQueryBuilder('l')
-               ->orderBy('l.nom', 'ASC');
-       },*/
-        /*  ->add('etat', EntityType::class,
-              [
-                  'class' => Etat::class,
-                  'choice_label' => 'libelle',
-              ])*/
 
 
     }
