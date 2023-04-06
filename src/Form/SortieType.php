@@ -17,6 +17,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class SortieType extends AbstractType
 {
@@ -27,26 +28,28 @@ class SortieType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class, [
-                'label'=>'nom',
-                'attr'=>['placeholder'=>'Le nom de votre sortie ici']
-            ])
+                    'label' => 'nom',
+                    'attr' => ['placeholder' => 'Le nom de votre sortie ici'],
 
+                    ]
+            )
             ->add('dateHeureDebut', null, [
                 'html5' => true,
-                'widget' => 'single_text','data' => new \DateTimeImmutable('now', new \DateTimeZone(date_default_timezone_get())),
+                'widget' => 'single_text', 'data' => new \DateTimeImmutable('+1 day', new \DateTimeZone(date_default_timezone_get())),
                 'input' => 'datetime_immutable',
             ])
 
+            ])
             ->add('duree')
 
             ->add('dateLimiteInscription', null, [
                 'html5' => true,
-                'widget' => 'single_text','data' => new \DateTimeImmutable('now', new \DateTimeZone(date_default_timezone_get())),
+                'widget' => 'single_text', 'data' => new \DateTimeImmutable('+1 hour', new \DateTimeZone(date_default_timezone_get())),
 
             ])
 
             ->add('nbInscriptionsMax', TextType::class, [
-                'attr'=>['placeholder'=>'Le nombre de participants max']
+                'attr' => ['placeholder' => 'Le nombre de participants max']
             ])
 
 
@@ -57,25 +60,22 @@ class SortieType extends AbstractType
                 'choice_label' => 'nom',
                 'placeholder' => 'Sélectionner une ville',
                 'required' => false,
-                'mapped'=> false,
+                'mapped' => false,
             ])
 
             ->add('lieu', EntityType::class, [
-            'class' => Lieu::class,
-            'choice_label' => 'nom',
-            'placeholder' => 'Sélectionner un lieu',
-            'required' => false,
-
-
-
+                'class' => Lieu::class,
+                'choice_label' => 'nom',
+                'placeholder' => 'Sélectionner un lieu',
+                'required' => false,
             ])
 
 
 
 
             ->add('nouveaulieu', LieuType::class, [
-                'mapped'=> false,
-                'required'=>false,
+                'mapped' => false,
+                'required' => false,
                 'property_path' => 'lieu',
             ]);
 

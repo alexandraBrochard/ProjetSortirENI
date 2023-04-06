@@ -162,8 +162,82 @@ body {
 .formProfil {
     grid-column: 3/6;
     grid-row: 1/2;
-
 }
+
+/* Se logger */
+.formLoggParent {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+}
+
+.formLogg {
+    grid-column: 2/3;
+    grid-row: 1/2;
+}
+
+/* mdpOublié */
+.formmdpParent {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+}
+
+.formmdp {
+    grid-column: 2/3;
+    grid-row: 1/2;
+}
+
+/* mdpOublié */
+.lienParent {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+}
+
+.lien {
+    grid-column: 4/5;
+    grid-row: 1/2;
+}
+
+.lienAdminParent {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+}
+
+
+.lienAdmin {
+    grid-column: 3/4;
+    grid-row: 1/2;
+}
+
+.lienAdminSupprParent {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+}
+
+
+.lienAdminSuppr {
+    grid-column: 5/6;
+    grid-row: 1/2;
+}
+
+
+
+/* Administration */
+.formAdminParent {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+}
+
+.formAdmin {
+    grid-column: 2/3;
+    grid-row: 1/2;
+}
+
 
 /* titre des formulaires */
 
@@ -171,6 +245,15 @@ body {
     display: flex;
    justify-content: center;
     background-color: #fafafa;
+}
+
+.listeAdmin{
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    color: black;
+    font-size: 1.2em;
+
 }
 
 /* boutons des formulaires */
@@ -184,14 +267,7 @@ body {
 
     border-radius: 6px;
     height: 3em;
-    width: auto;
-
-
-
-
-
-
-
+    width: 100px;
 
 }
 
@@ -256,7 +332,7 @@ body {
     border-block-width: 250px;
     background-color: #fafafa;
     margin: 20px 10px 20px 10px;
-    height: 750px;
+    height: 780px;
     width: 400px;
 
 }
@@ -288,7 +364,7 @@ partie liste - text
 ul.liste-description {
     font-family: "Cambria Math", monospace;
     margin-top: 2rem;
-    padding: 2rem;
+    padding: 1rem;
     width: 30vh;
     height: 50vh;
 }
@@ -322,6 +398,8 @@ participants - liens
     background-color: #5a5353;
 }
 
+
+
 #lien-participant, #pas-participant {
     display: inline-block;
     border: 1px solid #ccc;
@@ -332,14 +410,30 @@ participants - liens
     font-weight: bold;
 }
 
+#lien-participant{
+    width:5em;
+    display:flex;
+    text-align: center;
+
+}
+
+.listeP{
+    display:flex;
+    justify-content: center;
+    padding: 0.7em;
+
+    gap: 0.7em;
+
+}
+
 #lien-participant:hover, #pas-participant:hover {
     background-color: #333;
     color: #fff;
 }
 
 #pas-participant {
-    display: flex;
-    justify-content: center;
+
+
 }
 
 /*
@@ -365,14 +459,12 @@ ajouter
     padding: 0.2em;
     cursor: pointer;
     box-shadow: 0 5px 0 white;
-    transition-duration: 0.4s;
+    transition-duration: 0.1s;
     text-decoration: none;
 }
 
 #btn-ajouter-liste:hover {
-    transform: translateY(5px);
-    box-shadow: 0 0 0 #15998e;
-    text-shadow: 2px 2px 0 #15998e;
+    transform: translateY(1px);
     background-color: #15998e;
     border: 2px solid whitesmoke;
     text-decoration: none;
@@ -405,7 +497,7 @@ inscription
     display: flex;
     flex-direction: column-reverse;
     justify-items: flex-end;
-    margin-top: 3vh;
+    margin-top: 1vh;
     background-color: #ffffff;
     text-decoration: none;
 
@@ -463,39 +555,7 @@ désinscrire
     text-decoration: none;
 }
 
-.btn-suppression {
-    display: flex;
-    justify-content: center;
-    border: 2px solid lightseagreen;
-    background-color: lightseagreen;
-    color: white;
-    border-radius: 6px;
-    padding: 0.2em;
-    font-size: 1rem;
-    cursor: pointer;
-    box-shadow: 0 5px 0 white;
-    transition-duration: 0.4s;
-    text-decoration: none;
-
-}
-
-.btn-modification {
-    display: flex;
-    justify-content: center;
-    border: 2px solid lightseagreen;
-    background-color: lightseagreen;
-    color: white;
-    border-radius: 6px;
-    padding: 0.2em;
-    font-size: 1rem;
-    cursor: pointer;
-    box-shadow: 0 5px 0 white;
-    transition-duration: 0.4s;
-    text-decoration: none;
-
-}
-
-.btn-annulation {
+.btn-suppression,.btn-modification,.btn-annulation,.btn-register,.btn-liste,.btn-liste-accueil {
     display: flex;
     justify-content: center;
     border: 2px solid lightseagreen;
@@ -512,38 +572,6 @@ désinscrire
 
 }
 
-.btn-liste {
-    display: flex;
-    justify-content: center;
-    border: 2px solid lightseagreen;
-    background-color: lightseagreen;
-    color: white;
-    border-radius: 6px;
-    padding: 0.2em;
-    font-size: 1rem;
-    cursor: pointer;
-    box-shadow: 0 5px 0 white;
-    transition-duration: 0.4s;
-    text-decoration: none;
-
-}
-
-.btn-liste-accueil {
-    display: flex;
-    justify-content: center;
-    border: 2px solid lightseagreen;
-    background-color: lightseagreen;
-    color: white;
-    border-radius: 6px;
-    padding: 0.2em;
-    font-size: 1rem;
-    cursor: pointer;
-    box-shadow: 0 5px 0 white;
-    transition-duration: 0.4s;
-    text-decoration: none;
-    margin:fill;
-
-}
 
 
 /* ---------------------------------- FOOTER -------------------------------------*/
@@ -679,20 +707,23 @@ désinscrire
 #encartGlobal {
     display: grid;
     grid-template-rows: repeat(1, 1fr);
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
 
 }
 
 #clock {
     grid-row: 1/2;
+
     display: flex;
     justify-content: center;
 }
 
 #user {
     grid-row: 2/3;
+
     display: flex;
     justify-content: center;
+    text-align: center;
     font-size: 2em;
 
     border-radius: 20px;
@@ -700,11 +731,28 @@ désinscrire
 }
 
 .encart {
-    grid-column: 2/3;
+    grid-column: 2/4;
 
     display: grid;
     justify-content: center;
 
+}
+
+.defile{
+    overflow: hidden;
+}
+
+.scrolling-text {
+    animation: scrollText 10s linear infinite; /* Définir l'animation de défilement */
+}
+
+@keyframes scrollText {
+    0% {
+        transform: translateX(100%); /* Déplacer le texte vers la droite */
+    }
+    100% {
+        transform: translateX(-100%); /* Déplacer le texte vers la gauche */
+    }
 }
 
 /* ---------------------------------- ANNULATION SORTIE-------------------------------------*/
@@ -723,6 +771,32 @@ désinscrire
     display: flex;
     justify-content: center;
 }
+
+/* ---------------------------------- clignotant-------------------------------------*/
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+
+}
+
+/* Appliquer l'animation au champ d'entrée */
+.input-blink {
+    animation: blink 1s infinite;
+}
+
+#blink {
+    color: lightseagreen;
+    font-weight: bold;
+
+}
+
+#complete,#annulee{
+    color:#ffb285;
+}
+
+
 
 
 

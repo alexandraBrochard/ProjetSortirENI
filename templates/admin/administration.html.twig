@@ -4,10 +4,19 @@
 
 {% block body %}
 
-
-<div class="admin">
-    <a href="{{ path('admin_utilisateurs') }}">Utilisateurs</a>
-    <a href="{{ path('admin_campus') }}">Campus</a>
-    <a href="{{ path('admin_villes') }}">Villes</a>
-</div>
+    <div class="lienAdminParent">
+        <div class="lienAdmin">
+            <div class="admin">
+                <br>
+                <a class="btn-liste-accueil" href="{{ path('admin_utilisateurs') }}">Utilisateurs</a>
+                <br>
+                <a class="btn-liste-accueil" href="{{ path('admin_campus') }}">Campus</a>
+                <br>
+                <a class="btn-liste-accueil" href="{{ path('admin_villes') }}">Villes</a>
+                <br>
+                <a class="btn-liste" href="{{ path('sortie_liste') }}">Retour à l'accueil</a>
+                <br>
+            </div>
+        </div>
+    </div>
 {% endblock %}

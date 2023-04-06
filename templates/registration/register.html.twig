@@ -35,9 +35,12 @@
                         </fieldset>
 
                         {{ form_row(registrationForm.agreeTerms) }}
+                        <div class="lienParent">
+                            <div class="lien">
+                        <button class="btn-register" type="submit" ">M'inscrire</button>
 
-                        <button id="boutonForm" type="submit" class="btn">M'inscrire</button>
-                        {#     <a href="{{ path('/app_login') }}"></a> Me connecter</a> #}
+                            </div>
+                        </div>
                     </div>
                 </div>
                 {{ form_end(registrationForm) }}

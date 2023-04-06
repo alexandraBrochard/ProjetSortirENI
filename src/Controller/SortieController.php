@@ -150,7 +150,7 @@ class SortieController extends AbstractController
             $entityManager->persist($sortie);
             $entityManager->flush();
 
-            return $this->redirectToRoute('sortie_detail', ['detail_id' => $sortie->getId()]);
+            return $this->redirectToRoute('sortie_detail', ['sortie' => $sortie->getId()]);
         }
 
         return $this->render('sortie/modification.html.twig', compact('sortieForm'));
