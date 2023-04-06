@@ -19,8 +19,10 @@
 
     {% if app.user.pseudo==participant.pseudo %}
     <a href="{{ path('participant_modifier') }}" class="btn-modifier">Modifier mon profil</a>
+        <p><a href="{{ path('participant_suprr', {'id':app.user.id}) }}">Supprimer mon profil</a> </p>
     {%  endif %}
     <a href="{{ path('sortie_liste') }}">Retour à la liste des sorties </a>
+
 
 </div>
 
