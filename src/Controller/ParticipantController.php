@@ -141,14 +141,15 @@ class ParticipantController extends AbstractController
 
     #[Route("/profil/supprimer/{id}", name: "participant_suprr")]
     public function desinscrireParticipant(
-        int $sortie_id,
+        int $id,
         EntityManagerInterface $manager,
 
     ): Response
     {
-        $manager->remove($this->getUser());
-        $manager->flush();
-
+        if($id==$this->getUser()->getID()){
+            $manager->remove($this->getUser());
+            $manager->flush();
+        }
 
         return $this->redirectToRoute("app_main");
     }
