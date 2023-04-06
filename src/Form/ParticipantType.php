@@ -38,10 +38,10 @@ class ParticipantType extends AbstractType
                 // unmapped fields can't define their validation using annotations
                 // in the associated entity, so you can use the PHP constraint classes
                 'constraints' => [
-                    new File(
-                        maxSize: '1000k',
-                        mimeTypes: ['image/png','image/jpg','image/pdf'],
-                        mimeTypesMessage: 'Téléchargez un fichier  valide'
+                    new File([
+                       'maxSize'=> '1024k',
+                        'mimeTypes' => ['image/png'],
+                        'mimeTypesMessage'=> 'Téléchargez un fichier PNG valide']
                     )
                 ],
             ])
