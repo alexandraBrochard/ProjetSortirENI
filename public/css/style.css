@@ -33,10 +33,10 @@ body {
 /* Links inside the navbar */
 .navigation a {
     float: left;
-    font-size: 16px;
+    font-size: 15px;
     color: #2c2c2c;
     text-align: center;
-    padding: 14px 16px;
+    padding: 10px 12px;
     text-decoration: none;
 }
 
@@ -71,6 +71,21 @@ body {
 
 /* Bouton de navigation gestion profil */
 .btn-nav1 {
+    display: flex;
+    justify-content: center;
+    background-color: #ffb285;
+    color: white;
+    border-radius: 6px;
+    padding: 0.1em;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 5px 0 white;
+    transition-duration: 0.4s;
+    text-decoration: none;
+    margin: auto;
+}
+
+.btn-nav1:hover {
     display: flex;
     justify-content: center;
     background-color: #ffb285;
