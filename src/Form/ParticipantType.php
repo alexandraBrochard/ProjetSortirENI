@@ -13,6 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class ParticipantType extends AbstractType
 {
@@ -54,15 +55,19 @@ class ParticipantType extends AbstractType
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuillez saisir votre mot de passe',
-                    ]),
+//                    new NotBlank([
+//                        'message' => 'Veuillez saisir votre mot de passe',
+//                    ]),
                     new Length([
-                        'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'min' => 8,
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
+                    new Regex ([
+                        'pattern'=> '/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/',
+                        'message' => 'Le mot de passe doit contenir au moins une lettre, un chiffre et un caractère spécial'
+                    ])
+
                 ],
             ])
 
