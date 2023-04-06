@@ -163,6 +163,69 @@ body {
     grid-column: 3/6;
     grid-row: 1/2;
 }
+
+/* Se logger */
+.formLoggParent {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+}
+
+.formLogg {
+    grid-column: 2/3;
+    grid-row: 1/2;
+}
+
+/* mdpOublié */
+.formmdpParent {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+}
+
+.formmdp {
+    grid-column: 2/3;
+    grid-row: 1/2;
+}
+
+/* mdpOublié */
+.lienParent {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+}
+
+.lien {
+    grid-column: 4/5;
+    grid-row: 1/2;
+}
+
+.lienAdminParent {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+}
+
+
+.lienAdmin {
+    grid-column: 3/4;
+    grid-row: 1/2;
+}
+
+.lienAdminSupprParent {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+}
+
+
+.lienAdminSuppr {
+    grid-column: 5/6;
+    grid-row: 1/2;
+}
+
+
+
 /* Administration */
 .formAdminParent {
     display: grid;
@@ -195,7 +258,7 @@ body {
 
 /* boutons des formulaires */
 
-#boutonForm{
+/*#boutonForm{
 
     color:white;
     background-color: lightseagreen;
@@ -206,14 +269,7 @@ body {
     height: 3em;
     width: auto;
 
-
-
-
-
-
-
-
-}
+}*/
 
 /*nombre de sorties*/
 
@@ -222,7 +278,7 @@ body {
     justify-content: center;
 
 }
-/* ---------------------------------- PAGE : LISTE- btnrecherche  --------------------------------------------*/
+/* ---------------------------------- PAGE : TITTRE LISTE- btnrecherche  --------------------------------------------*/
 
 .bloc-sortie-general{
     background-color:#fafafa ;
@@ -278,8 +334,8 @@ body {
     margin: 20px 10px 20px 10px;
     height: 780px;
     width: 400px;
-}
 
+}
 
 /**
 partie liste - text
@@ -375,7 +431,6 @@ ajouter
     display: flex;
     justify-content: center;
     font-size: large;
-
 }
 
 #btn-ajouter-liste {
@@ -495,6 +550,7 @@ désinscrire
     box-shadow: 0 5px 0 white;
     transition-duration: 0.4s;
     text-decoration: none;
+
 
 }
 
