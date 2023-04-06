@@ -31,9 +31,12 @@
         </div>
         <div id="user">
             {% if app.user %}
-                <p>Hello {{ app.user.pseudo }}!!</p>
+
+                <p id="blink">Hello {{ app.user.pseudo }}!!</p>
             {% else %}
-                <p>Connecte-toi si tu veux plus de details sur les sorties et t'inscrire!!</p>
+                <div class="scrolling-text">
+                <p class="defile" id="blink">Connecte-toi si tu veux plus de details sur les sorties et t'inscrire!!</p>
+                </div>
             {% endif %}
         </div>
     </div>
