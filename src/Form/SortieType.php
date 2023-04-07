@@ -79,29 +79,6 @@ class SortieType extends AbstractType
                 'property_path' => 'lieu',
             ]);
 
-//        $builder->addEventListener(FormEvents::PRE_SUBMIT, function(FormEvent $event) {
-//            $data = $event->getData();
-//            $form = $event->getForm();
-//
-//            if (!empty($data['nouveaulieu']['nom'])) {
-//                $form->remove('lieu');
-//
-//                $form->add('nouveaulieu', LieuType::class, [
-//                    'required' => TRUE,
-//                    'mapped' => TRUE,
-//                    'property_path' => 'lieu',
-//                ]);
-//            }
-//        });
-            /*'query_builder' => function (EntityRepository $er) {
-               return $er->createQueryBuilder('l')
-                   ->orderBy('l.nom', 'ASC');
-           },*/
-            /*  ->add('etat', EntityType::class,
-                  [
-                      'class' => Etat::class,
-                      'choice_label' => 'libelle',
-                  ])*/
 
 
 
