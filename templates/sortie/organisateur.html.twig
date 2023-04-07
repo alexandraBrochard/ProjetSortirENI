@@ -40,7 +40,7 @@
                                             <div class="listeP">
                                                 {% for perso in sortie.participants %}
                                                     <a id="lien-participant"
-                                                       href="{{ path('participant_profil',{'pseudo':perso.pseudo}) }}">{{ perso.prenom }}</a>
+                                                       href="{{ path('participant_profil',{'pseudo':perso.pseudo}) }}">{{ perso.pseudo }}</a>
 
                                                 {% endfor %}
                                             </div>

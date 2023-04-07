@@ -34,12 +34,7 @@ class FormType extends AbstractType
                 'label' => 'Sorties auxquelles je suis inscrit/te   ',
                 'required' => false,
             ])
-            ->add('Campus', EntityType::class, [
-                'class' => Campus::class,
-                'choice_label' => 'nom',
-                'placeholder' => 'Sélectionner un campus',
-                'required' => false,
-            ])
+
             ->add('noninscrit', CheckboxType::class, [
                 'label' => 'Sorties auxquelles je ne suis pas inscrit/te   ',
                 'required' => false,
@@ -62,7 +57,14 @@ class FormType extends AbstractType
                 'html5' => true,
                 'required' => false,
 
-            ));
+            ))
+
+            ->add('Campus', EntityType::class, [
+            'class' => Campus::class,
+            'choice_label' => 'nom',
+            'placeholder' => 'Sélectionner un campus',
+            'required' => false,
+        ]);
 
 
 
